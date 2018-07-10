@@ -1,18 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <Authors></Authors>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/launchdarkly/dotnet-client-redis/master/LICENSE</PackageLicenseUrl>
+    <AssemblyName>LaunchDarkly.Client.Redis</AssemblyName>
+    <OutputType>Library</OutputType>
+    <PackageId>LaunchDarkly.Client.Redis</PackageId>
     <Company>LaunchDarkly</Company>
     <Description>LaunchDarkly .Net Client Redis Integration</Description>
-    <Copyright>Copyright 2018 LaunchDarkly</Copyright>
+    <Copyright>Copyright 2018 Catamorphic</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="LaunchDarkly.Client" Version="5.0.0" />
-    <PackageReference Include="LazyCache" Version="0.7.1.44" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
     <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <PackageReference Include="LazyCache" Version="0.7.1.44" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="LazyCache" Version="2.0.0-beta03" />
+  </ItemGroup>
 </Project>
