@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Caching;
 using Common.Logging;
 using LazyCache;
 using Newtonsoft.Json;
@@ -12,6 +11,7 @@ namespace LaunchDarkly.Client.Redis
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(RedisFeatureStore));
         private static readonly string InitKey = "$initialized$";
+        private static readonly string CacheName = typeof(RedisFeatureStore).AssemblyQualifiedName;
 
         private readonly ConnectionMultiplexer _redis;
         private readonly IAppCache _cache;
@@ -38,14 +38,24 @@ namespace LaunchDarkly.Client.Redis
             _cacheExpiration = cacheExpiration;
             if (_cacheExpiration.TotalMilliseconds > 0)
             {
-                _cache = new CachingService(new MemoryCache(typeof(RedisFeatureStore).AssemblyQualifiedName));
+#if TARGET_NETSTANDARD_2_0
+                _cache = new CachingService(new LazyCache.Providers.MemoryCacheProvider(
+                    new Microsoft.Extensions.Caching.Memory.MemoryCache(new Microsoft.Extensions.Caching.Memory.MemoryCacheOptions())));
+#else
+                _cache = new CachingService(new System.Runtime.Caching.MemoryCache(CacheName));
+#endif
             }
             else
             {
                 _cache = null;
             }
 
-            _initCache = new CachingService(new MemoryCache(typeof(RedisFeatureStore).AssemblyQualifiedName + "-init"));
+#if TARGET_NETSTANDARD_2_0
+            _initCache = new CachingService(new LazyCache.Providers.MemoryCacheProvider(
+                    new Microsoft.Extensions.Caching.Memory.MemoryCache(new Microsoft.Extensions.Caching.Memory.MemoryCacheOptions())));
+#else
+            _initCache = new CachingService(new System.Runtime.Caching.MemoryCache(CacheName));
+#endif
         }
         
         /// <summary>

@@ -17,6 +17,11 @@
     <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <DefineConstants Condition=" '$(TargetFramework)' == 'net45' ">TARGET_NET_4_5</DefineConstants>
+    <DefineConstants Condition=" '$(TargetFramework)' == 'netstandard2.0' ">TARGET_NETSTANDARD_2_0</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <PackageReference Include="LazyCache" Version="0.7.1.44" />
   </ItemGroup>
