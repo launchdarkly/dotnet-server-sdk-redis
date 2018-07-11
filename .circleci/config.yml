@@ -8,6 +8,7 @@ jobs:
   test-2.0:
     docker:
       - image: microsoft/dotnet:2.0-sdk-jessie
+      - image: redis
     steps:
       - run:
           name: install packages
