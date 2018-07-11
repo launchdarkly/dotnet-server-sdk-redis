@@ -40,6 +40,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         }
 
         static readonly TestDataKind TestKind = new TestDataKind();
+        const string Prefix = "test-prefix";
 
         RedisFeatureStore store;
 
@@ -49,7 +50,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         public RedisFeatureStoreTest()
         {
             store = (RedisFeatureStore)
-                RedisFeatureStoreBuilder.Default().WithPrefix("test-prefix").CreateFeatureStore();
+                RedisFeatureStoreBuilder.Default().WithPrefix(Prefix).CreateFeatureStore();
         }
 
         public void Dispose()
@@ -80,7 +81,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         {
             InitStore();
             var result = store.Get(TestKind, item1.Key);
-            Assert.Equal(item1.Key, result.Key);
+            Assert.Equal(item1.Value, result.Value);
         }
 
         [Fact]
@@ -89,6 +90,59 @@ namespace LaunchDarkly.Client.Redis.Tests
             InitStore();
             var result = store.Get(TestKind, "biz");
             Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetUsesCachedValueIfAvailable()
+        {
+            InitStore();
+            var initialItem = store.Get(TestKind, item1.Key);
+            Assert.Equal(item1.Value, initialItem.Value);
+            
+            using (ConnectionMultiplexer otherClient = ConnectionMultiplexer.Connect("localhost:6379"))
+            {
+                var modifiedItem = new TestData
+                {
+                    Key = item1.Key,
+                    Version = item1.Version,
+                    Value = "different"
+                };
+                otherClient.GetDatabase().HashSet(Prefix + ":" + TestKind.GetNamespace(),
+                    item1.Key, JsonConvert.SerializeObject(modifiedItem));
+
+                var cachedItem = store.Get(TestKind, item1.Key);
+                Assert.Equal(initialItem.Value, cachedItem.Value);
+            }
+        }
+
+        [Fact]
+        public void GetAlwaysHitsRedisIfCacheIsDisabled()
+        {
+            using (var noCacheStore =
+                RedisFeatureStoreBuilder.Default()
+                    .WithPrefix(Prefix)
+                    .WithCacheExpiration(TimeSpan.Zero)
+                    .CreateFeatureStore())
+            {
+                noCacheStore.Upsert(TestKind, item1);
+                var initialItem = noCacheStore.Get(TestKind, item1.Key);
+                Assert.Equal(item1.Value, initialItem.Value);
+
+                using (ConnectionMultiplexer otherClient = ConnectionMultiplexer.Connect("localhost:6379"))
+                {
+                    var modifiedItem = new TestData
+                    {
+                        Key = item1.Key,
+                        Version = item1.Version,
+                        Value = "different"
+                    };
+                    otherClient.GetDatabase().HashSet(Prefix + ":" + TestKind.GetNamespace(),
+                        item1.Key, JsonConvert.SerializeObject(modifiedItem));
+
+                    var uncachedItem = store.Get(TestKind, item1.Key);
+                    Assert.Equal(modifiedItem.Value, uncachedItem.Value);
+                }
+            }
         }
 
         [Fact]
@@ -183,7 +237,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         }
 
         [Fact]
-        public void HandlesUpsertRaceCoditionAgainstExternalClientWithLowerVersion()
+        public void UpsertRaceConditionAgainstExternalClientWithLowerVersion()
         {
             using (ConnectionMultiplexer otherClient = ConnectionMultiplexer.Connect("localhost:6379"))
             {
@@ -204,7 +258,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         }
 
         [Fact]
-        public void HandlesUpsertRaceCoditionAgainstExternalClientWithHigherVersion()
+        public void HandlesUpsertRaceConditionAgainstExternalClientWithHigherVersion()
         {
             using (ConnectionMultiplexer otherClient = ConnectionMultiplexer.Connect("localhost:6379"))
             {
@@ -224,12 +278,13 @@ namespace LaunchDarkly.Client.Redis.Tests
             }
         }
 
-        private EventHandler<RedisFeatureStore.WillUpdateEventArgs> MakeConcurrentModifier(
+        private EventHandler MakeConcurrentModifier(
             ConnectionMultiplexer otherClient, TestData competingItem)
         {
             return (sender, args) =>
             {
-                otherClient.GetDatabase().HashSet(args.BaseKey, args.ItemKey, JsonConvert.SerializeObject(competingItem));
+                otherClient.GetDatabase().HashSet(Prefix + ":" + TestKind.GetNamespace(),
+                    competingItem.Key, JsonConvert.SerializeObject(competingItem));
             };
         }
     }

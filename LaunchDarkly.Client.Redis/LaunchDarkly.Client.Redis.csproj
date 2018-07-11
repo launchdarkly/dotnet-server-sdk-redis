@@ -14,19 +14,17 @@
   <ItemGroup>
     <PackageReference Include="LaunchDarkly.Client" Version="5.0.0" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net45' ">
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
+  </ItemGroup>
+
   <PropertyGroup>
-    <DefineConstants Condition=" '$(TargetFramework)' == 'net45' ">TARGET_NET_4_5</DefineConstants>
-    <DefineConstants Condition=" '$(TargetFramework)' == 'netstandard2.0' ">TARGET_NETSTANDARD_2_0</DefineConstants>
+    <DefineConstants Condition=" '$(TargetFramework)' != 'net45' ">TARGET_NETSTANDARD</DefineConstants>
   </PropertyGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <PackageReference Include="LazyCache" Version="0.7.1.44" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="LazyCache" Version="2.0.0-beta03" />
-  </ItemGroup>
 </Project>

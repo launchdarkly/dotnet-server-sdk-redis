@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Logging;
-using LazyCache;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
@@ -14,18 +13,14 @@ namespace LaunchDarkly.Client.Redis
         private static readonly string CacheName = typeof(RedisFeatureStore).AssemblyQualifiedName;
 
         private readonly ConnectionMultiplexer _redis;
-        private readonly IAppCache _cache;
         private readonly TimeSpan _cacheExpiration;
-        private readonly IAppCache _initCache;
         private readonly string _prefix;
 
+        private readonly InMemoryCache _cache;
+        private readonly InMemoryCache _initCache;
+
         // This event handler is used for unit testing only
-        public class WillUpdateEventArgs : EventArgs
-        {
-            public string BaseKey { get; set; }
-            public string ItemKey { get; set; }
-        }
-        public event EventHandler<WillUpdateEventArgs> WillUpdate;
+        public event EventHandler WillUpdate;
 
         internal RedisFeatureStore(ConfigurationOptions redisConfig, string prefix, TimeSpan cacheExpiration)
         {
@@ -38,24 +33,15 @@ namespace LaunchDarkly.Client.Redis
             _cacheExpiration = cacheExpiration;
             if (_cacheExpiration.TotalMilliseconds > 0)
             {
-#if TARGET_NETSTANDARD_2_0
-                _cache = new CachingService(new LazyCache.Providers.MemoryCacheProvider(
-                    new Microsoft.Extensions.Caching.Memory.MemoryCache(new Microsoft.Extensions.Caching.Memory.MemoryCacheOptions())));
-#else
-                _cache = new CachingService(new System.Runtime.Caching.MemoryCache(CacheName));
-#endif
+                _cache = new InMemoryCache(typeof(RedisFeatureStore).AssemblyQualifiedName,
+                    _cacheExpiration);
             }
             else
             {
                 _cache = null;
             }
 
-#if TARGET_NETSTANDARD_2_0
-            _initCache = new CachingService(new LazyCache.Providers.MemoryCacheProvider(
-                    new Microsoft.Extensions.Caching.Memory.MemoryCache(new Microsoft.Extensions.Caching.Memory.MemoryCacheOptions())));
-#else
-            _initCache = new CachingService(new System.Runtime.Caching.MemoryCache(CacheName));
-#endif
+            _initCache = new InMemoryCache(typeof(RedisFeatureStore).AssemblyQualifiedName + "-init", null);
         }
         
         /// <summary>
@@ -63,10 +49,7 @@ namespace LaunchDarkly.Client.Redis
         /// </summary>
         public bool Initialized()
         {
-            // The cache takes care of both coalescing multiple simultaneous requests and memoizing
-            // the result, so we'll only ever query Redis once for this (if at all - the Redis query will
-            // be skipped if the cache was explicitly set by init()).
-            return _initCache.GetOrAdd<bool>(InitKey, GetInitedState);
+            return _initCache.GetOrAdd(InitKey, GetInitedState);
         }
 
         /// <summary>
@@ -83,18 +66,21 @@ namespace LaunchDarkly.Client.Redis
                 foreach (KeyValuePair<string, IVersionedData> item in collection.Value)
                 {
                     txn.HashSetAsync(key, item.Key, JsonConvert.SerializeObject(item.Value));
+                    // Note, these methods are async because this Redis client treats all actions
+                    // in a transaction as async - they are only sent to Redis when we execute the
+                    // transaction. We don't need to await them.
                 }
             }
             txn.StringSetAsync(_prefix, "");
             txn.Execute();
-            _initCache.Add(InitKey, true);
+            _initCache.Set(InitKey, true);
             if (_cache != null)
             {
                 foreach (KeyValuePair<IVersionedDataKind, IDictionary<string, IVersionedData>> collection in items)
                 {
                     foreach (KeyValuePair<string, IVersionedData> item in collection.Value)
                     {
-                        _cache.Add(CacheKey(collection.Key, item.Key), item.Value, _cacheExpiration);
+                        _cache.Set(CacheKey(collection.Key, item.Key), item.Value);
                     }
                 }
             }
@@ -109,11 +95,11 @@ namespace LaunchDarkly.Client.Redis
             if (_cache != null)
             {
                 item = _cache.GetOrAdd(CacheKey(kind, key), () =>
-                    {
-                        T result;
-                        TryGetFromRedis(_redis.GetDatabase(), kind, key, out result);
-                        return result;
-                    }, _cacheExpiration);
+                {
+                    T result;
+                    TryGetFromRedis(_redis.GetDatabase(), kind, key, out result);
+                    return result;
+                });
             }
             else
             {
@@ -179,14 +165,21 @@ namespace LaunchDarkly.Client.Redis
                         newItem.Key, oldVersion, newItem.Version, kind.GetNamespace());
                     if (_cache != null)
                     {
-                        _cache.Add(CacheKey(kind, newItem.Key), oldItem, _cacheExpiration);
+                        _cache.Set(CacheKey(kind, newItem.Key), oldItem);
                     }
                     return;
                 }
 
-                // this hook is used only in unit tests
-                WillUpdate?.Invoke(null, new WillUpdateEventArgs { BaseKey = baseKey, ItemKey = newItem.Key });
+                // This hook is used only in unit tests
+                WillUpdate?.Invoke(null, null);
 
+                // Note that transactions work a bit differently in StackExchange.Redis than in other
+                // Redis clients. The same Redis connection is shared across all threads, so it can't
+                // set a WATCH at the moment we start the transaction. Instead, it saves up all of
+                // the actions we send during the transaction, and replays them all within a MULTI
+                // when the transaction. AddCondition() is this client's way of doing a WATCH, and it
+                // can only refer to the whole value, not to a JSON property of the value; that's why
+                // we kept track of the whole value in "oldJson".
                 ITransaction txn = db.CreateTransaction();
                 txn.AddCondition(oldJson == null ? Condition.HashNotExists(baseKey, newItem.Key) :
                     Condition.HashEqual(baseKey, newItem.Key, oldJson));
@@ -196,14 +189,14 @@ namespace LaunchDarkly.Client.Redis
                 bool success = txn.Execute();
                 if (!success)
                 {
-                    // the watch was triggered, we should retry
+                    // The watch was triggered, we should retry
                     Log.Debug("Concurrent modification detected, retrying");
                     continue;
                 }
                 
                 if (_cache != null)
                 {
-                    _cache.Add(CacheKey(kind, newItem.Key), newItem, _cacheExpiration);
+                    _cache.Set(CacheKey(kind, newItem.Key), newItem);
                 }
                 return;
             }
@@ -222,7 +215,7 @@ namespace LaunchDarkly.Client.Redis
                 _redis.Dispose();
             }
         }
-
+        
         private bool TryGetFromRedis<T>(IDatabase db, VersionedDataKind<T> kind, string key, out T result) where T : IVersionedData
         {
             string json = db.HashGet(ItemsKey(kind), key);
