@@ -85,11 +85,12 @@ namespace LaunchDarkly.Client.Redis
         /// <returns>the same builder instance</returns>
         public RedisFeatureStoreBuilder WithRedisUri(Uri uri)
         {
-            if (uri.Scheme.ToLower() != "redis")
+            if (uri.Scheme.ToLower() != "redis" && uri.Scheme.ToLower() != "rediss")
             {
-                throw new ArgumentException("URI scheme must be 'redis'");
+                throw new ArgumentException("URI scheme must be 'redis' or 'rediss'");
             }
             WithRedisHostAndPort(uri.Host, uri.Port);
+            _redisConfig.Ssl = (uri.Scheme.ToLower() == "rediss");
             if (!string.IsNullOrEmpty(uri.UserInfo))
             {
                 var parts = uri.UserInfo.Split(':');
