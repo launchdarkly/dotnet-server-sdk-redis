@@ -17,4 +17,9 @@
     <ProjectReference Include="..\LaunchDarkly.Client.Redis\LaunchDarkly.Client.Redis.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>../LaunchDarkly.Redis.snk</AssemblyOriginatorKeyFile>
+    <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
+  </PropertyGroup>
 </Project>
