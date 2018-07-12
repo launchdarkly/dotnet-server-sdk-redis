@@ -42,6 +42,9 @@ namespace LaunchDarkly.Client.Redis
             return new RedisFeatureStore(_redisConfig.Clone(), _prefix, _cacheExpiration);
         }
 
+        // Used for testing only
+        internal ConfigurationOptions RedisConfig => _redisConfig;
+
         /// <summary>
         /// Specifies all Redis configuration options at once.
         /// </summary>
@@ -72,6 +75,45 @@ namespace LaunchDarkly.Client.Redis
         public RedisFeatureStoreBuilder WithRedisEndPoint(EndPoint endPoint)
         {
             return WithRedisEndPoints(new List<EndPoint> { endPoint });
+        }
+
+        /// <summary>
+        /// Specifies a Redis server - and, optionally, other properties including
+        /// credentials and database number - using a URI.
+        /// </summary>
+        /// <param name="uri">the Redis server URI</param>
+        /// <returns>the same builder instance</returns>
+        public RedisFeatureStoreBuilder WithRedisUri(Uri uri)
+        {
+            if (uri.Scheme.ToLower() != "redis")
+            {
+                throw new ArgumentException("URI scheme must be 'redis'");
+            }
+            WithRedisHostAndPort(uri.Host, uri.Port);
+            if (!string.IsNullOrEmpty(uri.UserInfo))
+            {
+                var parts = uri.UserInfo.Split(':');
+                if (parts.Length == 2)
+                {
+                    // Redis doesn't use the username
+                    _redisConfig.Password = parts[1];
+                }
+                else
+                {
+                    throw new ArgumentException("Credentials must be in the format ':password'");
+                }
+            }
+            if (!string.IsNullOrEmpty(uri.PathAndQuery) && uri.PathAndQuery != "/")
+            {
+                var path = uri.PathAndQuery;
+                if (path.StartsWith("/"))
+                {
+                    path = path.Substring(1);
+                }
+                var dbIndex = Int32.Parse(path);
+                _redisConfig.DefaultDatabase = dbIndex;
+            }
+            return this;
         }
 
         /// <summary>
