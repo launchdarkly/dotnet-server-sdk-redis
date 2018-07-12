@@ -2,7 +2,7 @@ LaunchDarkly SDK for .NET - Redis integration
 =============================================
 [![CircleCI](https://circleci.com/gh/launchdarkly/dotnet-redis-client/tree/master.svg?style=svg)](https://circleci.com/gh/launchdarkly/dotnet-redis-client/tree/master)
 
-This library provides a Redis-backed persistence mechanism (feature store) for the LaunchDarkly .NET SDK, replacing the default in-memory feature store.
+This library provides a Redis-backed persistence mechanism (feature store) for the LaunchDarkly .NET SDK, replacing the default in-memory feature store. The underlying Redis client implementation is [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis).
 
 Quick setup
 -----------
