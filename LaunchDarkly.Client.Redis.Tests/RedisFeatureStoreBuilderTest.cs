@@ -53,7 +53,6 @@ namespace LaunchDarkly.Client.Redis.Tests
             builder.WithRedisUri(new Uri("redis://test:9999"));
             Assert.Equal(1, builder.RedisConfig.EndPoints.Count);
             Assert.Equal(new DnsEndPoint("test", 9999), builder.RedisConfig.EndPoints[0]);
-            Assert.False(builder.RedisConfig.Ssl);
             Assert.Null(builder.RedisConfig.Password);
             Assert.Null(builder.RedisConfig.DefaultDatabase);
         }
@@ -78,18 +77,6 @@ namespace LaunchDarkly.Client.Redis.Tests
             Assert.Equal(new DnsEndPoint("test", 9999), builder.RedisConfig.EndPoints[0]);
             Assert.Null(builder.RedisConfig.Password);
             Assert.Equal(8, builder.RedisConfig.DefaultDatabase);
-        }
-
-        [Fact]
-        public void CanSetSecureRedisUrl()
-        {
-            RedisFeatureStoreBuilder builder = new RedisFeatureStoreBuilder();
-            builder.WithRedisUri(new Uri("rediss://@test:9999"));
-            Assert.Equal(1, builder.RedisConfig.EndPoints.Count);
-            Assert.Equal(new DnsEndPoint("test", 9999), builder.RedisConfig.EndPoints[0]);
-            Assert.True(builder.RedisConfig.Ssl);
-            Assert.Null(builder.RedisConfig.Password);
-            Assert.Null(builder.RedisConfig.DefaultDatabase);
         }
 
         [Fact]
