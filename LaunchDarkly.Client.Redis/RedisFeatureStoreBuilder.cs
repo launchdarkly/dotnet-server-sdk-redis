@@ -103,9 +103,9 @@ namespace LaunchDarkly.Client.Redis
                     throw new ArgumentException("Credentials must be in the format ':password'");
                 }
             }
-            if (!string.IsNullOrEmpty(uri.PathAndQuery) && uri.PathAndQuery != "/")
+            if (!string.IsNullOrEmpty(uri.AbsolutePath) && uri.AbsolutePath != "/")
             {
-                var path = uri.PathAndQuery;
+                var path = uri.AbsolutePath;
                 if (path.StartsWith("/"))
                 {
                     path = path.Substring(1);
