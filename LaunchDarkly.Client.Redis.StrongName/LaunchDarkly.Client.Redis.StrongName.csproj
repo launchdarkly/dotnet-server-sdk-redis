@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <PackageLicenseUrl>https://raw.githubusercontent.com/launchdarkly/dotnet-client-redis/master/LICENSE</PackageLicenseUrl>
-    <AssemblyName>LaunchDarkly.Client.Redis</AssemblyName>
+    <AssemblyName>LaunchDarkly.Client.Redis.StrongName</AssemblyName>
     <OutputType>Library</OutputType>
-    <PackageId>LaunchDarkly.Client.Redis</PackageId>
+    <PackageId>LaunchDarkly.Client.Redis.StrongName</PackageId>
     <Company>LaunchDarkly</Company>
     <Description>LaunchDarkly .Net Client Redis Integration</Description>
     <Copyright>Copyright 2018 Catamorphic</Copyright>
@@ -13,7 +13,11 @@
 
   <ItemGroup>
     <PackageReference Include="LaunchDarkly.Client" Version="5.0.0" />
-    <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
+    <PackageReference Include="StackExchange.Redis.StrongName" Version="1.2.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\LaunchDarkly.Client.Redis\*.cs" Exclude="..\LaunchDarkly.Client.Redis\AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
@@ -26,6 +30,12 @@
 
   <PropertyGroup>
     <DefineConstants Condition=" '$(TargetFramework)' != 'net45' ">TARGET_NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>../LaunchDarkly.Redis.snk</AssemblyOriginatorKeyFile>
+    <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">

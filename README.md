@@ -11,6 +11,10 @@ Quick setup
 
         Install-Package LaunchDarkly.Client.Redis
 
+   Or, if you require a strong-named assembly:
+
+        Install-Package LaunchDarkly.Client.Redis.StrongName
+
 1. Import the package:
 
         using LaunchDarkly.Client.Redis;
