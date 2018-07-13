@@ -41,7 +41,7 @@ Caching behavior
 To reduce traffic to the Redis server, there is an optional in-memory cache that retains the last known data for a configurable amount of time. This is on by default; to turn it off (and guarantee that the latest feature flag data will always be retrieved from Redis for every flag evaluation), configure the builder as follows:
 
                 RedisComponents.RedisFeatureStore()
-                    .WithCacheExpiration(TimeSpan.FromSeconds(0))
+                    .WithCacheExpiration(TimeSpan.Zero)
 
 Contributing
 ------------
