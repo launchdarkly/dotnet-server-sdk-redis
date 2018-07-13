@@ -7,7 +7,7 @@ This library provides a Redis-backed persistence mechanism (feature store) for t
 Quick setup
 -----------
 
-0. Use [NuGet](http://docs.nuget.org/docs/start-here/using-the-package-manager-console) to add the .NET SDK to your project:
+1. Use [NuGet](http://docs.nuget.org/docs/start-here/using-the-package-manager-console) to add the .NET SDK to your project:
 
         Install-Package LaunchDarkly.Client.Redis
 
@@ -15,17 +15,17 @@ Quick setup
 
         Install-Package LaunchDarkly.Client.Redis.StrongName
 
-1. Import the package:
+2. Import the package:
 
         using LaunchDarkly.Client.Redis;
 
-2. When configuring your `LDClient`, add the Redis feature store:
+3. When configuring your `LDClient`, add the Redis feature store:
 
         Configuration ldConfig = Configuration.Default("YOUR_SDK_KEY")
             .WithFeatureStoreFactory(RedisComponents.RedisFeatureStore());
         LdClient ldClient = new LdClient(ldConfig);
 
-3. Optionally, you can change the Redis configuration by calling methods on the builder returned by `RedisFeatureStore()`:
+4. Optionally, you can change the Redis configuration by calling methods on the builder returned by `RedisFeatureStore()`:
 
         Configuration ldConfig = Configuration.Default("YOUR_SDK_KEY")
             .WithFeatureStoreFactory(
