@@ -13,7 +13,7 @@ namespace LaunchDarkly.Client.Redis
     /// <summary>
     /// Simple wrapper around whichever .NET or .NET Standard cache class is available.
     /// </summary>
-    class InMemoryCache
+    internal sealed class InMemoryCache
     {
 #if TARGET_NETSTANDARD
         private readonly MemoryCache _cache;

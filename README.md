@@ -4,24 +4,33 @@ LaunchDarkly SDK for .NET - Redis integration
 
 This library provides a Redis-backed persistence mechanism (feature store) for the LaunchDarkly .NET SDK, replacing the default in-memory feature store. The underlying Redis client implementation is [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis).
 
+.NET platform compatibility
+---------------------------
+
+This version of the library is compatible with .NET Framework version 4.5 and above, or .NET Standard 2.0.
+
 Quick setup
 -----------
 
-0. Use [NuGet](http://docs.nuget.org/docs/start-here/using-the-package-manager-console) to add the .NET SDK to your project:
+1. Use [NuGet](http://docs.nuget.org/docs/start-here/using-the-package-manager-console) to add the .NET SDK to your project:
 
         Install-Package LaunchDarkly.Client.Redis
 
-1. Import the package:
+   Or, if you require a strong-named assembly:
+
+        Install-Package LaunchDarkly.Client.Redis.StrongName
+
+2. Import the package:
 
         using LaunchDarkly.Client.Redis;
 
-2. When configuring your `LDClient`, add the Redis feature store:
+3. When configuring your `LDClient`, add the Redis feature store:
 
         Configuration ldConfig = Configuration.Default("YOUR_SDK_KEY")
             .WithFeatureStoreFactory(RedisComponents.RedisFeatureStore());
         LdClient ldClient = new LdClient(ldConfig);
 
-3. Optionally, you can change the Redis configuration by calling methods on the builder returned by `RedisFeatureStore()`:
+4. Optionally, you can change the Redis configuration by calling methods on the builder returned by `RedisFeatureStore()`:
 
         Configuration ldConfig = Configuration.Default("YOUR_SDK_KEY")
             .WithFeatureStoreFactory(
@@ -37,7 +46,7 @@ Caching behavior
 To reduce traffic to the Redis server, there is an optional in-memory cache that retains the last known data for a configurable amount of time. This is on by default; to turn it off (and guarantee that the latest feature flag data will always be retrieved from Redis for every flag evaluation), configure the builder as follows:
 
                 RedisComponents.RedisFeatureStore()
-                    .WithCacheExpiration(TimeSpan.FromSeconds(0))
+                    .WithCacheExpiration(TimeSpan.Zero)
 
 Contributing
 ------------

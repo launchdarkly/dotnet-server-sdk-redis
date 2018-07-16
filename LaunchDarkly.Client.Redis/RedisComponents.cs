@@ -7,7 +7,7 @@ namespace LaunchDarkly.Client.Redis
     /// Contains the factory method for building a Redis implementation of <see cref="IFeatureStore"/>,
     /// as well as default values for the store's properties.
     /// </summary>
-    public sealed class RedisComponents
+    public abstract class RedisComponents
     {
         /// <summary>
         /// The default location of the Redis server: <c>localhost:6379</c>

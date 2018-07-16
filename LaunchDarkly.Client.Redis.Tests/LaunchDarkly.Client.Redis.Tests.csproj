@@ -16,5 +16,4 @@
   <ItemGroup>
     <ProjectReference Include="..\LaunchDarkly.Client.Redis\LaunchDarkly.Client.Redis.csproj" />
   </ItemGroup>
-
 </Project>
