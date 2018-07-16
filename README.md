@@ -4,6 +4,11 @@ LaunchDarkly SDK for .NET - Redis integration
 
 This library provides a Redis-backed persistence mechanism (feature store) for the LaunchDarkly .NET SDK, replacing the default in-memory feature store. The underlying Redis client implementation is [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis).
 
+.NET platform compatibility
+---------------------------
+
+This version of the library is compatible with .NET Framework version 4.5 and above, or .NET Standard 2.0.
+
 Quick setup
 -----------
 
