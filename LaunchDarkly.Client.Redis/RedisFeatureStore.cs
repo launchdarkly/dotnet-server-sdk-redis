@@ -24,8 +24,8 @@ namespace LaunchDarkly.Client.Redis
 
         internal RedisFeatureStore(ConfigurationOptions redisConfig, string prefix, TimeSpan cacheExpiration)
         {
-            Log.Info("Creating Redis feature store using Redis server(s) at [" +
-                String.Join(", ", redisConfig.EndPoints) + "]");
+            Log.InfoFormat("Creating Redis feature store using Redis server(s) at [{0}]",
+                String.Join(", ", redisConfig.EndPoints));
             _redis = ConnectionMultiplexer.Connect(redisConfig);
 
             _prefix = prefix;
@@ -159,8 +159,8 @@ namespace LaunchDarkly.Client.Redis
                 int oldVersion = (oldJson == null) ? -1 : oldItem.Version;
                 if (oldVersion >= newItem.Version)
                 {
-                    Log.DebugFormat("Attempted to {} key: {} version: {} with a version that is" +
-                        " the same or older: {} in \"{}\"",
+                    Log.DebugFormat("Attempted to {0} key: {1} version: {2} with a version that is" +
+                        " the same or older: {3} in \"{4}\"",
                         newItem.Deleted ? "delete" : "update",
                         newItem.Key, oldVersion, newItem.Version, kind.GetNamespace());
                     if (_cache != null)
