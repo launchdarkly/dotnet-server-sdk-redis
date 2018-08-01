@@ -8,12 +8,16 @@ namespace LaunchDarkly.Client.Redis.Tests
 {
     public class RedisFeatureStoreTest : IDisposable
     {
-        public class TestData : IVersionedData
+        internal class TestData : IVersionedData
         {
+            [JsonProperty(PropertyName = "key")]
             public string Key { get; set; }
+            [JsonProperty(PropertyName = "version")]
             public int Version { get; set; }
-            public string Value { get; set; }
+            [JsonProperty(PropertyName = "deleted")]
             public bool Deleted { get; set; }
+            [JsonProperty(PropertyName = "value")]
+            internal string Value { get; set; }
         }
 
         class TestDataKind : VersionedDataKind<TestData>
@@ -49,13 +53,18 @@ namespace LaunchDarkly.Client.Redis.Tests
 
         public RedisFeatureStoreTest()
         {
-            store = (RedisFeatureStore)
-                RedisFeatureStoreBuilder.Default().WithPrefix(Prefix).CreateFeatureStore();
+            CreateStore();
         }
 
         public void Dispose()
         {
             store.Dispose();
+        }
+
+        protected void CreateStore()
+        {
+            store = (RedisFeatureStore)
+                RedisFeatureStoreBuilder.Default().WithPrefix(Prefix).CreateFeatureStore();
         }
 
         protected void InitStore()
@@ -77,11 +86,29 @@ namespace LaunchDarkly.Client.Redis.Tests
         }
 
         [Fact]
-        public void GetExistingItem()
+        public void GetExistingItemFromCache()
         {
             InitStore();
             var result = store.Get(TestKind, item1.Key);
             Assert.Equal(item1.Value, result.Value);
+        }
+
+        [Fact]
+        public void GetExistingItemNotFromCache()
+        {
+            var nonCachedItem = new TestData
+            {
+                Key = "special",
+                Version = 1,
+                Value = "thing"
+            };
+            InitStore();
+            using (var otherClient = CreateRedisClient())
+            {
+                PutItemDirectlyToRedis(otherClient, nonCachedItem);
+            }
+            var result = store.Get(TestKind, nonCachedItem.Key);
+            Assert.Equal(nonCachedItem.Value, result.Value);
         }
 
         [Fact]
@@ -98,8 +125,8 @@ namespace LaunchDarkly.Client.Redis.Tests
             InitStore();
             var initialItem = store.Get(TestKind, item1.Key);
             Assert.Equal(item1.Value, initialItem.Value);
-            
-            using (ConnectionMultiplexer otherClient = ConnectionMultiplexer.Connect("localhost:6379"))
+
+            using (var otherClient = CreateRedisClient())
             {
                 var modifiedItem = new TestData
                 {
@@ -107,8 +134,7 @@ namespace LaunchDarkly.Client.Redis.Tests
                     Version = item1.Version,
                     Value = "different"
                 };
-                otherClient.GetDatabase().HashSet(Prefix + ":" + TestKind.GetNamespace(),
-                    item1.Key, JsonConvert.SerializeObject(modifiedItem));
+                PutItemDirectlyToRedis(otherClient, modifiedItem);
 
                 var cachedItem = store.Get(TestKind, item1.Key);
                 Assert.Equal(initialItem.Value, cachedItem.Value);
@@ -128,7 +154,7 @@ namespace LaunchDarkly.Client.Redis.Tests
                 var initialItem = noCacheStore.Get(TestKind, item1.Key);
                 Assert.Equal(item1.Value, initialItem.Value);
 
-                using (ConnectionMultiplexer otherClient = ConnectionMultiplexer.Connect("localhost:6379"))
+                using (var otherClient = CreateRedisClient())
                 {
                     var modifiedItem = new TestData
                     {
@@ -136,8 +162,7 @@ namespace LaunchDarkly.Client.Redis.Tests
                         Version = item1.Version,
                         Value = "different"
                     };
-                    otherClient.GetDatabase().HashSet(Prefix + ":" + TestKind.GetNamespace(),
-                        item1.Key, JsonConvert.SerializeObject(modifiedItem));
+                    PutItemDirectlyToRedis(otherClient, modifiedItem);
 
                     var uncachedItem = store.Get(TestKind, item1.Key);
                     Assert.Equal(modifiedItem.Value, uncachedItem.Value);
@@ -239,7 +264,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void UpsertRaceConditionAgainstExternalClientWithLowerVersion()
         {
-            using (ConnectionMultiplexer otherClient = ConnectionMultiplexer.Connect("localhost:6379"))
+            using (var otherClient = CreateRedisClient())
             {
                 InitStore();
                 int oldVersion = item1.Version;
@@ -260,7 +285,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void HandlesUpsertRaceConditionAgainstExternalClientWithHigherVersion()
         {
-            using (ConnectionMultiplexer otherClient = ConnectionMultiplexer.Connect("localhost:6379"))
+            using (var otherClient = CreateRedisClient())
             {
                 InitStore();
                 int oldVersion = item1.Version;
@@ -283,9 +308,19 @@ namespace LaunchDarkly.Client.Redis.Tests
         {
             return (sender, args) =>
             {
-                otherClient.GetDatabase().HashSet(Prefix + ":" + TestKind.GetNamespace(),
-                    competingItem.Key, JsonConvert.SerializeObject(competingItem));
+                PutItemDirectlyToRedis(otherClient, competingItem);
             };
+        }
+
+        private ConnectionMultiplexer CreateRedisClient()
+        {
+            return ConnectionMultiplexer.Connect("localhost:6379");
+        }
+
+        private void PutItemDirectlyToRedis(ConnectionMultiplexer client, TestData item)
+        {
+            client.GetDatabase().HashSet(Prefix + ":" + TestKind.GetNamespace(),
+                item.Key, JsonConvert.SerializeObject(item));
         }
     }
 }
