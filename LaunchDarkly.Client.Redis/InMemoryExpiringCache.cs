@@ -118,12 +118,12 @@ namespace LaunchDarkly.Client.Redis
             _lock.EnterWriteLock();
             try
             {
-                //while (_keysInCreationOrder.Count > 0 &&
-                //       _entries[_keysInCreationOrder.First.Value].IsExpired())
-                //{
-                //    _entries.Remove(_keysInCreationOrder.First.Value);
-                //    _keysInCreationOrder.RemoveFirst();
-                //}
+                while (_keysInCreationOrder.Count > 0 &&
+                       _entries[_keysInCreationOrder.First.Value].IsExpired())
+                {
+                    _entries.Remove(_keysInCreationOrder.First.Value);
+                    _keysInCreationOrder.RemoveFirst();
+                }
             }
             finally
             {
