@@ -145,7 +145,7 @@ namespace LaunchDarkly.Client.Redis
     {
         public readonly V Value;
         public readonly DateTime? ExpirationTime;
-        public LinkedListNode<K> Node;
+        public readonly LinkedListNode<K> Node;
 
         public CacheEntry(V value, DateTime? expirationTime, LinkedListNode<K> node)
         {
