@@ -10,14 +10,13 @@ namespace LaunchDarkly.Client.Redis
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(RedisFeatureStore));
         private static readonly string InitKey = "$initialized$";
-        private static readonly string CacheName = typeof(RedisFeatureStore).AssemblyQualifiedName;
-
+        
         private readonly ConnectionMultiplexer _redis;
         private readonly TimeSpan _cacheExpiration;
         private readonly string _prefix;
 
-        private readonly InMemoryCache _cache;
-        private readonly InMemoryCache _initCache;
+        private readonly InMemoryExpiringCache<string, IVersionedData> _cache;
+        private readonly InMemoryExpiringCache<string, bool> _initCache;
 
         // This event handler is used for unit testing only
         public event EventHandler WillUpdate;
@@ -33,15 +32,14 @@ namespace LaunchDarkly.Client.Redis
             _cacheExpiration = cacheExpiration;
             if (_cacheExpiration.TotalMilliseconds > 0)
             {
-                _cache = new InMemoryCache(typeof(RedisFeatureStore).AssemblyQualifiedName,
-                    _cacheExpiration);
+                _cache = new InMemoryExpiringCache<string, IVersionedData>(_cacheExpiration);
             }
             else
             {
                 _cache = null;
             }
 
-            _initCache = new InMemoryCache(typeof(RedisFeatureStore).AssemblyQualifiedName + "-init", null);
+            _initCache = new InMemoryExpiringCache<string, bool>(null);
         }
         
         /// <summary>
@@ -94,10 +92,9 @@ namespace LaunchDarkly.Client.Redis
             T item;
             if (_cache != null)
             {
-                item = _cache.GetOrAdd(CacheKey(kind, key), () =>
+                item = (T)_cache.GetOrAdd(CacheKey(kind, key), () =>
                 {
-                    T result;
-                    TryGetFromRedis(_redis.GetDatabase(), kind, key, out result);
+                    TryGetFromRedis(_redis.GetDatabase(), kind, key, out var result);
                     return result;
                 });
             }

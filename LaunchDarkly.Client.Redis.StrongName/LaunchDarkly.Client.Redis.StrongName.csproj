@@ -21,18 +21,6 @@
     <Compile Include="..\LaunchDarkly.Client.Redis\*.cs" Exclude="..\LaunchDarkly.Client.Redis\AssemblyInfo.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net45' ">
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <DefineConstants Condition=" '$(TargetFramework)' != 'net45' ">TARGET_NETSTANDARD</DefineConstants>
-  </PropertyGroup>
-
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../LaunchDarkly.Redis.snk</AssemblyOriginatorKeyFile>

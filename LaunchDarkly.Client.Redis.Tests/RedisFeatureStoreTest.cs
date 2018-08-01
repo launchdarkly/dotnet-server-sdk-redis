@@ -48,8 +48,8 @@ namespace LaunchDarkly.Client.Redis.Tests
 
         RedisFeatureStore store;
 
-        TestData item1 = new TestData { Key = "foo", Version = 10 };
-        TestData item2 = new TestData { Key = "bar", Version = 10 };
+        TestData item1 = new TestData { Key = "foo", Value = "first", Version = 10 };
+        TestData item2 = new TestData { Key = "bar", Value = "second", Version = 10 };
 
         public RedisFeatureStoreTest()
         {

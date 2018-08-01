@@ -9,25 +9,13 @@
     <PackageId>LaunchDarkly.Client.Redis</PackageId>
     <Company>LaunchDarkly</Company>
     <Description>LaunchDarkly .Net Client Redis Integration</Description>
-    <Copyright>Copyright 2018 Catamorphic</Copyright>
+    <Copyright>Copyright 2018 LaunchDarkly</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="LaunchDarkly.Client" Version="5.0.0" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' != 'net45' ">
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <DefineConstants Condition=" '$(TargetFramework)' != 'net45' ">TARGET_NETSTANDARD</DefineConstants>
-  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
     <DocumentationFile>bin\Debug\netstandard2.0\LaunchDarkly.Client.Redis.xml</DocumentationFile>
