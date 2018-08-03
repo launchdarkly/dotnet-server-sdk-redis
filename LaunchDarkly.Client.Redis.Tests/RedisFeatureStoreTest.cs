@@ -67,7 +67,7 @@ namespace LaunchDarkly.Client.Redis.Tests
                 RedisFeatureStoreBuilder.Default().WithPrefix(Prefix).CreateFeatureStore();
         }
 
-        protected void InitStore()
+        protected void InitStore(IFeatureStore s)
         {
             IDictionary<string, IVersionedData> items = new Dictionary<string, IVersionedData>();
             items[item1.Key] = item1;
@@ -75,20 +75,20 @@ namespace LaunchDarkly.Client.Redis.Tests
             IDictionary<IVersionedDataKind, IDictionary<string, IVersionedData>> allData =
                 new Dictionary<IVersionedDataKind, IDictionary<string, IVersionedData>>();
             allData[TestKind] = items;
-            store.Init(allData);
+            s.Init(allData);
         }
 
         [Fact]
         public void StoreInitializedAfterInit()
         {
-            InitStore();
+            InitStore(store);
             Assert.True(store.Initialized());
         }
 
         [Fact]
         public void GetExistingItemFromCache()
         {
-            InitStore();
+            InitStore(store);
             var result = store.Get(TestKind, item1.Key);
             Assert.Equal(item1.Value, result.Value);
         }
@@ -102,7 +102,7 @@ namespace LaunchDarkly.Client.Redis.Tests
                 Version = 1,
                 Value = "thing"
             };
-            InitStore();
+            InitStore(store);
             using (var otherClient = CreateRedisClient())
             {
                 PutItemDirectlyToRedis(otherClient, nonCachedItem);
@@ -114,7 +114,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void GetNonexistingItem()
         {
-            InitStore();
+            InitStore(store);
             var result = store.Get(TestKind, "biz");
             Assert.Null(result);
         }
@@ -122,7 +122,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void GetUsesCachedValueIfAvailable()
         {
-            InitStore();
+            InitStore(store);
             var initialItem = store.Get(TestKind, item1.Key);
             Assert.Equal(item1.Value, initialItem.Value);
 
@@ -150,7 +150,7 @@ namespace LaunchDarkly.Client.Redis.Tests
                     .WithCacheExpiration(TimeSpan.Zero)
                     .CreateFeatureStore())
             {
-                noCacheStore.Upsert(TestKind, item1);
+                InitStore(noCacheStore);
                 var initialItem = noCacheStore.Get(TestKind, item1.Key);
                 Assert.Equal(item1.Value, initialItem.Value);
 
@@ -173,7 +173,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void GetAllItems()
         {
-            InitStore();
+            InitStore(store);
             var result = store.All(TestKind);
             Assert.Equal(2, result.Count);
             Assert.Equal(item1.Key, result[item1.Key].Key);
@@ -183,7 +183,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void UpsertWithNewerVersion()
         {
-            InitStore();
+            InitStore(store);
             var newVer = new TestData { Key = item1.Key, Version = item1.Version + 1, Value = "new" };
             store.Upsert(TestKind, newVer);
             var result = store.Get(TestKind, item1.Key);
@@ -193,7 +193,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void UpsertWithSameVersion()
         {
-            InitStore();
+            InitStore(store);
             var newVer = new TestData { Key = item1.Key, Version = item1.Version, Value = "new" };
             store.Upsert(TestKind, newVer);
             var result = store.Get(TestKind, item1.Key);
@@ -203,7 +203,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void UpsertWithOlderVersion()
         {
-            InitStore();
+            InitStore(store);
             var newVer = new TestData { Key = item1.Key, Version = item1.Version - 1, Value = "new" };
             store.Upsert(TestKind, newVer);
             var result = store.Get(TestKind, item1.Key);
@@ -213,7 +213,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void UpsertNewItem()
         {
-            InitStore();
+            InitStore(store);
             var newItem = new TestData { Key = "biz", Version = 99 };
             store.Upsert(TestKind, newItem);
             var result = store.Get(TestKind, newItem.Key);
@@ -223,7 +223,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void DeleteWithNewerVersion()
         {
-            InitStore();
+            InitStore(store);
             store.Delete(TestKind, item1.Key, item1.Version + 1);
             Assert.Null(store.Get(TestKind, item1.Key));
         }
@@ -231,7 +231,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void DeleteWithSameVersion()
         {
-            InitStore();
+            InitStore(store);
             store.Delete(TestKind, item1.Key, item1.Version);
             Assert.NotNull(store.Get(TestKind, item1.Key));
         }
@@ -239,7 +239,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void DeleteWithOlderVersion()
         {
-            InitStore();
+            InitStore(store);
             store.Delete(TestKind, item1.Key, item1.Version - 1);
             Assert.NotNull(store.Get(TestKind, item1.Key));
         }
@@ -247,7 +247,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void DeleteUnknownItem()
         {
-            InitStore();
+            InitStore(store);
             store.Delete(TestKind, "biz", 11);
             Assert.Null(store.Get(TestKind, "biz"));
         }
@@ -255,7 +255,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void UpsertOlderVersionAfterDelete()
         {
-            InitStore();
+            InitStore(store);
             store.Delete(TestKind, item1.Key, item1.Version + 1);
             store.Upsert(TestKind, item1);
             Assert.Null(store.Get(TestKind, item1.Key));
@@ -266,7 +266,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         {
             using (var otherClient = CreateRedisClient())
             {
-                InitStore();
+                InitStore(store);
                 int oldVersion = item1.Version;
                 int slightlyNewerVersion = oldVersion + 1;
                 int muchNewerVersion = oldVersion + 2;
@@ -287,7 +287,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         {
             using (var otherClient = CreateRedisClient())
             {
-                InitStore();
+                InitStore(store);
                 int oldVersion = item1.Version;
                 int slightlyNewerVersion = oldVersion + 1;
                 int muchNewerVersion = oldVersion + 2;
