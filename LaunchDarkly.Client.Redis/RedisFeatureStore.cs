@@ -151,7 +151,16 @@ namespace LaunchDarkly.Client.Redis
             string baseKey = ItemsKey(kind);
             while (true)
             {
-                string oldJson = db.HashGet(baseKey, newItem.Key);
+                string oldJson;
+                try
+                {
+                    oldJson = db.HashGet(baseKey, newItem.Key);
+                }
+                catch (RedisTimeoutException e)
+                {
+                    Log.ErrorFormat("Timeout in UpdateItemWithVersioning when reading {0} from {1}: {2}", newItem.Key, baseKey, e.ToString());
+                    throw;
+                }
                 T oldItem = (oldJson == null) ? default(T) : JsonConvert.DeserializeObject<T>(oldJson);
                 int oldVersion = (oldJson == null) ? -1 : oldItem.Version;
                 if (oldVersion >= newItem.Version)
@@ -183,17 +192,25 @@ namespace LaunchDarkly.Client.Redis
 
                 txn.HashSetAsync(baseKey, newItem.Key, JsonConvert.SerializeObject(newItem));
 
-                bool success = txn.Execute();
-                if (!success)
+                try
                 {
-                    // The watch was triggered, we should retry
-                    Log.Debug("Concurrent modification detected, retrying");
-                    continue;
+                    bool success = txn.Execute();
+                    if (!success)
+                    {
+                        // The watch was triggered, we should retry
+                        Log.Debug("Concurrent modification detected, retrying");
+                        continue;
+                    }
+
+                    if (_cache != null)
+                    {
+                        _cache.Set(CacheKey(kind, newItem.Key), newItem);
+                    }
                 }
-                
-                if (_cache != null)
+                catch (RedisTimeoutException e)
                 {
-                    _cache.Set(CacheKey(kind, newItem.Key), newItem);
+                    Log.ErrorFormat("Timeout in UpdateItemWithVersioning on update of {0} in {1}: {2}", newItem.Key, baseKey, e.ToString());
+                    throw;
                 }
                 return;
             }
@@ -215,15 +232,23 @@ namespace LaunchDarkly.Client.Redis
         
         private bool TryGetFromRedis<T>(IDatabase db, VersionedDataKind<T> kind, string key, out T result) where T : IVersionedData
         {
-            string json = db.HashGet(ItemsKey(kind), key);
-            if (json == null)
+            try
             {
-                Log.DebugFormat("[get] Key: {0} not found in \"{1}\"", key, kind.GetNamespace());
-                result = default(T);
-                return false;
+                string json = db.HashGet(ItemsKey(kind), key);
+                if (json == null)
+                {
+                    Log.DebugFormat("[get] Key: {0} not found in \"{1}\"", key, kind.GetNamespace());
+                    result = default(T);
+                    return false;
+                }
+                result = JsonConvert.DeserializeObject<T>(json);
+                return true;
             }
-            result = JsonConvert.DeserializeObject<T>(json);
-            return true;
+            catch (RedisTimeoutException e)
+            {
+                Log.ErrorFormat("Timeout in TryGetFromRedis for {0} in {1}: {2}", key, ItemsKey(kind), e.ToString());
+                throw;
+            }
         }
 
         private string ItemsKey(IVersionedDataKind kind)
