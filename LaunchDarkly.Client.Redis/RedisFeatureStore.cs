@@ -19,7 +19,7 @@ namespace LaunchDarkly.Client.Redis
         private readonly InMemoryExpiringCache<string, bool> _initCache;
 
         // This event handler is used for unit testing only
-        public event EventHandler WillUpdate;
+        internal event EventHandler WillUpdate;
 
         internal RedisFeatureStore(ConfigurationOptions redisConfig, string prefix, TimeSpan cacheExpiration)
         {
