@@ -35,6 +35,11 @@ namespace LaunchDarkly.Client.Redis
         public static readonly TimeSpan DefaultResponseTimeout = TimeSpan.FromSeconds(2);
 
         /// <summary>
+        /// The default value for <see cref="RedisFeatureStoreBuilder.WithOperationTimeout(TimeSpan)"/>.
+        /// </summary>
+        public static readonly TimeSpan DefaultOperationTimeout = TimeSpan.FromSeconds(1);
+
+        /// <summary>
         /// Creates a new <see cref="RedisFeatureStoreBuilder"/>.
         /// </summary>
         /// <returns></returns>

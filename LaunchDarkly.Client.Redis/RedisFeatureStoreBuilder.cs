@@ -154,13 +154,29 @@ namespace LaunchDarkly.Client.Redis
         }
 
         /// <summary>
-        /// Specifies the maximum time to wait for a response from the Redis server.
+        /// Specifies the maximum time to wait for data on the Redis connection.
         /// </summary>
         /// <param name="timeout">the timeout interval</param>
         /// <returns>the same builder instance</returns>
+        /// <seealso cref="WithOperationTimeout(TimeSpan)"/>
         public RedisFeatureStoreBuilder WithResponseTimeout(TimeSpan timeout)
         {
             _redisConfig.ResponseTimeout = (int)timeout.TotalMilliseconds;
+            return this;
+        }
+
+        /// <summary>
+        /// Specifies the maximum time to wait for each synchronous Redis operation to complete.
+        /// If you are seeing timeout errors - which could result from either an overburdened
+        /// Redis server, or an unusually large operation such as storing a very large feature
+        /// flag - you may want to increase this setting.
+        /// </summary>
+        /// <param name="timeout">the timeout interval</param>
+        /// <returns>the same builder instance</returns>
+        /// <seealso cref="WithResponseTimeout(TimeSpan)"/>
+        public RedisFeatureStoreBuilder WithOperationTimeout(TimeSpan timeout)
+        {
+            _redisConfig.SyncTimeout = (int)timeout.TotalMilliseconds;
             return this;
         }
 
@@ -184,6 +200,27 @@ namespace LaunchDarkly.Client.Redis
         public RedisFeatureStoreBuilder WithCacheExpiration(TimeSpan cacheExpiration)
         {
             this._cacheExpiration = cacheExpiration;
+            return this;
+        }
+
+        /// <summary>
+        /// Allows you to modify any of the configuration options supported by StackExchange.Redis
+        /// directly. The current configuration will be passed to your Action, which can modify it
+        /// in any way.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     RedisComponents.RedisFeatureStore()
+        ///         .WithRedisConfig((config) => {
+        ///             config.Ssl = true;
+        ///         })
+        /// </code>
+        /// </example>
+        /// <param name="modifyConfig"></param>
+        /// <returns></returns>
+        public RedisFeatureStoreBuilder WithRedisConfig(Action<ConfigurationOptions> modifyConfig)
+        {
+            modifyConfig.Invoke(_redisConfig);
             return this;
         }
     }

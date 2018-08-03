@@ -158,7 +158,7 @@ namespace LaunchDarkly.Client.Redis
                 }
                 catch (RedisTimeoutException e)
                 {
-                    Log.ErrorFormat("Timeout in UpdateItemWithVersioning when reading {0} from {1}: {2}", newItem.Key, baseKey, e.ToString());
+                    Log.ErrorFormat("Timeout in update when reading {0} from {1}: {2}", newItem.Key, baseKey, e.ToString());
                     throw;
                 }
                 T oldItem = (oldJson == null) ? default(T) : JsonConvert.DeserializeObject<T>(oldJson);
@@ -201,16 +201,15 @@ namespace LaunchDarkly.Client.Redis
                         Log.Debug("Concurrent modification detected, retrying");
                         continue;
                     }
-
-                    if (_cache != null)
-                    {
-                        _cache.Set(CacheKey(kind, newItem.Key), newItem);
-                    }
                 }
                 catch (RedisTimeoutException e)
                 {
-                    Log.ErrorFormat("Timeout in UpdateItemWithVersioning on update of {0} in {1}: {2}", newItem.Key, baseKey, e.ToString());
+                    Log.ErrorFormat("Timeout on update of {0} in {1}: {2}", newItem.Key, baseKey, e.ToString());
                     throw;
+                }
+                if (_cache != null)
+                {
+                    _cache.Set(CacheKey(kind, newItem.Key), newItem);
                 }
                 return;
             }
@@ -246,7 +245,7 @@ namespace LaunchDarkly.Client.Redis
             }
             catch (RedisTimeoutException e)
             {
-                Log.ErrorFormat("Timeout in TryGetFromRedis for {0} in {1}: {2}", key, ItemsKey(kind), e.ToString());
+                Log.ErrorFormat("Timeout reading {0} from {1}: {2}", key, ItemsKey(kind), e.ToString());
                 throw;
             }
         }
