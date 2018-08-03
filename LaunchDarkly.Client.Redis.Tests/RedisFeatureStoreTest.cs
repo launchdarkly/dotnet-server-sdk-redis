@@ -283,7 +283,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         }
 
         [Fact]
-        public void HandlesUpsertRaceConditionAgainstExternalClientWithHigherVersion()
+        public void UpsertRaceConditionAgainstExternalClientWithHigherVersion()
         {
             using (var otherClient = CreateRedisClient())
             {
