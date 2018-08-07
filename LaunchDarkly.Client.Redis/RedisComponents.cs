@@ -27,17 +27,17 @@ namespace LaunchDarkly.Client.Redis
         /// <summary>
         /// The default value for <see cref="RedisFeatureStoreBuilder.WithConnectTimeout(TimeSpan)"/>.
         /// </summary>
-        public static readonly TimeSpan DefaultConnectTimeout = TimeSpan.FromSeconds(2);
+        public static readonly TimeSpan DefaultConnectTimeout = TimeSpan.FromSeconds(5);
 
         /// <summary>
         /// The default value for <see cref="RedisFeatureStoreBuilder.WithResponseTimeout(TimeSpan)"/>.
         /// </summary>
-        public static readonly TimeSpan DefaultResponseTimeout = TimeSpan.FromSeconds(2);
+        public static readonly TimeSpan DefaultResponseTimeout = TimeSpan.FromSeconds(3);
 
         /// <summary>
         /// The default value for <see cref="RedisFeatureStoreBuilder.WithOperationTimeout(TimeSpan)"/>.
         /// </summary>
-        public static readonly TimeSpan DefaultOperationTimeout = TimeSpan.FromSeconds(1);
+        public static readonly TimeSpan DefaultOperationTimeout = TimeSpan.FromSeconds(3);
 
         /// <summary>
         /// Creates a new <see cref="RedisFeatureStoreBuilder"/>.
