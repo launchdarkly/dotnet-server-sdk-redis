@@ -60,7 +60,8 @@ namespace LaunchDarkly.Client.Redis
             {
                 // This key exists in the cache, but may or may not have a value yet. If the inited
                 // flag is set then we can read the value without acquiring a lock, since the value
-                // will never change for a CacheEntry once it's been set.
+                // will never change for a CacheEntry once it's been set (and inited is not set until
+                // value has been set).
                 if (entry.inited)
                 {
                     return entry.value;
