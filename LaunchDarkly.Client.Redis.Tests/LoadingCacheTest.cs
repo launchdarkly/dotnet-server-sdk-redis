@@ -21,7 +21,6 @@ namespace LaunchDarkly.Client.Redis.Tests
         [Fact]
         public void GetCachedValue()
         {
-            int n = 0;
             var cache = new LoadingCache<string, string>(valueGenerator.GetNextValue, null);
             Assert.Equal("key_value_1", cache.Get("key"));
             Assert.Equal("key_value_1", cache.Get("key")); // value was not recomputed
