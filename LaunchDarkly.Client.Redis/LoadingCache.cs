@@ -59,34 +59,32 @@ namespace LaunchDarkly.Client.Redis
             {
                 _wholeCacheLock.ExitReadLock();
             }
-            if (entryExists)
+            if (entryExists && !entry.IsExpired())
             {
-                if (entry.IsExpired())
+                // This key exists in the cache, but may or may not have a value yet. If the inited
+                // flag is set then we can read the value without acquiring a lock, since the value
+                // will never change for a CacheEntry once it's been set (and inited is not set until
+                // value has been set).
+                if (entry.inited)
                 {
-                    // We'll need to replace this entry
-                    _keysInCreationOrder.Remove(entry.node);
+                    return entry.value;
                 }
-                else
-                {
-                    // This key exists in the cache, but may or may not have a value yet. If the inited
-                    // flag is set then we can read the value without acquiring a lock, since the value
-                    // will never change for a CacheEntry once it's been set (and inited is not set until
-                    // value has been set).
-                    if (entry.inited)
-                    {
-                        return entry.value;
-                    }
-                    return MaybeComputeValue(key, entry);
-                }
+                return MaybeComputeValue(key, entry);
             }
-
+            
             // The entry needs to be added to the cache. First add it without a value, so we can quickly release the
             // lock on the whole cache.
             _wholeCacheLock.EnterWriteLock();
             try
             {
-                // Check for the entry again in case someone got in ahead of us
-                if (!_entries.TryGetValue(key, out entry) || entry.IsExpired())
+                // If we are replacing an expired entry, we need to update the linked list
+                if (entryExists)
+                {
+                    _keysInCreationOrder.Remove(entry.node);
+                }
+                // If we're not replacing an expired entry, check for the entry again in case
+                // someone got in ahead of us
+                if (entryExists || !_entries.TryGetValue(key, out entry))
                 {
                     DateTime? expTime = null;
                     if (_expiration.HasValue)
