@@ -7,9 +7,12 @@ namespace LaunchDarkly.Client.Redis
 {
     /// <summary>
     /// A concurrent in-memory cache with read-through behavior, an optional TTL, and the ability to
-    /// explicitly set values. Expired entries are purged by a background task. Reader/writer locks
-    /// are used at both the whole cache level and the individual entry level to keep locking to a
-    /// minimum.
+    /// explicitly set values. Expired entries are purged by a background task.
+    /// 
+    /// A cache hit requires only one read lock. A cache miss requires read and write locks on the
+    /// cache, and then a write lock on the individual entry.
+    /// 
+    /// Null values are allowed.
     /// </summary>
     internal sealed class LoadingCache<K, V> : IDisposable where V : class
     {
