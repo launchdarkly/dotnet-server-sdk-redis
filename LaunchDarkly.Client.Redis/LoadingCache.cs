@@ -183,6 +183,10 @@ namespace LaunchDarkly.Client.Redis
 
         private async Task PurgeExpiredEntriesAsync()
         {
+            if (_purgeInterval == null)
+            {
+                return;
+            }
             while (!_disposed)
             {
                 await Task.Delay(_purgeInterval);
