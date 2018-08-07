@@ -79,6 +79,22 @@ namespace LaunchDarkly.Client.Redis.Tests
             Assert.Equal(1, valueGenerator.TimesCalled);
         }
 
+        [Fact]
+        public void RequestsAreCoalescedWhenReplacingExpiredValue()
+        {
+            var cache = new LoadingCache<string, string>(valueGenerator.GetNextValue,
+                TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(500));
+            cache.Set("key", "old");
+            Thread.Sleep(110);
+            var tasks = new Task[3];
+            for (var i = 0; i < 3; i++)
+            {
+                tasks[i] = Task.Run(() => cache.Get("key"));
+            }
+            Task.WaitAll(tasks);
+            Assert.Equal(1, valueGenerator.TimesCalled);
+        }
+
         private class TestValueGenerator
         {
             public volatile int TimesCalled = 0;

@@ -77,15 +77,14 @@ namespace LaunchDarkly.Client.Redis
             _wholeCacheLock.EnterWriteLock();
             try
             {
-                // If we are replacing an expired entry, we need to update the linked list
-                if (entryExists)
+                // Check for the entry again in case someone got in ahead of us
+                entry = null;
+                if (!_entries.TryGetValue(key, out entry) || entry.IsExpired())
                 {
-                    _keysInCreationOrder.Remove(entry.node);
-                }
-                // If we're not replacing an expired entry, check for the entry again in case
-                // someone got in ahead of us
-                if (entryExists || !_entries.TryGetValue(key, out entry))
-                {
+                    if (entry != null)
+                    {
+                        _keysInCreationOrder.Remove(entry.node);
+                    }
                     DateTime? expTime = null;
                     if (_expiration.HasValue)
                     {
