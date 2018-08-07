@@ -61,15 +61,23 @@ namespace LaunchDarkly.Client.Redis
             }
             if (entryExists)
             {
-                // This key exists in the cache, but may or may not have a value yet. If the inited
-                // flag is set then we can read the value without acquiring a lock, since the value
-                // will never change for a CacheEntry once it's been set (and inited is not set until
-                // value has been set).
-                if (entry.inited)
+                if (entry.IsExpired())
                 {
-                    return entry.value;
+                    // We'll need to replace this entry
+                    _keysInCreationOrder.Remove(entry.node);
                 }
-                return MaybeComputeValue(key, entry);
+                else
+                {
+                    // This key exists in the cache, but may or may not have a value yet. If the inited
+                    // flag is set then we can read the value without acquiring a lock, since the value
+                    // will never change for a CacheEntry once it's been set (and inited is not set until
+                    // value has been set).
+                    if (entry.inited)
+                    {
+                        return entry.value;
+                    }
+                    return MaybeComputeValue(key, entry);
+                }
             }
 
             // The entry needs to be added to the cache. First add it without a value, so we can quickly release the
@@ -78,7 +86,7 @@ namespace LaunchDarkly.Client.Redis
             try
             {
                 // Check for the entry again in case someone got in ahead of us
-                if (!_entries.TryGetValue(key, out entry))
+                if (!_entries.TryGetValue(key, out entry) || entry.IsExpired())
                 {
                     DateTime? expTime = null;
                     if (_expiration.HasValue)

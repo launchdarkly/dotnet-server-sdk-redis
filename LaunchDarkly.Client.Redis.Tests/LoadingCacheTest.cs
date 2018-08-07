@@ -39,9 +39,19 @@ namespace LaunchDarkly.Client.Redis.Tests
         public void ComputedValueCanExpire()
         {
             var cache = new LoadingCache<string, string>(valueGenerator.GetNextValue,
-                TimeSpan.FromMilliseconds(200), TimeSpan.FromMilliseconds(25));
+                TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(25));
             Assert.Equal("key_value_1", cache.Get("key"));
-            Thread.Sleep(TimeSpan.FromMilliseconds(250));
+            Thread.Sleep(TimeSpan.FromMilliseconds(150));
+            Assert.Equal("key_value_2", cache.Get("key"));
+        }
+
+        [Fact]
+        public void ComputedValueCanExpireEvenIfPurgeTaskHasNotRunYet()
+        {
+            var cache = new LoadingCache<string, string>(valueGenerator.GetNextValue,
+                TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(500));
+            Assert.Equal("key_value_1", cache.Get("key"));
+            Thread.Sleep(TimeSpan.FromMilliseconds(150));
             Assert.Equal("key_value_2", cache.Get("key"));
         }
 
