@@ -15,8 +15,8 @@ namespace LaunchDarkly.Client.Redis
         private readonly TimeSpan _cacheExpiration;
         private readonly string _prefix;
 
-        private readonly InMemoryExpiringCache<string, IVersionedData> _cache;
-        private readonly InMemoryExpiringCache<string, bool> _initCache;
+        private readonly LoadingCache<CacheKey, IVersionedData> _cache;
+        private readonly LoadingCache<string, string> _initCache;
 
         // This event handler is used for unit testing only
         internal event EventHandler WillUpdate;
@@ -32,14 +32,14 @@ namespace LaunchDarkly.Client.Redis
             _cacheExpiration = cacheExpiration;
             if (_cacheExpiration.TotalMilliseconds > 0)
             {
-                _cache = new InMemoryExpiringCache<string, IVersionedData>(_cacheExpiration);
+                _cache = new LoadingCache<CacheKey, IVersionedData>(GetFromRedisForCache, _cacheExpiration);
             }
             else
             {
                 _cache = null;
             }
 
-            _initCache = new InMemoryExpiringCache<string, bool>(null);
+            _initCache = new LoadingCache<string, string>(GetInitedState, null);
         }
         
         /// <summary>
@@ -47,7 +47,7 @@ namespace LaunchDarkly.Client.Redis
         /// </summary>
         public bool Initialized()
         {
-            return _initCache.GetOrAdd(InitKey, GetInitedState);
+            return _initCache.Get(InitKey) != null;
         }
 
         /// <summary>
@@ -71,14 +71,14 @@ namespace LaunchDarkly.Client.Redis
             }
             txn.StringSetAsync(_prefix, "");
             txn.Execute();
-            _initCache.Set(InitKey, true);
+            _initCache.Set(InitKey, InitKey);
             if (_cache != null)
             {
                 foreach (KeyValuePair<IVersionedDataKind, IDictionary<string, IVersionedData>> collection in items)
                 {
                     foreach (KeyValuePair<string, IVersionedData> item in collection.Value)
                     {
-                        _cache.Set(CacheKey(collection.Key, item.Key), item.Value);
+                        _cache.Set(new CacheKey(collection.Key, item.Key), item.Value);
                     }
                 }
             }
@@ -90,17 +90,14 @@ namespace LaunchDarkly.Client.Redis
         public T Get<T>(VersionedDataKind<T> kind, String key) where T : class, IVersionedData
         {
             T item;
+            CacheKey cacheKey = new CacheKey(kind, key);
             if (_cache != null)
             {
-                item = (T)_cache.GetOrAdd(CacheKey(kind, key), () =>
-                {
-                    TryGetFromRedis(_redis.GetDatabase(), kind, key, out var result);
-                    return result;
-                });
+                item = (T)_cache.Get(new CacheKey(kind, key));
             }
             else
             {
-                TryGetFromRedis(_redis.GetDatabase(), kind, key, out item);
+                item = (T)GetFromRedis(kind, key);
             }
             if (item != null && item.Deleted)
             {
@@ -171,7 +168,7 @@ namespace LaunchDarkly.Client.Redis
                         newItem.Key, oldVersion, newItem.Version, kind.GetNamespace());
                     if (_cache != null)
                     {
-                        _cache.Set(CacheKey(kind, newItem.Key), oldItem);
+                        _cache.Set(new CacheKey(kind, newItem.Key), oldItem);
                     }
                     return;
                 }
@@ -209,7 +206,7 @@ namespace LaunchDarkly.Client.Redis
                 }
                 if (_cache != null)
                 {
-                    _cache.Set(CacheKey(kind, newItem.Key), newItem);
+                    _cache.Set(new CacheKey(kind, newItem.Key), newItem);
                 }
                 return;
             }
@@ -229,41 +226,54 @@ namespace LaunchDarkly.Client.Redis
             }
         }
         
-        private bool TryGetFromRedis<T>(IDatabase db, VersionedDataKind<T> kind, string key, out T result) where T : IVersionedData
+        private IVersionedData GetFromRedisForCache(CacheKey cacheKey)
         {
-            try
-            {
-                string json = db.HashGet(ItemsKey(kind), key);
-                if (json == null)
-                {
-                    Log.DebugFormat("[get] Key: {0} not found in \"{1}\"", key, kind.GetNamespace());
-                    result = default(T);
-                    return false;
-                }
-                result = JsonConvert.DeserializeObject<T>(json);
-                return true;
-            }
-            catch (RedisTimeoutException e)
-            {
-                Log.ErrorFormat("Timeout reading {0} from {1}: {2}", key, ItemsKey(kind), e.ToString());
-                throw;
-            }
+            return GetFromRedis(cacheKey.Kind, cacheKey.Key);
         }
 
+        private IVersionedData GetFromRedis(IVersionedDataKind kind, string key)
+        {
+            IDatabase db = _redis.GetDatabase();
+            string json = db.HashGet(ItemsKey(kind), key);
+            if (json == null)
+            {
+                Log.DebugFormat("[get] Key: {0} not found in \"{1}\"", key, kind.GetNamespace());
+                return null;
+            }
+            return (IVersionedData)JsonConvert.DeserializeObject(json, kind.GetItemType());
+        }
+        
         private string ItemsKey(IVersionedDataKind kind)
         {
             return _prefix + ":" + kind.GetNamespace();
         }
-
-        private string CacheKey(IVersionedDataKind kind, string key)
-        {
-            return kind.GetNamespace() + ":" + key;
-        }
-
-        private bool GetInitedState()
+        
+        private string GetInitedState(string dummyKey)
         {
             IDatabase db = _redis.GetDatabase();
-            return db.KeyExists(_prefix);
+            return db.KeyExists(_prefix) ? dummyKey : null;
+        }
+    }
+
+    internal struct CacheKey : IEquatable<CacheKey>
+    {
+        public readonly IVersionedDataKind Kind;
+        public readonly string Key;
+
+        public CacheKey(IVersionedDataKind kind, string key)
+        {
+            Kind = kind;
+            Key = key;
+        }
+
+        public bool Equals(CacheKey other)
+        {
+            return Kind == other.Kind && Key == other.Key;
+        }
+
+        public override int GetHashCode()
+        {
+            return Kind.GetHashCode() * 17 + Key.GetHashCode();
         }
     }
 }
