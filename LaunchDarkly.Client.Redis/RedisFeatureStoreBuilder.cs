@@ -211,14 +211,14 @@ namespace LaunchDarkly.Client.Redis
         /// <example>
         /// <code>
         ///     RedisComponents.RedisFeatureStore()
-        ///         .WithRedisConfig((config) => {
+        ///         .WithRedisConfigChanges((config) => {
         ///             config.Ssl = true;
         ///         })
         /// </code>
         /// </example>
         /// <param name="modifyConfig"></param>
         /// <returns></returns>
-        public RedisFeatureStoreBuilder WithRedisConfig(Action<ConfigurationOptions> modifyConfig)
+        public RedisFeatureStoreBuilder WithRedisConfigChanges(Action<ConfigurationOptions> modifyConfig)
         {
             modifyConfig.Invoke(_redisConfig);
             return this;
