@@ -42,6 +42,13 @@ Quick setup
             );
         LdClient ldClient = new LdClient(ldConfig);
 
+5. If you are running a [LaunchDarkly Relay Proxy](https://github.com/launchdarkly/ld-relay) instance, you can use it in [daemon mode](https://github.com/launchdarkly/ld-relay#daemon-mode), so that the SDK retrieves flag data only from Redis and does not communicate directly with LaunchDarkly. This is controlled by the SDK's `UseLdd` option:
+
+        Configuration ldConfig = Configuration.Default("YOUR_SDK_KEY")
+            .WithFeatureStoreFactory(RedisComponents.RedisFeatureStore())
+            .WithUseLdd(true);
+        LdClient ldClient = new LdClient(ldConfig);
+
 Caching behavior
 ----------------
 
