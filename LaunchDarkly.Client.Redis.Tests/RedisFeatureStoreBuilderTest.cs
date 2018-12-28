@@ -11,8 +11,8 @@ namespace LaunchDarkly.Client.Redis.Tests
         public void DefaultConfigHasDefaultRedisHostAndPort()
         {
             RedisFeatureStoreBuilder builder = new RedisFeatureStoreBuilder();
-            Assert.Equal(1, builder.RedisConfig.EndPoints.Count);
-            Assert.Equal(new DnsEndPoint("localhost", 6379), builder.RedisConfig.EndPoints[0]);
+            Assert.Collection(builder.RedisConfig.EndPoints,
+                e => Assert.Equal(new DnsEndPoint("localhost", 6379), e));
         }
 
         [Fact]
@@ -21,8 +21,8 @@ namespace LaunchDarkly.Client.Redis.Tests
             RedisFeatureStoreBuilder builder = new RedisFeatureStoreBuilder();
             DnsEndPoint ep = new DnsEndPoint("test", 9999);
             builder.WithRedisEndPoint(ep);
-            Assert.Equal(1, builder.RedisConfig.EndPoints.Count);
-            Assert.Equal(ep, builder.RedisConfig.EndPoints[0]);
+            Assert.Collection(builder.RedisConfig.EndPoints,
+                e => Assert.Equal(ep, e));
         }
 
         [Fact]
@@ -32,9 +32,9 @@ namespace LaunchDarkly.Client.Redis.Tests
             DnsEndPoint ep1 = new DnsEndPoint("test", 9998);
             DnsEndPoint ep2 = new DnsEndPoint("test", 9999);
             builder.WithRedisEndPoints(new List<EndPoint> { ep1, ep2 });
-            Assert.Equal(2, builder.RedisConfig.EndPoints.Count);
-            Assert.Equal(ep1, builder.RedisConfig.EndPoints[0]);
-            Assert.Equal(ep2, builder.RedisConfig.EndPoints[1]);
+            Assert.Collection(builder.RedisConfig.EndPoints,
+                e => Assert.Equal(ep1, e),
+                e => Assert.Equal(ep2, e));
         }
 
         [Fact]
@@ -42,8 +42,8 @@ namespace LaunchDarkly.Client.Redis.Tests
         {
             RedisFeatureStoreBuilder builder = new RedisFeatureStoreBuilder();
             builder.WithRedisHostAndPort("test", 9999);
-            Assert.Equal(1, builder.RedisConfig.EndPoints.Count);
-            Assert.Equal(new DnsEndPoint("test", 9999), builder.RedisConfig.EndPoints[0]);
+            Assert.Collection(builder.RedisConfig.EndPoints,
+                e => Assert.Equal(new DnsEndPoint("test", 9999), e));
         }
 
         [Fact]
@@ -51,8 +51,8 @@ namespace LaunchDarkly.Client.Redis.Tests
         {
             RedisFeatureStoreBuilder builder = new RedisFeatureStoreBuilder();
             builder.WithRedisUri(new Uri("redis://test:9999"));
-            Assert.Equal(1, builder.RedisConfig.EndPoints.Count);
-            Assert.Equal(new DnsEndPoint("test", 9999), builder.RedisConfig.EndPoints[0]);
+            Assert.Collection(builder.RedisConfig.EndPoints,
+                e => Assert.Equal(new DnsEndPoint("test", 9999), e));
             Assert.Null(builder.RedisConfig.Password);
             Assert.Null(builder.RedisConfig.DefaultDatabase);
         }
@@ -62,8 +62,8 @@ namespace LaunchDarkly.Client.Redis.Tests
         {
             RedisFeatureStoreBuilder builder = new RedisFeatureStoreBuilder();
             builder.WithRedisUri(new Uri("redis://:secret@test:9999"));
-            Assert.Equal(1, builder.RedisConfig.EndPoints.Count);
-            Assert.Equal(new DnsEndPoint("test", 9999), builder.RedisConfig.EndPoints[0]);
+            Assert.Collection(builder.RedisConfig.EndPoints,
+                e => Assert.Equal(new DnsEndPoint("test", 9999), e));
             Assert.Equal("secret", builder.RedisConfig.Password);
             Assert.Null(builder.RedisConfig.DefaultDatabase);
         }
@@ -73,8 +73,8 @@ namespace LaunchDarkly.Client.Redis.Tests
         {
             RedisFeatureStoreBuilder builder = new RedisFeatureStoreBuilder();
             builder.WithRedisUri(new Uri("redis://@test:9999/8"));
-            Assert.Equal(1, builder.RedisConfig.EndPoints.Count);
-            Assert.Equal(new DnsEndPoint("test", 9999), builder.RedisConfig.EndPoints[0]);
+            Assert.Collection(builder.RedisConfig.EndPoints,
+                e => Assert.Equal(new DnsEndPoint("test", 9999), e));
             Assert.Null(builder.RedisConfig.Password);
             Assert.Equal(8, builder.RedisConfig.DefaultDatabase);
         }

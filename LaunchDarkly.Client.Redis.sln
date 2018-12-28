@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.Client.Redis.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.Client.Redis.StrongName", "LaunchDarkly.Client.Redis.StrongName\LaunchDarkly.Client.Redis.StrongName.csproj", "{4CF05BD5-72F1-4575-A937-9686CFD049D3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.Client.SharedTests", "..\dotnet-client-shared-tests\LaunchDarkly.Client.SharedTests\LaunchDarkly.Client.SharedTests.csproj", "{1311B0BD-C816-4369-8B31-8E7C781E7EFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4CF05BD5-72F1-4575-A937-9686CFD049D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CF05BD5-72F1-4575-A937-9686CFD049D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CF05BD5-72F1-4575-A937-9686CFD049D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1311B0BD-C816-4369-8B31-8E7C781E7EFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1311B0BD-C816-4369-8B31-8E7C781E7EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1311B0BD-C816-4369-8B31-8E7C781E7EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1311B0BD-C816-4369-8B31-8E7C781E7EFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

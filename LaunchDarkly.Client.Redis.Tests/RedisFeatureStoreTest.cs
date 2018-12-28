@@ -1,326 +1,34 @@
 using System;
-using System.Collections.Generic;
-using Xunit;
-using Newtonsoft.Json;
+using LaunchDarkly.Client.SharedTests.FeatureStore;
 using StackExchange.Redis;
 
 namespace LaunchDarkly.Client.Redis.Tests
 {
-    public class RedisFeatureStoreTest : IDisposable
+    public class RedisFeatureStoreTest : FeatureStoreBaseTests
     {
-        internal class TestData : IVersionedData
+        override protected IFeatureStore CreateStoreImpl(FeatureStoreCacheConfig caching)
         {
-            [JsonProperty(PropertyName = "key")]
-            public string Key { get; set; }
-            [JsonProperty(PropertyName = "version")]
-            public int Version { get; set; }
-            [JsonProperty(PropertyName = "deleted")]
-            public bool Deleted { get; set; }
-            [JsonProperty(PropertyName = "value")]
-            internal string Value { get; set; }
+            return RedisFeatureStoreBuilder.Default().WithCaching(caching).
+                CreateFeatureStore();
         }
 
-        class TestDataKind : VersionedDataKind<TestData>
+        override protected IFeatureStore CreateStoreImplWithPrefix(string prefix)
         {
-            public override string GetNamespace()
+            return RedisFeatureStoreBuilder.Default().WithPrefix(prefix)
+                .WithCaching(FeatureStoreCacheConfig.Disabled).CreateFeatureStore();
+        }
+
+        protected override IFeatureStore CreateStoreImplWithUpdateHook(Action hook)
+        {
+            return base.CreateStoreImplWithUpdateHook(hook);
+        }
+
+        override protected void ClearAllData()
+        {
+            using (var cxn = ConnectionMultiplexer.Connect("localhost:6379,allowAdmin=true"))
             {
-                return "test";
+                cxn.GetServer("localhost:6379").FlushDatabase();
             }
-
-            public override TestData MakeDeletedItem(string key, int version)
-            {
-                return new TestData { Key = key, Version = version, Deleted = true };
-            }
-
-            public override Type GetItemType()
-            {
-                return typeof(TestData);
-            }
-
-            public override string GetStreamApiPath()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        static readonly TestDataKind TestKind = new TestDataKind();
-        const string Prefix = "test-prefix";
-
-        RedisFeatureStore store;
-
-        TestData item1 = new TestData { Key = "foo", Value = "first", Version = 10 };
-        TestData item2 = new TestData { Key = "bar", Value = "second", Version = 10 };
-
-        public RedisFeatureStoreTest()
-        {
-            CreateStore();
-        }
-
-        public void Dispose()
-        {
-            store.Dispose();
-        }
-
-        protected void CreateStore()
-        {
-            store = (RedisFeatureStore)
-                RedisFeatureStoreBuilder.Default().WithPrefix(Prefix).CreateFeatureStore();
-        }
-
-        protected void InitStore(IFeatureStore s)
-        {
-            IDictionary<string, IVersionedData> items = new Dictionary<string, IVersionedData>();
-            items[item1.Key] = item1;
-            items[item2.Key] = item2;
-            IDictionary<IVersionedDataKind, IDictionary<string, IVersionedData>> allData =
-                new Dictionary<IVersionedDataKind, IDictionary<string, IVersionedData>>();
-            allData[TestKind] = items;
-            s.Init(allData);
-        }
-
-        [Fact]
-        public void StoreInitializedAfterInit()
-        {
-            InitStore(store);
-            Assert.True(store.Initialized());
-        }
-
-        [Fact]
-        public void GetExistingItemFromCache()
-        {
-            InitStore(store);
-            var result = store.Get(TestKind, item1.Key);
-            Assert.Equal(item1.Value, result.Value);
-        }
-
-        [Fact]
-        public void GetExistingItemNotFromCache()
-        {
-            var nonCachedItem = new TestData
-            {
-                Key = "special",
-                Version = 1,
-                Value = "thing"
-            };
-            InitStore(store);
-            using (var otherClient = CreateRedisClient())
-            {
-                PutItemDirectlyToRedis(otherClient, nonCachedItem);
-            }
-            var result = store.Get(TestKind, nonCachedItem.Key);
-            Assert.Equal(nonCachedItem.Value, result.Value);
-        }
-
-        [Fact]
-        public void GetNonexistingItem()
-        {
-            InitStore(store);
-            var result = store.Get(TestKind, "biz");
-            Assert.Null(result);
-        }
-
-        [Fact]
-        public void GetUsesCachedValueIfAvailable()
-        {
-            InitStore(store);
-            var initialItem = store.Get(TestKind, item1.Key);
-            Assert.Equal(item1.Value, initialItem.Value);
-
-            using (var otherClient = CreateRedisClient())
-            {
-                var modifiedItem = new TestData
-                {
-                    Key = item1.Key,
-                    Version = item1.Version,
-                    Value = "different"
-                };
-                PutItemDirectlyToRedis(otherClient, modifiedItem);
-
-                var cachedItem = store.Get(TestKind, item1.Key);
-                Assert.Equal(initialItem.Value, cachedItem.Value);
-            }
-        }
-
-        [Fact]
-        public void GetAlwaysHitsRedisIfCacheIsDisabled()
-        {
-            using (var noCacheStore =
-                RedisFeatureStoreBuilder.Default()
-                    .WithPrefix(Prefix)
-                    .WithCacheExpiration(TimeSpan.Zero)
-                    .CreateFeatureStore())
-            {
-                InitStore(noCacheStore);
-                var initialItem = noCacheStore.Get(TestKind, item1.Key);
-                Assert.Equal(item1.Value, initialItem.Value);
-
-                using (var otherClient = CreateRedisClient())
-                {
-                    var modifiedItem = new TestData
-                    {
-                        Key = item1.Key,
-                        Version = item1.Version,
-                        Value = "different"
-                    };
-                    PutItemDirectlyToRedis(otherClient, modifiedItem);
-
-                    var uncachedItem = store.Get(TestKind, item1.Key);
-                    Assert.Equal(modifiedItem.Value, uncachedItem.Value);
-                }
-            }
-        }
-
-        [Fact]
-        public void GetAllItems()
-        {
-            InitStore(store);
-            var result = store.All(TestKind);
-            Assert.Equal(2, result.Count);
-            Assert.Equal(item1.Key, result[item1.Key].Key);
-            Assert.Equal(item2.Key, result[item2.Key].Key);
-        }
-
-        [Fact]
-        public void UpsertWithNewerVersion()
-        {
-            InitStore(store);
-            var newVer = new TestData { Key = item1.Key, Version = item1.Version + 1, Value = "new" };
-            store.Upsert(TestKind, newVer);
-            var result = store.Get(TestKind, item1.Key);
-            Assert.Equal(newVer.Value, result.Value);
-        }
-
-        [Fact]
-        public void UpsertWithSameVersion()
-        {
-            InitStore(store);
-            var newVer = new TestData { Key = item1.Key, Version = item1.Version, Value = "new" };
-            store.Upsert(TestKind, newVer);
-            var result = store.Get(TestKind, item1.Key);
-            Assert.Equal(item1.Value, result.Value);
-        }
-
-        [Fact]
-        public void UpsertWithOlderVersion()
-        {
-            InitStore(store);
-            var newVer = new TestData { Key = item1.Key, Version = item1.Version - 1, Value = "new" };
-            store.Upsert(TestKind, newVer);
-            var result = store.Get(TestKind, item1.Key);
-            Assert.Equal(item1.Value, result.Value);
-        }
-
-        [Fact]
-        public void UpsertNewItem()
-        {
-            InitStore(store);
-            var newItem = new TestData { Key = "biz", Version = 99 };
-            store.Upsert(TestKind, newItem);
-            var result = store.Get(TestKind, newItem.Key);
-            Assert.Equal(newItem.Key, result.Key);
-        }
-
-        [Fact]
-        public void DeleteWithNewerVersion()
-        {
-            InitStore(store);
-            store.Delete(TestKind, item1.Key, item1.Version + 1);
-            Assert.Null(store.Get(TestKind, item1.Key));
-        }
-
-        [Fact]
-        public void DeleteWithSameVersion()
-        {
-            InitStore(store);
-            store.Delete(TestKind, item1.Key, item1.Version);
-            Assert.NotNull(store.Get(TestKind, item1.Key));
-        }
-
-        [Fact]
-        public void DeleteWithOlderVersion()
-        {
-            InitStore(store);
-            store.Delete(TestKind, item1.Key, item1.Version - 1);
-            Assert.NotNull(store.Get(TestKind, item1.Key));
-        }
-
-        [Fact]
-        public void DeleteUnknownItem()
-        {
-            InitStore(store);
-            store.Delete(TestKind, "biz", 11);
-            Assert.Null(store.Get(TestKind, "biz"));
-        }
-
-        [Fact]
-        public void UpsertOlderVersionAfterDelete()
-        {
-            InitStore(store);
-            store.Delete(TestKind, item1.Key, item1.Version + 1);
-            store.Upsert(TestKind, item1);
-            Assert.Null(store.Get(TestKind, item1.Key));
-        }
-
-        [Fact]
-        public void UpsertRaceConditionAgainstExternalClientWithLowerVersion()
-        {
-            using (var otherClient = CreateRedisClient())
-            {
-                InitStore(store);
-                int oldVersion = item1.Version;
-                int slightlyNewerVersion = oldVersion + 1;
-                int muchNewerVersion = oldVersion + 2;
-
-                var competingItem = new TestData { Key = item1.Key, Version = slightlyNewerVersion };
-                store.WillUpdate += MakeConcurrentModifier(otherClient, competingItem);
-
-                var attemptToUpsertThisItem = new TestData { Key = item1.Key, Version = muchNewerVersion };
-                store.Upsert(TestKind, attemptToUpsertThisItem);
-
-                var result = store.Get(TestKind, item1.Key);
-                Assert.Equal(muchNewerVersion, result.Version);
-            }
-        }
-
-        [Fact]
-        public void UpsertRaceConditionAgainstExternalClientWithHigherVersion()
-        {
-            using (var otherClient = CreateRedisClient())
-            {
-                InitStore(store);
-                int oldVersion = item1.Version;
-                int slightlyNewerVersion = oldVersion + 1;
-                int muchNewerVersion = oldVersion + 2;
-
-                var competingItem = new TestData { Key = item1.Key, Version = muchNewerVersion };
-                store.WillUpdate += MakeConcurrentModifier(otherClient, competingItem);
-
-                var attemptToUpsertThisItem = new TestData { Key = item1.Key, Version = slightlyNewerVersion };
-                store.Upsert(TestKind, attemptToUpsertThisItem);
-
-                var result = store.Get(TestKind, item1.Key);
-                Assert.Equal(muchNewerVersion, result.Version);
-            }
-        }
-
-        private EventHandler MakeConcurrentModifier(
-            ConnectionMultiplexer otherClient, TestData competingItem)
-        {
-            return (sender, args) =>
-            {
-                PutItemDirectlyToRedis(otherClient, competingItem);
-            };
-        }
-
-        private ConnectionMultiplexer CreateRedisClient()
-        {
-            return ConnectionMultiplexer.Connect("localhost:6379");
-        }
-
-        private void PutItemDirectlyToRedis(ConnectionMultiplexer client, TestData item)
-        {
-            client.GetDatabase().HashSet(Prefix + ":" + TestKind.GetNamespace(),
-                item.Key, JsonConvert.SerializeObject(item));
         }
     }
 }
