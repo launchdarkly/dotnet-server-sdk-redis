@@ -64,6 +64,15 @@ Or, to cache for longer than the default of 30 seconds:
                 RedisComponents.RedisFeatureStore()
                     .WithCaching(FeatureStoreCacheConfig.Enabled.WithTtlSeconds(60))
 
+Signing
+-------
+
+The published versions of these assemblies are digitally signed by LaunchDarkly.
+
+The `LaunchDarkly.Client.Redis.StrongName` assembly is also [strong-named](https://docs.microsoft.com/en-us/dotnet/framework/app-domains/strong-named-assemblies); `LaunchDarkly.Client.Redis` is not strong-named. The reason for this difference is that the StackExchange.Redis library is also built in two versions so if LaunchDarkly provided only a strong-named version, it would cause a dependency conflict if the application happened to be using the non-strong-named version of StackExchange.Redis for other purposes.
+
+Building the code locally in the default Debug configuration does not sign the assembly and does not require a key file.
+
 Development notes
 -----------------
 
