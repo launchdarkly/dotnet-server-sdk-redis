@@ -4,28 +4,18 @@
     <Version>1.0.0</Version>
     <TargetFrameworks>netstandard1.6;netstandard2.0;net45</TargetFrameworks>
     <PackageLicenseUrl>https://raw.githubusercontent.com/launchdarkly/dotnet-client-redis/master/LICENSE</PackageLicenseUrl>
-    <AssemblyName>LaunchDarkly.Client.Redis.StrongName</AssemblyName>
+    <AssemblyName>LaunchDarkly.Client.Redis</AssemblyName>
     <OutputType>Library</OutputType>
-    <PackageId>LaunchDarkly.Client.Redis.StrongName</PackageId>
+    <PackageId>LaunchDarkly.Client.Redis</PackageId>
     <Company>LaunchDarkly</Company>
     <Description>LaunchDarkly .NET Client Redis Integration</Description>
     <Copyright>Copyright 2018 LaunchDarkly</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LaunchDarkly.Client" Version="5.2.1" />
-    <PackageReference Include="StackExchange.Redis.StrongName" Version="1.2.6" />
+    <PackageReference Include="LaunchDarkly.Client" Version="5.6.0-beta2" />
+    <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="..\LaunchDarkly.Client.Redis\*.cs" Exclude="..\LaunchDarkly.Client.Redis\AssemblyInfo.cs" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>../LaunchDarkly.Redis.snk</AssemblyOriginatorKeyFile>
-    <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
-  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
     <DocumentationFile>bin\Debug\netstandard2.0\LaunchDarkly.Client.Redis.xml</DocumentationFile>

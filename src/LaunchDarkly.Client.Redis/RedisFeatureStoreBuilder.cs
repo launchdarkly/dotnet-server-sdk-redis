@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using LaunchDarkly.Client.Utils;
 using StackExchange.Redis;
 
 namespace LaunchDarkly.Client.Redis
@@ -13,15 +14,17 @@ namespace LaunchDarkly.Client.Redis
     /// </summary>
     public sealed class RedisFeatureStoreBuilder : IFeatureStoreFactory
     {
-        private ConfigurationOptions _redisConfig = new ConfigurationOptions();
-        private string _prefix = RedisComponents.DefaultPrefix;
-        private TimeSpan _cacheExpiration = RedisComponents.DefaultCacheExpiration;
+        internal ConfigurationOptions RedisConfig { get; private set; } = new ConfigurationOptions();
+        internal string Prefix { get; private set; } = RedisComponents.DefaultPrefix;
+        internal FeatureStoreCacheConfig Caching { get; private set; } =
+            FeatureStoreCacheConfig.Enabled.WithTtl(RedisComponents.DefaultCacheExpiration);
+        internal Action UpdateHook { get; private set; }
 
         internal RedisFeatureStoreBuilder()
         {
-            _redisConfig.EndPoints.Add(RedisComponents.DefaultRedisEndPoint);
-            _redisConfig.ConnectTimeout = (int)RedisComponents.DefaultConnectTimeout.TotalMilliseconds;
-            _redisConfig.ResponseTimeout = (int)RedisComponents.DefaultResponseTimeout.TotalMilliseconds;
+            RedisConfig.EndPoints.Add(RedisComponents.DefaultRedisEndPoint);
+            RedisConfig.ConnectTimeout = (int)RedisComponents.DefaultConnectTimeout.TotalMilliseconds;
+            RedisConfig.ResponseTimeout = (int)RedisComponents.DefaultResponseTimeout.TotalMilliseconds;
         }
 
         /// <summary>
@@ -39,12 +42,10 @@ namespace LaunchDarkly.Client.Redis
         /// <returns>the feature store</returns>
         public IFeatureStore CreateFeatureStore()
         {
-            return new RedisFeatureStore(_redisConfig.Clone(), _prefix, _cacheExpiration);
+            var core = new RedisFeatureStoreCore(this);
+            return CachingStoreWrapper.Builder(core).WithCaching(Caching).Build();
         }
-
-        // Used for testing only
-        internal ConfigurationOptions RedisConfig => _redisConfig;
-
+        
         /// <summary>
         /// Specifies all Redis configuration options at once.
         /// </summary>
@@ -52,7 +53,7 @@ namespace LaunchDarkly.Client.Redis
         /// <returns>the same builder instance</returns>
         public RedisFeatureStoreBuilder WithRedisConfiguration(ConfigurationOptions config)
         {
-            _redisConfig = config.Clone();
+            RedisConfig = config.Clone();
             return this;
         }
 
@@ -96,7 +97,7 @@ namespace LaunchDarkly.Client.Redis
                 if (parts.Length == 2)
                 {
                     // Redis doesn't use the username
-                    _redisConfig.Password = parts[1];
+                    RedisConfig.Password = parts[1];
                 }
                 else
                 {
@@ -111,7 +112,7 @@ namespace LaunchDarkly.Client.Redis
                     path = path.Substring(1);
                 }
                 var dbIndex = Int32.Parse(path);
-                _redisConfig.DefaultDatabase = dbIndex;
+                RedisConfig.DefaultDatabase = dbIndex;
             }
             return this;
         }
@@ -123,10 +124,10 @@ namespace LaunchDarkly.Client.Redis
         /// <returns>the same builder instance</returns>
         public RedisFeatureStoreBuilder WithRedisEndPoints(IList<EndPoint> endPoints)
         {
-            _redisConfig.EndPoints.Clear();
+            RedisConfig.EndPoints.Clear();
             foreach (var ep in endPoints)
             {
-                _redisConfig.EndPoints.Add(ep);
+                RedisConfig.EndPoints.Add(ep);
             }
             return this;
         }
@@ -138,7 +139,7 @@ namespace LaunchDarkly.Client.Redis
         /// <returns>the same builder instance</returns>
         public RedisFeatureStoreBuilder WithDatabaseIndex(int database)
         {
-            _redisConfig.DefaultDatabase = database;
+            RedisConfig.DefaultDatabase = database;
             return this;
         }
 
@@ -149,7 +150,7 @@ namespace LaunchDarkly.Client.Redis
         /// <returns>the same builder instance</returns>
         public RedisFeatureStoreBuilder WithConnectTimeout(TimeSpan timeout)
         {
-            _redisConfig.ConnectTimeout = (int)timeout.TotalMilliseconds;
+            RedisConfig.ConnectTimeout = (int)timeout.TotalMilliseconds;
             return this;
         }
 
@@ -161,7 +162,7 @@ namespace LaunchDarkly.Client.Redis
         /// <seealso cref="WithOperationTimeout(TimeSpan)"/>
         public RedisFeatureStoreBuilder WithResponseTimeout(TimeSpan timeout)
         {
-            _redisConfig.ResponseTimeout = (int)timeout.TotalMilliseconds;
+            RedisConfig.ResponseTimeout = (int)timeout.TotalMilliseconds;
             return this;
         }
 
@@ -176,7 +177,7 @@ namespace LaunchDarkly.Client.Redis
         /// <seealso cref="WithResponseTimeout(TimeSpan)"/>
         public RedisFeatureStoreBuilder WithOperationTimeout(TimeSpan timeout)
         {
-            _redisConfig.SyncTimeout = (int)timeout.TotalMilliseconds;
+            RedisConfig.SyncTimeout = (int)timeout.TotalMilliseconds;
             return this;
         }
 
@@ -187,20 +188,34 @@ namespace LaunchDarkly.Client.Redis
         /// <returns>the same builder instance</returns>
         public RedisFeatureStoreBuilder WithPrefix(string prefix)
         {
-            this._prefix = prefix ?? RedisComponents.DefaultPrefix;
+            Prefix = prefix ?? RedisComponents.DefaultPrefix;
             return this;
         }
 
         /// <summary>
-        /// Specifies the amount of time to cache values in a local memory cache before having to
-        /// retrieve them again from Redis. If this is zero, no such cache will be used.
+        /// Specifies whether local caching should be enabled and if so, sets the cache properties. Local
+        /// caching is enabled by default; see <see cref="FeatureStoreCacheConfig.Enabled"/>. To disable it, pass
+        /// <see cref="FeatureStoreCacheConfig.Disabled"/> to this method.
+        /// </summary>
+        /// <param name="caching">a <see cref="FeatureStoreCacheConfig"/> object specifying caching parameters</param>
+        /// <returns>the same builder instance</returns>
+        public RedisFeatureStoreBuilder WithCaching(FeatureStoreCacheConfig caching)
+        {
+            Caching = caching;
+            return this;
+        }
+
+        /// <summary>
+        /// Equivalent to <code>WithCaching(FeatureStoreCacheConfig.Enabled.WithTtl(cacheExpiration))</code>.
         /// </summary>
         /// <param name="cacheExpiration">the length of time to cache locally</param>
         /// <returns>the same builder instance</returns>
+        [Obsolete("Please use WithCaching instead.")]
         public RedisFeatureStoreBuilder WithCacheExpiration(TimeSpan cacheExpiration)
         {
-            this._cacheExpiration = cacheExpiration;
-            return this;
+            return WithCaching(cacheExpiration > TimeSpan.Zero ?
+                FeatureStoreCacheConfig.Enabled.WithTtl(cacheExpiration) :
+                FeatureStoreCacheConfig.Disabled);
         }
 
         /// <summary>
@@ -220,7 +235,7 @@ namespace LaunchDarkly.Client.Redis
         /// <returns></returns>
         public RedisFeatureStoreBuilder WithRedisConfigChanges(Action<ConfigurationOptions> modifyConfig)
         {
-            modifyConfig.Invoke(_redisConfig);
+            modifyConfig.Invoke(RedisConfig);
             return this;
         }
     }

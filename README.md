@@ -4,7 +4,9 @@ LaunchDarkly SDK for .NET - Redis integration
 
 This library provides a Redis-backed persistence mechanism (feature store) for the [LaunchDarkly .NET SDK](https://github.com/launchdarkly/dotnet-client), replacing the default in-memory feature store. The underlying Redis client implementation is [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis).
 
-The minimum version of the LaunchDarkly .NET SDK for use with this library is 5.2.1.
+The minimum version of the LaunchDarkly .NET SDK for use with this library is 5.6.0.
+
+For more information, see also: [Using a persistent feature store](https://docs.launchdarkly.com/v2.0/docs/using-a-persistent-feature-store).
 
 .NET platform compatibility
 ---------------------------
@@ -55,7 +57,30 @@ Caching behavior
 To reduce traffic to the Redis server, there is an optional in-memory cache that retains the last known data for a configurable amount of time. This is on by default; to turn it off (and guarantee that the latest feature flag data will always be retrieved from Redis for every flag evaluation), configure the builder as follows:
 
                 RedisComponents.RedisFeatureStore()
-                    .WithCacheExpiration(TimeSpan.Zero)
+                    .WithCaching(FeatureStoreCacheConfig.Disabled)
+
+Or, to cache for longer than the default of 30 seconds:
+
+                RedisComponents.RedisFeatureStore()
+                    .WithCaching(FeatureStoreCacheConfig.Enabled.WithTtlSeconds(60))
+
+Signing
+-------
+
+The published versions of these assemblies are digitally signed by LaunchDarkly.
+
+The `LaunchDarkly.Client.Redis.StrongName` assembly is also [strong-named](https://docs.microsoft.com/en-us/dotnet/framework/app-domains/strong-named-assemblies); `LaunchDarkly.Client.Redis` is not strong-named. The reason for this difference is that the StackExchange.Redis library is also built in two versions so if LaunchDarkly provided only a strong-named version, it would cause a dependency conflict if the application happened to be using the non-strong-named version of StackExchange.Redis for other purposes.
+
+Building the code locally in the default Debug configuration does not sign the assembly and does not require a key file.
+
+Development notes
+-----------------
+
+This project imports the `dotnet-base` and `dotnet-client-shared-tests` repositories as subtrees. See the `README.md` file in each of those directories for more information.
+
+To run unit tests, you must have a local Redis server.
+
+Releases are done using the release script in `dotnet-base`. Since the published package includes a .NET Framework 4.5 build, the release must be done from Windows.
 
 About LaunchDarkly
 -----------
@@ -70,9 +95,9 @@ About LaunchDarkly
     * [JavaScript](http://docs.launchdarkly.com/docs/js-sdk-reference "LaunchDarkly JavaScript SDK")
     * [PHP](http://docs.launchdarkly.com/docs/php-sdk-reference "LaunchDarkly PHP SDK")
     * [Python](http://docs.launchdarkly.com/docs/python-sdk-reference "LaunchDarkly Python SDK")
-    * [Python Twisted](http://docs.launchdarkly.com/docs/python-twisted-sdk-reference "LaunchDarkly Python Twisted SDK")
     * [Go](http://docs.launchdarkly.com/docs/go-sdk-reference "LaunchDarkly Go SDK")
     * [Node.JS](http://docs.launchdarkly.com/docs/node-sdk-reference "LaunchDarkly Node SDK")
+    * [Electron](http://docs.launchdarkly.com/docs/electron-sdk-reference "LaunchDarkly Electron SDK")
     * [.NET](http://docs.launchdarkly.com/docs/dotnet-sdk-reference "LaunchDarkly .Net SDK")
     * [Ruby](http://docs.launchdarkly.com/docs/ruby-sdk-reference "LaunchDarkly Ruby SDK")
     * [iOS](http://docs.launchdarkly.com/docs/ios-sdk-reference "LaunchDarkly iOS SDK")
