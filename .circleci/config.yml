@@ -1,0 +1,15 @@
+version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-2.0
+jobs:
+  test-2.0:
+    docker:
+      - image: microsoft/dotnet:2.0-sdk-jessie
+    steps:
+      - checkout
+      - run: dotnet restore
+      - run: dotnet build LaunchDarkly.ServerSdk.SharedTests -f netstandard2.0
+      - run: dotnet test LaunchDarkly.ServerSdk.SharedTests.Tests/LaunchDarkly.ServerSdk.SharedTests.Tests.csproj -f netcoreapp2.0

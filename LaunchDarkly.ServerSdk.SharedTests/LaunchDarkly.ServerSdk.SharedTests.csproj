@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Version>1.0.0-beta1</Version>
+    <PackageId>LaunchDarkly.ServerSdk.SharedTests</PackageId>
+    <AssemblyName>LaunchDarkly.ServerSdk.SharedTests</AssemblyName>
+    <TargetFrameworks>netstandard1.6;netstandard2.0;net45</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <Description>LaunchDarkly .NET Shared Tests</Description>
+    <Company>LaunchDarkly</Company>
+    <Copyright>Copyright 2018 Catamorphic, Co.</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/launchdarkly/dotnet-server-sdk-shared-tests/master/LICENSE</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LaunchDarkly.ServerSdk" Version="5.6.4" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+  </ItemGroup>
+</Project>
