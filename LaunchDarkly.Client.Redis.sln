@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.Client.Redis", "src\LaunchDarkly.Client.Redis\LaunchDarkly.Client.Redis.csproj", "{C497533B-8F43-4E5A-A6F4-F50880AA549C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.ServerSdk.Redis", "src\LaunchDarkly.ServerSdk.Redis\LaunchDarkly.ServerSdk.Redis.csproj", "{C497533B-8F43-4E5A-A6F4-F50880AA549C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.Client.Redis.Tests", "test\LaunchDarkly.Client.Redis.Tests\LaunchDarkly.Client.Redis.Tests.csproj", "{2F11CC6A-3427-423E-AF63-E3600FE63627}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.ServerSdk.Redis.Tests", "test\LaunchDarkly.ServerSdk.Redis.Tests\LaunchDarkly.ServerSdk.Redis.Tests.csproj", "{2F11CC6A-3427-423E-AF63-E3600FE63627}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.Client.Redis.StrongName", "src\LaunchDarkly.Client.Redis.StrongName\LaunchDarkly.Client.Redis.StrongName.csproj", "{4CF05BD5-72F1-4575-A937-9686CFD049D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.ServerSdk.Redis.StrongName", "src\LaunchDarkly.ServerSdk.Redis.StrongName\LaunchDarkly.ServerSdk.Redis.StrongName.csproj", "{4CF05BD5-72F1-4575-A937-9686CFD049D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.Client.SharedTests", "dotnet-client-shared-tests\LaunchDarkly.Client.SharedTests\LaunchDarkly.Client.SharedTests.csproj", "{1E4AC383-D6C7-4096-9D74-B10D059E84F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.ServerSdk.SharedTests", "dotnet-server-sdk-shared-tests\LaunchDarkly.ServerSdk.SharedTests\LaunchDarkly.ServerSdk.SharedTests.csproj", "{1E4AC383-D6C7-4096-9D74-B10D059E84F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

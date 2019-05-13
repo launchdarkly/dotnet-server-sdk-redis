@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.Client.SharedTests", "LaunchDarkly.Client.SharedTests\LaunchDarkly.Client.SharedTests.csproj", "{44904ADC-8CD1-414E-9184-9378CEB4B9CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.ServerSdk.SharedTests", "LaunchDarkly.ServerSdk.SharedTests\LaunchDarkly.ServerSdk.SharedTests.csproj", "{44904ADC-8CD1-414E-9184-9378CEB4B9CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.Client.SharedTests.Tests", "LaunchDarkly.Client.SharedTests.Tests\LaunchDarkly.Client.SharedTests.Tests.csproj", "{79BC10FD-FF08-40FD-B87D-E54549C1F71F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchDarkly.ServerSdk.SharedTests.Tests", "LaunchDarkly.ServerSdk.SharedTests.Tests\LaunchDarkly.ServerSdk.SharedTests.Tests.csproj", "{79BC10FD-FF08-40FD-B87D-E54549C1F71F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
