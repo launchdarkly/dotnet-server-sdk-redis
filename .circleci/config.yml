@@ -12,6 +12,6 @@ jobs:
     steps:
       - checkout
       - run: dotnet restore
-      - run: dotnet build src/LaunchDarkly.Client.Redis -f netstandard2.0
-      - run: dotnet build src/LaunchDarkly.Client.Redis.StrongName -f netstandard2.0
-      - run: dotnet test test/LaunchDarkly.Client.Redis.Tests -f netcoreapp2.0
+      - run: dotnet build src/LaunchDarkly.ServerSdk.Redis -f netstandard2.0
+      - run: dotnet build src/LaunchDarkly.ServerSdk.Redis.StrongName -f netstandard2.0
+      - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f netcoreapp2.0
