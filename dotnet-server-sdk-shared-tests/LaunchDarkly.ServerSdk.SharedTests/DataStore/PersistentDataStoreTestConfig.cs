@@ -7,9 +7,8 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
     /// <summary>
     /// Configuration for <see cref="PersistentDataStoreBaseTests{StoreT}"/>.
     /// </summary>
-    /// <typeparam name="StoreT">the store implementation type being tested; must implement
     /// either <c>IPersistentDataStore</c> or <c>IPersistentDataStoreAsync</c></typeparam>
-    public class PersistentDataStoreTestConfig<StoreT>
+    public sealed class PersistentDataStoreTestConfig
     {
         /// <summary>
         /// Set this to a function that takes a prefix string and returns a configured factory for
@@ -48,12 +47,13 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
         /// that support testing this; otherwise leave it null.
         /// </summary>
         /// <remarks>
-        /// The function should take two parameters: an instance of your store type, and a hook
+        /// The function should take two parameters: an instance of your store type (typed here as
+        /// <c>object</c> because the actual implementation type is unknown to the tests), and a hook
         /// which is a synchronous <c>Action</c>. Your function should modify the store instance
         /// so that it will call the hook synchronously during each <c>Upsert</c> operation --
         /// after the old value has been read, but before the new one has been written (if those
         /// operations are not done atomically).
         /// </remarks>
-        public Action<StoreT, Action> SetConcurrentModificationHookAction { get; set; }
+        public Action<object, Action> SetConcurrentModificationHookAction { get; set; }
     }
 }

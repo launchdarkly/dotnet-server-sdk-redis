@@ -11,8 +11,8 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
     {
         private readonly MockDatabase _database = new MockDatabase();
 
-        protected override PersistentDataStoreTestConfig<MockSyncStore> Configuration =>
-            new PersistentDataStoreTestConfig<MockSyncStore>
+        protected override PersistentDataStoreTestConfig Configuration =>
+            new PersistentDataStoreTestConfig
             {
                 StoreFactoryFunc = CreateStoreFactory,
                 ClearDataAction = ClearAllData,
