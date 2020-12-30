@@ -66,6 +66,10 @@ The `LaunchDarkly.ServerSdk.Redis.StrongName` assembly is also [strong-named](ht
 
 Building the code locally in the default Debug configuration does not sign the assembly and does not require a key file.
 
+## Contributing
+
+See [Contributing](./CONTRIBUTING.md).
+
 ## About LaunchDarkly
  
 * LaunchDarkly is a continuous delivery platform that provides feature flags as a service and allows developers to iterate quickly and safely. We allow you to easily flag your features and manage them from the LaunchDarkly dashboard.  With LaunchDarkly, you can:
