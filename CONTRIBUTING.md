@@ -54,4 +54,9 @@ Or, to run tests only for the .NET Standard 2.0 target (using the .NET Core 2.1 
 dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f netcoreapp2.1
 ```
 
-The tests expect you to have Redis running locally on the default port, 6379. One way to do this is with Docker: `docker run -p 6379:6379 redis`
+The tests expect you to have Redis running locally on the default port, 6379. One way to do this is with Docker:
+
+```bash
+docker run -p 6379:6379 redis
+```
+
