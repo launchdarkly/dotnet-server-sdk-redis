@@ -46,6 +46,20 @@ This assumes that you have already installed the LaunchDarkly .NET SDK.
 
 By default, the store will try to connect to a local Redis instance on port 6379.
 
+## How the SDK uses Redis
+
+The Redis integrations for all LaunchDarkly server-side SDKs use the same conventions, so that SDK instances and Relay Proxy instances sharing a single Redis store can interoperate correctly. The storage schema is as follows:
+
+* There is always a "prefix" string that provides a namespace for the overall data set. If you do not specify a prefix in your configuration, it is `launchdarkly`.
+
+* For each type of data that the SDK can store, there is a hash whose key is `PREFIX:TYPE`, where `PREFIX` is the configured prefix string and `TYPE` denotes the type of data. Currently, the types are `features` and `segments`, but this is subject to change in the future.
+
+* Within each hash, there is one field per data item; for instance, the hash `PREFIX:features` has one field per feature flag. The field name is the unique key of the item (such as the flag key for a feature flag) and the value is a serialized representation of that item, in a format that is determined by the SDK.
+
+* An additional key, `PREFIX:$inited`, is created with an arbitrary value when the SDK stores a full set of feature flag data. This allows a new SDK instance to check whether there is already a valid data set that was stored earlier.
+
+* The SDK will never add, modify, or remove any keys in Redis other than the ones described above, so it is safe to share a Redis instance that is also being used for other purposes.
+
 ## Caching behavior
 
 The LaunchDarkly SDK has a standard caching mechanism for any persistent data store, to reduce database traffic. This is configured through the SDK's `PersistentDataStoreBuilder` class as described the SDK documentation. For instance, to specify a cache TTL of 5 minutes:

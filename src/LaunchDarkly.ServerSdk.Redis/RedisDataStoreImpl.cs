@@ -8,6 +8,27 @@ using static LaunchDarkly.Sdk.Server.Interfaces.DataStoreTypes;
 
 namespace LaunchDarkly.Sdk.Server.Integrations
 {
+    /// <summary>
+    /// Internal implementation of the Redis data store.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Implementation notes:
+    /// </para>
+    /// <list type="bullet">
+    /// <item> Feature flags, segments, and any other kind of entity the LaunchDarkly client may wish
+    /// to store, are stored as hash values with the main key "{prefix}:features", "{prefix}:segments",
+    /// etc.</item>
+    /// <item> Redis only allows a single string value per hash key, so there is no way to store the
+    /// item metadata (version number and deletion status) separately from the value. The SDK understands
+    /// that some data store implementations don't have that capability, so it will always pass us a
+    /// serialized item string that contains the metadata in it, and we're allowed to return 0 as the
+    /// version number of a queried item to indicate "you have to deserialize the item to find out the
+    /// metadata".
+    /// </item>
+    /// <item> The special key "{prefix}:$inited" indicates that the store contains a complete data set.</item>
+    /// </list>
+    /// </remarks>
     internal sealed class RedisDataStoreImpl : IPersistentDataStore
     {
         private readonly ConnectionMultiplexer _redis;
@@ -25,17 +46,14 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         {
             _log = log;
             var redisConfigCopy = redisConfig.Clone();
-            _log.Info("Creating Redis feature store using Redis server(s) at [{0}]",
+            _log.Info("Creating Redis data store using Redis server(s) at [{0}]",
                 string.Join(", ", redisConfig.EndPoints));
             _redis = ConnectionMultiplexer.Connect(redisConfigCopy);
             _prefix = prefix;
         }
         
-        public bool Initialized()
-        {
-            IDatabase db = _redis.GetDatabase();
-            return db.KeyExists(_prefix);
-        }
+        public bool Initialized() =>
+            _redis.GetDatabase().KeyExists(_prefix);
 
         public void Init(FullDataSet<SerializedItemDescriptor> allData)
         {
@@ -66,7 +84,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
                 _log.Debug("[get] Key: {0} not found in \"{1}\"", key, kind.Name);
                 return null;
             }
-            return new SerializedItemDescriptor(0, false, json);
+            return new SerializedItemDescriptor(0, false, json); // see implementation notes
         }
 
         public KeyedItems<SerializedItemDescriptor> GetAll(DataKind kind)
@@ -77,7 +95,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
             foreach (HashEntry entry in allEntries)
             {
                 result.Add(new KeyValuePair<string, SerializedItemDescriptor>(entry.Name,
-                    new SerializedItemDescriptor(0, false, entry.Value)));
+                    new SerializedItemDescriptor(0, false, entry.Value))); // see implementation notes
             }
             return new KeyedItems<SerializedItemDescriptor>(result);
         }
@@ -98,6 +116,8 @@ namespace LaunchDarkly.Sdk.Server.Integrations
                     _log.Error("Timeout in update when reading {0} from {1}: {2}", key, baseKey, e.ToString());
                     throw;
                 }
+                // Here, unfortunately, we have to deserialize the old item (if any) just to find
+                // out its version number (see implementation notes).
                 var oldVersion = (oldData is null) ? 0 : kind.Deserialize(oldData).Version;
                 if (oldVersion >= newItem.Version)
                 {
@@ -170,7 +190,6 @@ namespace LaunchDarkly.Sdk.Server.Integrations
             }
         }
         
-        private string ItemsKey(DataKind kind) =>
-            _prefix + ":" + kind.Name;
+        private string ItemsKey(DataKind kind) => _prefix + ":" + kind.Name;
     }
 }
