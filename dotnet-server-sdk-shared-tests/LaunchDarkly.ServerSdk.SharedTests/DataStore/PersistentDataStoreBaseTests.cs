@@ -34,8 +34,14 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
     /// your implementation type.
     /// </para>
     /// </remarks>
-    public abstract class PersistentDataStoreBaseTests<StoreT> where StoreT : IDisposable
+    public abstract class PersistentDataStoreBaseTests
     {
+        // Note that we don't reference the actual type of the store object within this test code;
+        // it can't be provided as a generic type parameter because it is likely to be internal or
+        // private, and you can't derive a public test class from a class that has a non-public
+        // type parameter. And, it could either be an IPersistentDataStore or an IPersistentDataStoreAsync.
+        // So we refer to it as the only lowest common denominator we know: IDisposable.
+
         /// <summary>
         /// Override this method to create the configuration for the test suite.
         /// </summary>
@@ -422,7 +428,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             }
         }
 
-        private Action MakeConcurrentModifier(StoreT store, string key, params int[] versionsToWrite)
+        private Action MakeConcurrentModifier(IDisposable store, string key, params int[] versionsToWrite)
         {
             var i = 0;
             return () =>
@@ -436,30 +442,22 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             };
         }
 
-        private StoreT CreateStoreImpl(string prefix = null)
+        private IDisposable CreateStoreImpl(string prefix = null)
         {
             var context = new LdClientContext(new BasicConfiguration("sdk-key", false, Logs.None.Logger("")),
                 LaunchDarkly.Sdk.Server.Configuration.Default("sdk-key"));
             if (Configuration.StoreFactoryFunc != null)
             {
-                if (!typeof(IPersistentDataStore).IsAssignableFrom(typeof(StoreT)))
-                {
-                    throw new InvalidOperationException("StoreFactoryFunc was set, but store type does not implement IPersistentDataStore");
-                }
-                return (StoreT)Configuration.StoreFactoryFunc(prefix).CreatePersistentDataStore(context);
+                return Configuration.StoreFactoryFunc(prefix).CreatePersistentDataStore(context);
             }
             if (Configuration.StoreAsyncFactoryFunc != null)
             {
-                if (!typeof(IPersistentDataStoreAsync).IsAssignableFrom(typeof(StoreT)))
-                {
-                    throw new InvalidOperationException("StoreAsyncFactoryFunc was set, but store type does not implement IPersistentDataStoreAsync");
-                }
-                return (StoreT)Configuration.StoreAsyncFactoryFunc(prefix).CreatePersistentDataStore(context);
+                return Configuration.StoreAsyncFactoryFunc(prefix).CreatePersistentDataStore(context);
             }
             throw new InvalidOperationException("neither StoreFactoryFunc nor StoreAsyncFactoryFunc was set");
         }
 
-        private StoreT CreateStoreImplWithUpdateHook(Action hook)
+        private IDisposable CreateStoreImplWithUpdateHook(Action hook)
         {
             var store = CreateStoreImpl();
             Configuration.SetConcurrentModificationHookAction(store, hook);
@@ -475,7 +473,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             return Configuration.ClearDataAction(prefix);
         }
 
-        private static async Task<bool> Initialized(StoreT store)
+        private static async Task<bool> Initialized(IDisposable store)
         {
             if (store is IPersistentDataStore syncStore)
             {
@@ -484,7 +482,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             return await (store as IPersistentDataStoreAsync).InitializedAsync();
         }
 
-        private static async Task Init(StoreT store, FullDataSet<SerializedItemDescriptor> allData)
+        private static async Task Init(IDisposable store, FullDataSet<SerializedItemDescriptor> allData)
         {
             if (store is IPersistentDataStore syncStore)
             {
@@ -496,7 +494,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             }
         }
 
-        private static async Task<SerializedItemDescriptor?> Get(StoreT store, DataKind kind, string key)
+        private static async Task<SerializedItemDescriptor?> Get(IDisposable store, DataKind kind, string key)
         {
             if (store is IPersistentDataStore syncStore)
             {
@@ -505,7 +503,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             return await (store as IPersistentDataStoreAsync).GetAsync(kind, key);
         }
 
-        private static async Task<KeyedItems<SerializedItemDescriptor>> GetAll(StoreT store, DataKind kind)
+        private static async Task<KeyedItems<SerializedItemDescriptor>> GetAll(IDisposable store, DataKind kind)
         {
             if (store is IPersistentDataStore syncStore)
             {
@@ -514,7 +512,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             return await (store as IPersistentDataStoreAsync).GetAllAsync(kind);
         }
 
-        private static async Task<bool> Upsert(StoreT store, DataKind kind, string key, SerializedItemDescriptor item)
+        private static async Task<bool> Upsert(IDisposable store, DataKind kind, string key, SerializedItemDescriptor item)
         {
             if (store is IPersistentDataStore syncStore)
             {

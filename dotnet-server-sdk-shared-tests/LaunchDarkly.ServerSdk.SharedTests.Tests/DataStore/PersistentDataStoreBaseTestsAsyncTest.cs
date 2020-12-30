@@ -7,7 +7,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
     // This runs PersistentDataStoreBaseTests against a mock store implementation that is known to
     // behave as expected, to verify that the test suite logic has the correct expectations.
 
-    public class PersistentDataStoreBaseTestsAsyncTest : PersistentDataStoreBaseTests<MockAsyncStore>
+    public class PersistentDataStoreBaseTestsAsyncTest : PersistentDataStoreBaseTests
     {
         private readonly MockDatabase _database = new MockDatabase();
 
