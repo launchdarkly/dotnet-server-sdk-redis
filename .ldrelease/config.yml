@@ -9,8 +9,9 @@ circleci:
 
 template:
   name: dotnet-windows
+  skip:
+    - test
   env:
-    LD_RELEASE_TEST_TARGET_FRAMEWORK: netcoreapp2.1
     LD_RELEASE_DOCS_TARGET_FRAMEWORK: netstandard2.0
 
 documentation:
