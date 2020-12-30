@@ -39,7 +39,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
         /// <summary>
         /// Override this method to create the configuration for the test suite.
         /// </summary>
-        protected abstract PersistentDataStoreTestConfig<StoreT> Configuration { get; }
+        protected abstract PersistentDataStoreTestConfig Configuration { get; }
 
         private readonly TestEntity item1 = new TestEntity("first", 5, "value1");
         private readonly TestEntity item2 = new TestEntity("second", 5, "value2");
