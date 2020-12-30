@@ -51,7 +51,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// Specifies all Redis configuration options at once.
         /// </summary>
         /// <param name="config">a <see cref="ConfigurationOptions"/> instance</param>
-        /// <returns>the same builder instance</returns>
+        /// <returns>the builder</returns>
         public RedisDataStoreBuilder RedisConfiguration(ConfigurationOptions config)
         {
             _redisConfig = config.Clone();
@@ -63,7 +63,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// </summary>
         /// <param name="host">hostname of the Redis server</param>
         /// <param name="port">port of the Redis server</param>
-        /// <returns>the same builder instance</returns>
+        /// <returns>the builder</returns>
         public RedisDataStoreBuilder HostAndPort(string host, int port) =>
             EndPoint(new DnsEndPoint(host, port));
 
@@ -71,16 +71,25 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// Specifies a single Redis server as an EndPoint.
         /// </summary>
         /// <param name="endPoint">location of the Redis server</param>
-        /// <returns>the same builder instance</returns>
+        /// <returns>the builder</returns>
         public RedisDataStoreBuilder EndPoint(EndPoint endPoint) =>
             EndPoints(new List<EndPoint> { endPoint });
+
+        /// <summary>
+        /// Shortcut for calling <see cref="Uri(System.Uri)"/> with a string.
+        /// </summary>
+        /// <param name="uri">the Redis server URI as a string</param>
+        /// <returns>the builder</returns>
+        /// <seealso cref="Uri(System.Uri)"/>
+        public RedisDataStoreBuilder Uri(string uri) => Uri(new Uri(uri));
 
         /// <summary>
         /// Specifies a Redis server - and, optionally, other properties including
         /// credentials and database number - using a URI.
         /// </summary>
         /// <param name="uri">the Redis server URI</param>
-        /// <returns>the same builder instance</returns>
+        /// <returns>the builder</returns>
+        /// <seealso cref="Uri(string)"/>
         public RedisDataStoreBuilder Uri(Uri uri)
         {
             if (uri.Scheme.ToLower() != "redis")
@@ -118,7 +127,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// Specifies multiple Redis servers as a list of EndPoints.
         /// </summary>
         /// <param name="endPoints">locations of the Redis servers</param>
-        /// <returns>the same builder instance</returns>
+        /// <returns>the builder</returns>
         public RedisDataStoreBuilder EndPoints(IList<EndPoint> endPoints)
         {
             _redisConfig.EndPoints.Clear();
@@ -133,7 +142,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// Specifies which database to use within the Redis server. The default is 0.
         /// </summary>
         /// <param name="database">index of the database to use</param>
-        /// <returns>the same builder instance</returns>
+        /// <returns>the builder</returns>
         public RedisDataStoreBuilder DatabaseIndex(int database)
         {
             _redisConfig.DefaultDatabase = database;
@@ -144,7 +153,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// Specifies the maximum time to wait for a connection to the Redis server.
         /// </summary>
         /// <param name="timeout">the timeout interval</param>
-        /// <returns>the same builder instance</returns>
+        /// <returns>the builder</returns>
         public RedisDataStoreBuilder ConnectTimeout(TimeSpan timeout)
         {
             _redisConfig.ConnectTimeout = (int)timeout.TotalMilliseconds;
@@ -155,7 +164,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// Specifies the maximum time to wait for data on the Redis connection.
         /// </summary>
         /// <param name="timeout">the timeout interval</param>
-        /// <returns>the same builder instance</returns>
+        /// <returns>the builder</returns>
         /// <seealso cref="OperationTimeout(TimeSpan)"/>
         public RedisDataStoreBuilder ResponseTimeout(TimeSpan timeout)
         {
@@ -170,7 +179,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// flag - you may want to increase this setting.
         /// </summary>
         /// <param name="timeout">the timeout interval</param>
-        /// <returns>the same builder instance</returns>
+        /// <returns>the builder</returns>
         /// <seealso cref="ResponseTimeout(TimeSpan)"/>
         public RedisDataStoreBuilder OperationTimeout(TimeSpan timeout)
         {
@@ -181,11 +190,11 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// <summary>
         /// Specifies the namespace prefix for all keys stored in Redis.
         /// </summary>
-        /// <param name="prefix">the namespace prefix</param>
-        /// <returns>the same builder instance</returns>
+        /// <param name="prefix">the namespace prefix, or null to use <see cref="Redis.DefaultPrefix"/></param>
+        /// <returns>the builder</returns>
         public RedisDataStoreBuilder Prefix(string prefix)
         {
-            _prefix = prefix ?? Redis.DefaultPrefix;
+            _prefix = string.IsNullOrEmpty(prefix) ? Redis.DefaultPrefix : prefix;
             return this;
         }
 
