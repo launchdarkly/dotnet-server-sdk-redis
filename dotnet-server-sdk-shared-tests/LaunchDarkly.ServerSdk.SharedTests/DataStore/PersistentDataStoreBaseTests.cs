@@ -318,18 +318,31 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             {
                 return;
             }
+
             var key = "key";
-            var item1 = new TestEntity(key, 1, "value1");
+            int startVersion = 1, store2VersionStart = 2, store2VersionEnd = 4, store1VersionEnd = 10;
+            var startItem = new TestEntity(key, startVersion, "value1");
+
             using (var store2 = CreateStoreImpl())
             {
-                var action = MakeConcurrentModifier(store2, key, 2, 3, 4);
-                var store1 = CreateStoreImplWithUpdateHook(action);
-                await Init(store1, new DataBuilder().Add(TestEntity.Kind, item1).BuildSerialized());
+                int versionCounter = store2VersionStart;
+                Action concurrentModifier = () =>
+                {
+                    if (versionCounter <= store2VersionEnd)
+                    {
+                        AsyncUtils.WaitSafely(() => Upsert(store2, TestEntity.Kind, key,
+                            startItem.WithVersion(versionCounter).WithValue("value" + versionCounter).SerializedItemDescriptor));
+                        versionCounter++;
+                    }
+                };
 
-                var item10 = item1.WithVersion(10);
-                await Upsert(store1, TestEntity.Kind, item1.Key, item10.SerializedItemDescriptor);
+                var store1 = CreateStoreImplWithUpdateHook(concurrentModifier);
+                await Init(store1, new DataBuilder().Add(TestEntity.Kind, startItem).BuildSerialized());
 
-                AssertEqualsSerializedItem(item10, await Get(store1, TestEntity.Kind, key));
+                var endItem = startItem.WithVersion(store1VersionEnd).WithValue("value" + store1VersionEnd);
+                await Upsert(store1, TestEntity.Kind, key, endItem.SerializedItemDescriptor);
+
+                AssertEqualsSerializedItem(endItem, await Get(store1, TestEntity.Kind, key));
             }
         }
         
@@ -340,19 +353,27 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             {
                 return;
             }
+
             var key = "key";
-            var item1 = new TestEntity(key, 1, "value1");
+            int startVersion = 1, higherVersion = 3, attemptedVersion = 2;
+            var startItem = new TestEntity(key, startVersion, "value1");
+            var higherItem = startItem.WithVersion(higherVersion).WithValue("value" + higherVersion);
+
             using (var store2 = CreateStoreImpl())
             {
-                var action = MakeConcurrentModifier(store2, key, 3, 4, 5);
-                var store1 = CreateStoreImplWithUpdateHook(action);
-                await Init(store1, new DataBuilder().Add(TestEntity.Kind, item1).BuildSerialized());
+                Action concurrentModifier = () =>
+                {
+                    AsyncUtils.WaitSafely(() => Upsert(store2, TestEntity.Kind, key,
+                        higherItem.SerializedItemDescriptor));
+                };
 
-                var item2 = item1.WithVersion(2);
-                await Upsert(store1, TestEntity.Kind, item1.Key, item2.SerializedItemDescriptor);
+                var store1 = CreateStoreImplWithUpdateHook(concurrentModifier);
+                await Init(store1, new DataBuilder().Add(TestEntity.Kind, startItem).BuildSerialized());
 
-                var item5 = item1.WithVersion(5);
-                AssertEqualsSerializedItem(item5, await Get(store1, TestEntity.Kind, key));
+                var attemptedItem = startItem.WithVersion(attemptedVersion);
+                await Upsert(store1, TestEntity.Kind, key, attemptedItem.SerializedItemDescriptor);
+
+                AssertEqualsSerializedItem(higherItem, await Get(store1, TestEntity.Kind, key));
             }
         }
 
@@ -426,20 +447,6 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
                 var detail = client.JsonVariationDetail(FlagTestData.FlagKey, FlagTestData.MainUser, LdValue.Null);
                 Assert.Equal(EvaluationReason.ErrorReason(EvaluationErrorKind.FLAG_NOT_FOUND), detail.Reason);
             }
-        }
-
-        private Action MakeConcurrentModifier(IDisposable store, string key, params int[] versionsToWrite)
-        {
-            var i = 0;
-            return () =>
-            {
-                if (i < versionsToWrite.Length)
-                {
-                    var e = new TestEntity(key, versionsToWrite[i], "value" + versionsToWrite[i]);
-                    AsyncUtils.WaitSafely(() => Upsert(store, TestEntity.Kind, key, e.SerializedItemDescriptor));
-                    i++;
-                }
-            };
         }
 
         private IDisposable CreateStoreImpl(string prefix = null)
