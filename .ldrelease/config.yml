@@ -1,0 +1,18 @@
+
+publications:
+  - url: https://nuget.org/packages/LaunchDarkly.ServerSdk.Redis
+    description: NuGet
+
+circleci:
+  windows:
+    context: org-global
+
+template:
+  name: dotnet-windows
+  env:
+    LD_RELEASE_TEST_TARGET_FRAMEWORK: netcoreapp2.1
+    LD_RELEASE_DOCS_TARGET_FRAMEWORK: netstandard2.0
+
+documentation:
+  title: LaunchDarkly Server-Side .NET SDK Redis Integration
+  githubPages: true
