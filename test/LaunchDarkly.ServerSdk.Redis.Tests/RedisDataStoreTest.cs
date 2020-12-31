@@ -44,7 +44,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         public void LogMessageAtStartup()
         {
             var logCapture = Logs.Capture();
-            var logger = logCapture.Logger("BaseLoggerName"); // the SDK will set this to its own standard log name
+            var logger = logCapture.Logger("BaseLoggerName"); // in real life, the SDK will provide its own base log name
             var context = new LdClientContext(new BasicConfiguration("", false, logger),
                 LaunchDarkly.Sdk.Server.Configuration.Default(""));
             using (Redis.DataStore().Prefix("my-prefix").CreatePersistentDataStore(context))
@@ -53,7 +53,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
                     m =>
                     {
                         Assert.Equal(LogLevel.Info, m.Level);
-                        Assert.Equal("BaseLoggerName.Redis", m.LoggerName);
+                        Assert.Equal("BaseLoggerName.DataStore.Redis", m.LoggerName);
                         Assert.Equal("Using Redis data store at localhost:6379 with prefix \"my-prefix\"",
                             m.Text);
                     });
