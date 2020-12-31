@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using LaunchDarkly.Logging;
 using LaunchDarkly.Sdk.Server.Interfaces;
 using StackExchange.Redis;
@@ -46,12 +48,12 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         {
             _log = log;
             var redisConfigCopy = redisConfig.Clone();
-            _log.Info("Creating Redis data store using Redis server(s) at [{0}]",
-                string.Join(", ", redisConfig.EndPoints));
             _redis = ConnectionMultiplexer.Connect(redisConfigCopy);
             _prefix = prefix;
+            _log.Info("Using Redis data store at {0} with prefix \"{1}\"",
+                string.Join(", ", redisConfig.EndPoints.Select(DescribeEndPoint)), prefix);
         }
-        
+
         public bool Initialized() =>
             _redis.GetDatabase().KeyExists(_prefix);
 
@@ -191,5 +193,14 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         }
         
         private string ItemsKey(DataKind kind) => _prefix + ":" + kind.Name;
+
+        private string DescribeEndPoint(EndPoint e)
+        {
+            // The default ToString() method of DnsEndPoint adds a prefix of "Unspecified", which looks
+            // confusing in our log messages.
+            return (e is DnsEndPoint de) ?
+                string.Format("{0}:{1}", de.Host, de.Port) :
+                e.ToString();
+        }
     }
 }
