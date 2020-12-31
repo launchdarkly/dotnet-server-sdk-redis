@@ -221,6 +221,6 @@ namespace LaunchDarkly.Sdk.Server.Integrations
 
         /// <inheritdoc/>
         public IPersistentDataStore CreatePersistentDataStore(LdClientContext context) =>
-            new RedisDataStoreImpl(_redisConfig, _prefix, context.Basic.Logger);
+            new RedisDataStoreImpl(_redisConfig, _prefix, context.Basic.Logger.SubLogger("Redis"));
     }
 }

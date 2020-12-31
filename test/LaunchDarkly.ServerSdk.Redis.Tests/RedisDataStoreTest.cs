@@ -1,8 +1,10 @@
 using System;
 using System.Threading.Tasks;
+using LaunchDarkly.Logging;
 using LaunchDarkly.Sdk.Server.Interfaces;
 using LaunchDarkly.Sdk.Server.SharedTests.DataStore;
 using StackExchange.Redis;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace LaunchDarkly.Sdk.Server.Integrations
@@ -36,6 +38,26 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         private void SetUpdateHook(object store, Action hook)
         {
             (store as RedisDataStoreImpl)._updateHook = hook;
+        }
+
+        [Fact]
+        public void LogMessageAtStartup()
+        {
+            var logCapture = Logs.Capture();
+            var logger = logCapture.Logger("BaseLoggerName"); // the SDK will set this to its own standard log name
+            var context = new LdClientContext(new BasicConfiguration("", false, logger),
+                LaunchDarkly.Sdk.Server.Configuration.Default(""));
+            using (Redis.DataStore().CreatePersistentDataStore(context))
+            {
+                Assert.Collection(logCapture.GetMessages(),
+                    m =>
+                    {
+                        Assert.Equal(LogLevel.Info, m.Level);
+                        Assert.Equal("BaseLoggerName.Redis", m.LoggerName);
+                        Assert.Contains("Creating Redis data store", m.Text);
+                        Assert.Contains("localhost:6379", m.Text);
+                    });
+            }
         }
     }
 }
