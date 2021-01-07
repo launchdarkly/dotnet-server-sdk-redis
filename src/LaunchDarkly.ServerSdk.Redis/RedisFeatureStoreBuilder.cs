@@ -9,6 +9,7 @@ namespace LaunchDarkly.Client.Redis
     /// <summary>
     /// Obsolete builder for a the Redis data store.
     /// </summary>
+    /// <remarks>
     /// <para>
     /// This class is retained in version 1.2 of the library for backward compatibility. For the new
     /// preferred way to configure the Redis integration, see <see cref="LaunchDarkly.Client.Integrations.Redis"/>.

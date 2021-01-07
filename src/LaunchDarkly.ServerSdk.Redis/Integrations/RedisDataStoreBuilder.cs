@@ -16,8 +16,8 @@ namespace LaunchDarkly.Client.Integrations
     /// Obtain an instance of this class by calling <see cref="Redis.DataStore"/>. After calling its methods
     /// to specify any desired custom settings, wrap it in a <see cref="PersistentDataStoreBuilder"/>
     /// by calling <see cref="Components.PersistentDataStore(IPersistentDataStoreFactory)"/>, then pass
-    /// the result into the SDK configuration with <see cref="ConfigurationBuilder.DataStore(IDataStoreFactory)"/>.
-    /// You do not need to call <see cref="CreatePersistentDataStore(LdClientContext)"/> yourself to build
+    /// the result into the SDK configuration with <see cref="IConfigurationBuilder.DataStore(IFeatureStoreFactory)"/>.
+    /// You do not need to call <see cref="CreatePersistentDataStore()"/> yourself to build
     /// the actual data store; that will be done by the SDK.
     /// </para>
     /// <para>
@@ -222,6 +222,6 @@ namespace LaunchDarkly.Client.Integrations
 
         /// <inheritdoc/>
         public IFeatureStoreCore CreatePersistentDataStore() =>
-            new LaunchDarkly.Client.Redis.RedisFeatureStoreCore(_redisConfig, _prefix, null)
+            new LaunchDarkly.Client.Redis.RedisFeatureStoreCore(_redisConfig, _prefix, null);
     }
 }

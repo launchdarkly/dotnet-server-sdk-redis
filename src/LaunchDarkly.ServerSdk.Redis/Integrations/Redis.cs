@@ -40,7 +40,7 @@ namespace LaunchDarkly.Client.Integrations
         /// <remarks>
         /// This object can be modified with <see cref="RedisDataStoreBuilder"/> methods for any desired
         /// custom Redis options. Then, pass it to <see cref="Components.PersistentDataStore(IPersistentDataStoreFactory)"/>
-        /// and set any desired caching options. Finally, pass the result to <see cref="ConfigurationBuilder.DataStore(IDataStoreFactory)"/>.
+        /// and set any desired caching options. Finally, pass the result to <see cref="IConfigurationBuilder.DataStore(IFeatureStoreFactory)"/>.
         /// </remarks>
         /// <example>
         /// <code>
