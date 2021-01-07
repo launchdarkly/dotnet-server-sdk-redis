@@ -7,7 +7,7 @@ using StackExchange.Redis;
 namespace LaunchDarkly.Client.Redis
 {
     /// <summary>
-    /// Obsolete builder for a the Redis data store.
+    /// Obsolete builder for the Redis data store.
     /// </summary>
     /// <remarks>
     /// <para>
