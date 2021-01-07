@@ -7,11 +7,16 @@ using StackExchange.Redis;
 namespace LaunchDarkly.Client.Redis
 {
     /// <summary>
-    /// Builder for a Redis-based implementation of <see cref="IFeatureStore"/>.
-    /// Create an instance of the builder by calling <see cref="RedisComponents.RedisFeatureStore"/>;
-    /// configure it using the setter methods; then pass the builder to
-    /// <see cref="ConfigurationExtensions.WithFeatureStore(Configuration, IFeatureStore)"/>.
+    /// Obsolete builder for a the Redis data store.
     /// </summary>
+    /// <para>
+    /// This class is retained in version 1.2 of the library for backward compatibility. For the new
+    /// preferred way to configure the Redis integration, see <see cref="LaunchDarkly.Client.Integrations.Redis"/>.
+    /// Updating to the latter now will make it easier to adopt version 6.0 of the LaunchDarkly .NET SDK, since
+    /// an identical API is used there (except for the base namespace).
+    /// </para>
+    /// </remarks>
+    [Obsolete("Use LaunchDarkly.Client.Integrations.Redis")]
     public sealed class RedisFeatureStoreBuilder : IFeatureStoreFactory
     {
         internal ConfigurationOptions RedisConfig { get; private set; } = new ConfigurationOptions();
@@ -42,7 +47,7 @@ namespace LaunchDarkly.Client.Redis
         /// <returns>the feature store</returns>
         public IFeatureStore CreateFeatureStore()
         {
-            var core = new RedisFeatureStoreCore(this);
+            var core = new RedisFeatureStoreCore(RedisConfig, Prefix, UpdateHook);
             return CachingStoreWrapper.Builder(core).WithCaching(Caching).Build();
         }
         

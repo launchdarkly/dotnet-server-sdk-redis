@@ -4,9 +4,17 @@ using System.Net;
 namespace LaunchDarkly.Client.Redis
 {
     /// <summary>
-    /// Contains the factory method for building a Redis implementation of <see cref="IFeatureStore"/>,
-    /// as well as default values for the store's properties.
+    /// Obsolete entry point for the Redis integration.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This class is retained in version 1.2 of the library for backward compatibility. For the new
+    /// preferred way to configure the Redis integration, see <see cref="LaunchDarkly.Client.Integrations.Redis"/>.
+    /// Updating to the latter now will make it easier to adopt version 6.0 of the LaunchDarkly .NET SDK, since
+    /// an identical API is used there (except for the base namespace).
+    /// </para>
+    /// </remarks>
+    [Obsolete("Use LaunchDarkly.Client.Integrations.Redis")]
     public abstract class RedisComponents
     {
         /// <summary>
