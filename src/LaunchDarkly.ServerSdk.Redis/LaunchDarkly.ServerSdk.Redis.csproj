@@ -1,20 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>1.1.1</Version>
-    <TargetFrameworks>netstandard1.6;netstandard2.0;net45</TargetFrameworks>
+    <Version>2.0.0</Version>
+    <TargetFrameworks>net461;net472;net48;netcoreapp2.0;netcoreapp2.1;netcoreapp3.0;netcoreapp3.1;netstandard2.1;netstandard2.0;</TargetFrameworks>
     <PackageLicenseUrl>https://raw.githubusercontent.com/launchdarkly/dotnet-server-sdk-redis/master/LICENSE</PackageLicenseUrl>
     <AssemblyName>LaunchDarkly.ServerSdk.Redis</AssemblyName>
     <OutputType>Library</OutputType>
     <PackageId>LaunchDarkly.ServerSdk.Redis</PackageId>
     <Company>LaunchDarkly</Company>
     <Description>LaunchDarkly Server-Side .NET SDK Redis Integration</Description>
-    <Copyright>Copyright 2018 LaunchDarkly</Copyright>
+    <Copyright>Copyright 2021 LaunchDarkly</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="LaunchDarkly.ServerSdk" Version="5.6.4" />
-    <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.513" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
