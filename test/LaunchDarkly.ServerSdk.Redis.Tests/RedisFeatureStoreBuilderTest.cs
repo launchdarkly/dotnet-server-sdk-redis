@@ -94,13 +94,5 @@ namespace LaunchDarkly.Client.Redis.Tests
             builder.WithConnectTimeout(TimeSpan.FromSeconds(8));
             Assert.Equal(8000, builder.RedisConfig.ConnectTimeout);
         }
-
-        [Fact]
-        public void CanSetResponseTimeout()
-        {
-            RedisFeatureStoreBuilder builder = new RedisFeatureStoreBuilder();
-            builder.WithResponseTimeout(TimeSpan.FromSeconds(8));
-            Assert.Equal(8000, builder.RedisConfig.ResponseTimeout);
-        }
     }
 }
