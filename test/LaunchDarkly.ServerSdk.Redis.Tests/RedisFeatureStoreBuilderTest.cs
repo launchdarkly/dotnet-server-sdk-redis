@@ -5,6 +5,7 @@ using Xunit;
 
 namespace LaunchDarkly.Client.Redis.Tests
 {
+#pragma warning disable 0618
     public class RedisFeatureStoreBuilderTest
     {
         [Fact]
@@ -103,4 +104,5 @@ namespace LaunchDarkly.Client.Redis.Tests
             Assert.Equal(8000, builder.RedisConfig.ResponseTimeout);
         }
     }
+#pragma warning restore 0618
 }
