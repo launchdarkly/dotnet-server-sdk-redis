@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>1.1.1</Version>
+    <Version>1.2.0-alpha.1</Version>
     <TargetFrameworks>netstandard1.6;netstandard2.0;net45</TargetFrameworks>
     <PackageLicenseUrl>https://raw.githubusercontent.com/launchdarkly/dotnet-server-sdk-redis/master/LICENSE</PackageLicenseUrl>
     <AssemblyName>LaunchDarkly.ServerSdk.Redis.StrongName</AssemblyName>
@@ -13,12 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LaunchDarkly.ServerSdk" Version="5.6.4" />
+    <PackageReference Include="LaunchDarkly.ServerSdk" Version="5.14.0-alpha.1" />
     <PackageReference Include="StackExchange.Redis.StrongName" Version="1.2.6" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include="..\LaunchDarkly.ServerSdk.Redis\*.cs" Exclude="..\LaunchDarkly.ServerSdk.Redis\AssemblyInfo.cs" />
+    <Compile Include="..\LaunchDarkly.ServerSdk.Redis\Integrations\*.cs" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

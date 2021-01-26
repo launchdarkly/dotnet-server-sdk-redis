@@ -8,14 +8,20 @@ namespace LaunchDarkly.Client.Redis.Tests
     {
         override protected IFeatureStore CreateStoreImpl(FeatureStoreCacheConfig caching)
         {
-            return RedisFeatureStoreBuilder.Default().WithCaching(caching).
-                CreateFeatureStore();
+            return Components.PersistentDataStore(
+                    Integrations.Redis.DataStore()
+                )
+                .CacheTime(caching.Ttl)
+                .CreateFeatureStore();
         }
 
         override protected IFeatureStore CreateStoreImplWithPrefix(string prefix)
         {
-            return RedisFeatureStoreBuilder.Default().WithPrefix(prefix)
-                .WithCaching(FeatureStoreCacheConfig.Disabled).CreateFeatureStore();
+            return Components.PersistentDataStore(
+                    Integrations.Redis.DataStore().Prefix(prefix)
+                )
+                .NoCaching()
+                .CreateFeatureStore();
         }
 
         protected override IFeatureStore CreateStoreImplWithUpdateHook(Action hook)

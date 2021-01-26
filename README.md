@@ -2,9 +2,9 @@
 
 [![CircleCI](https://circleci.com/gh/launchdarkly/dotnet-server-sdk-redis.svg?style=svg)](https://circleci.com/gh/launchdarkly/dotnet-server-sdk-redis)
 
-This library provides a Redis-backed persistence mechanism (feature store) for the [LaunchDarkly .NET SDK](https://github.com/launchdarkly/dotnet-server-sdk), replacing the default in-memory feature store. The underlying Redis client implementation is [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis).
+This library provides a Redis-backed persistence mechanism (data store) for the [LaunchDarkly .NET SDK](https://github.com/launchdarkly/dotnet-server-sdk), replacing the default in-memory data store. The underlying Redis client implementation is [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis).
 
-The minimum version of the LaunchDarkly .NET SDK for use with this library is 5.6.1.
+The minimum version of the LaunchDarkly .NET SDK for use with the current version of this library is 5.14.0. For earlier versions of the SDK, use version 1.1.x of this library.
 
 For more information, see also: [Using a persistent feature store](https://docs.launchdarkly.com/v2.0/docs/using-a-persistent-feature-store).
 
@@ -24,42 +24,36 @@ This version of the library is compatible with .NET Framework version 4.5 and ab
 
 2. Import the package (note that the namespace is different from the package name):
 
-        using LaunchDarkly.Client.Redis;
+        using LaunchDarkly.Client.Integrations;
 
-3. When configuring your `LDClient`, add the Redis feature store:
+3. When configuring your `LDClient`, add the Redis data store as a `PersistentDataStore`. You may specify any custom Redis options using the methods of `RedisDataStoreBuilder`. For instance, to customize the Redis URI:
 
-        Configuration ldConfig = Configuration.Default("YOUR_SDK_KEY")
-            .WithFeatureStoreFactory(RedisComponents.RedisFeatureStore());
-        LdClient ldClient = new LdClient(ldConfig);
+```csharp
+        var ldConfig = Configuration.Default("YOUR_SDK_KEY")
+            .DataStore(
+                Components.PersistentDataStore(
+                    Redis.DataStore().Uri("redis://my-redis-host")
+                )
+            )
+            .Build();
+        var ldClient = new LdClient(ldConfig);
+```
 
-4. Optionally, you can change the Redis configuration by calling methods on the builder returned by `RedisFeatureStore()`:
-
-        Configuration ldConfig = Configuration.Default("YOUR_SDK_KEY")
-            .WithFeatureStoreFactory(
-                RedisComponents.RedisFeatureStore()
-                    .WithRedisHostAndPort("my-redis-host", 6379)
-                    .WithConnectTimeout(TimeSpan.FromSeconds(3))
-            );
-        LdClient ldClient = new LdClient(ldConfig);
-
-5. If you are running a [LaunchDarkly Relay Proxy](https://github.com/launchdarkly/ld-relay) instance, you can use it in [daemon mode](https://github.com/launchdarkly/ld-relay#daemon-mode), so that the SDK retrieves flag data only from Redis and does not communicate directly with LaunchDarkly. This is controlled by the SDK's `UseLdd` option:
-
-        Configuration ldConfig = Configuration.Default("YOUR_SDK_KEY")
-            .WithFeatureStoreFactory(RedisComponents.RedisFeatureStore())
-            .WithUseLdd(true);
-        LdClient ldClient = new LdClient(ldConfig);
+By default, the store will try to connect to a local Redis instance on port 6379.
 
 ## Caching behavior
 
-To reduce traffic to the Redis server, there is an optional in-memory cache that retains the last known data for a configurable amount of time. This is on by default; to turn it off (and guarantee that the latest feature flag data will always be retrieved from Redis for every flag evaluation), configure the builder as follows:
+The LaunchDarkly SDK has a standard caching mechanism for any persistent data store, to reduce database traffic. This is configured through the SDK's `PersistentDataStoreBuilder` class as described in the SDK documentation. For instance, to specify a cache TTL of 5 minutes:
 
-                RedisComponents.RedisFeatureStore()
-                    .WithCaching(FeatureStoreCacheConfig.Disabled)
-
-Or, to cache for longer than the default of 30 seconds:
-
-                RedisComponents.RedisFeatureStore()
-                    .WithCaching(FeatureStoreCacheConfig.Enabled.WithTtlSeconds(60))
+```csharp
+        var config = Configuration.Default("YOUR_SDK_KEY")
+            .DataStore(
+                Components.PersistentDataStore(
+                    Redis.DataStore().Uri("redis://my-redis-host")
+                ).CacheTime(TimeSpan.FromMinutes(5))
+            )
+            .Build();
+```
 
 ## Signing
 

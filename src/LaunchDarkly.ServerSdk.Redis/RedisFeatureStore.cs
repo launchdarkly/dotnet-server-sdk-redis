@@ -17,15 +17,19 @@ namespace LaunchDarkly.Client.Redis
         // This is used for unit testing only
         private Action _updateHook;
 
-        internal RedisFeatureStoreCore(RedisFeatureStoreBuilder builder)
+        internal RedisFeatureStoreCore(
+            ConfigurationOptions redisConfig,
+            string prefix,
+            Action updateHook
+            )
         {
-            var redisConfig = builder.RedisConfig.Clone();
+            redisConfig = redisConfig.Clone();
             Log.InfoFormat("Creating Redis feature store using Redis server(s) at [{0}]",
                 String.Join(", ", redisConfig.EndPoints));
             _redis = ConnectionMultiplexer.Connect(redisConfig);
 
-            _prefix = builder.Prefix;
-            _updateHook = builder.UpdateHook;
+            _prefix = prefix;
+            _updateHook = updateHook;
         }
         
         public bool InitializedInternal()
