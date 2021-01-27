@@ -3,15 +3,15 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-2.0
+      - test-dotnetcore-2.1
 jobs:
-  test-2.0:
+  test-dotnetcore-2.1:
     docker:
-      - image: microsoft/dotnet:2.0-sdk-jessie
+      - image: mcr.microsoft.com/dotnet/core/sdk:2.1-focal
       - image: redis
     steps:
       - checkout
       - run: dotnet restore
       - run: dotnet build src/LaunchDarkly.ServerSdk.Redis -f netstandard2.0
       - run: dotnet build src/LaunchDarkly.ServerSdk.Redis.StrongName -f netstandard2.0
-      - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f netcoreapp2.0
+      - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f netcoreapp2.1
