@@ -7,11 +7,11 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-dotnetcore-2.1
-      - test-dotnetframework
+      - test_dotnetcore
+      - test_dotnetframework
 
 jobs:
-  test-dotnetcore-2.1:
+  test_dotnetcore:
     docker:
       - image: mcr.microsoft.com/dotnet/core/sdk:2.1-focal
       - image: redis
@@ -21,7 +21,7 @@ jobs:
       - run: dotnet build src/LaunchDarkly.ServerSdk.Redis -f netstandard2.0
       - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f netcoreapp2.1
 
-  test-dotnetframework:
+  test_dotnetframework:
     executor:
       name: win/default
       shell: powershell.exe
