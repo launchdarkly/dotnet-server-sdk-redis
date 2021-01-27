@@ -1,9 +1,15 @@
-version: 2
+version: 2.1
+
+orbs:
+  win: circleci/windows@2.4.0
+
 workflows:
   version: 2
   test:
     jobs:
       - test-dotnetcore-2.1
+      - test-dotnetframework
+
 jobs:
   test-dotnetcore-2.1:
     docker:
@@ -14,3 +20,19 @@ jobs:
       - run: dotnet restore
       - run: dotnet build src/LaunchDarkly.ServerSdk.Redis -f netstandard2.0
       - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f netcoreapp2.1
+
+  test-dotnetframework:
+    executor:
+      name: win/default
+      shell: powershell.exe
+    steps:
+      - checkout
+      - run:
+          name: install Redis
+          command: choco install redis-64
+          # Note, the redis-64 package is deprecated and no longer maintained so it does
+          # not include improvements made in Redis after Redis 3.x, and it would not be
+          # good to use it in production. But for our testing purposes here it's adequate.
+      - run: dotnet restore
+      - run: dotnet build src/LaunchDarkly.ServerSdk.Redis -f net461
+      - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f net461
