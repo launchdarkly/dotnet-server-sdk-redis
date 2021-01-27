@@ -97,11 +97,11 @@ namespace LaunchDarkly.Client.Redis.Tests
         }
 
         [Fact]
-        public void CanSetResponseTimeout()
+        public void CanSetOperationTimeout()
         {
             RedisFeatureStoreBuilder builder = new RedisFeatureStoreBuilder();
-            builder.WithResponseTimeout(TimeSpan.FromSeconds(8));
-            Assert.Equal(8000, builder.RedisConfig.ResponseTimeout);
+            builder.WithOperationTimeout(TimeSpan.FromSeconds(8));
+            Assert.Equal(8000, builder.RedisConfig.SyncTimeout);
         }
     }
 #pragma warning restore 0618

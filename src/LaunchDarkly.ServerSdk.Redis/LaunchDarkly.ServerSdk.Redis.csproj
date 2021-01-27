@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>1.2.0</Version>
-    <TargetFrameworks>netstandard1.6;netstandard2.0;net45</TargetFrameworks>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/launchdarkly/dotnet-server-sdk-redis/master/LICENSE</PackageLicenseUrl>
+    <Version>2.0.0-alpha.2</Version>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <LicenseExpression>Apache-2.0</LicenseExpression>
     <AssemblyName>LaunchDarkly.ServerSdk.Redis</AssemblyName>
     <OutputType>Library</OutputType>
     <PackageId>LaunchDarkly.ServerSdk.Redis</PackageId>
@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="LaunchDarkly.ServerSdk" Version="5.14.0" />
-    <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.513" />
   </ItemGroup>
 
   <ItemGroup>
