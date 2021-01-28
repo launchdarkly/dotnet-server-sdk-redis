@@ -2,14 +2,14 @@ using System;
 using LaunchDarkly.Client.SharedTests.FeatureStore;
 using StackExchange.Redis;
 
-namespace LaunchDarkly.Client.Redis.Tests
+namespace LaunchDarkly.Client.Integrations
 {
     public class RedisFeatureStoreTest : FeatureStoreBaseTests
     {
         override protected IFeatureStore CreateStoreImpl(FeatureStoreCacheConfig caching)
         {
             return Components.PersistentDataStore(
-                    Integrations.Redis.DataStore()
+                    Redis.DataStore()
                 )
                 .CacheTime(caching.Ttl)
                 .CreateFeatureStore();
@@ -18,7 +18,7 @@ namespace LaunchDarkly.Client.Redis.Tests
         override protected IFeatureStore CreateStoreImplWithPrefix(string prefix)
         {
             return Components.PersistentDataStore(
-                    Integrations.Redis.DataStore().Prefix(prefix)
+                    Redis.DataStore().Prefix(prefix)
                 )
                 .NoCaching()
                 .CreateFeatureStore();
