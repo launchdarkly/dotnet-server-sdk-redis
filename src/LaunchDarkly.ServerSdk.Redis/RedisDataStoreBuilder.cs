@@ -44,7 +44,6 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         {
             _redisConfig.EndPoints.Add(Redis.DefaultRedisEndPoint);
             _redisConfig.ConnectTimeout = (int)Redis.DefaultConnectTimeout.TotalMilliseconds;
-            _redisConfig.ResponseTimeout = (int)Redis.DefaultResponseTimeout.TotalMilliseconds;
         }
 
         /// <summary>
@@ -161,18 +160,6 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         }
 
         /// <summary>
-        /// Specifies the maximum time to wait for data on the Redis connection.
-        /// </summary>
-        /// <param name="timeout">the timeout interval</param>
-        /// <returns>the builder</returns>
-        /// <seealso cref="OperationTimeout(TimeSpan)"/>
-        public RedisDataStoreBuilder ResponseTimeout(TimeSpan timeout)
-        {
-            _redisConfig.ResponseTimeout = (int)timeout.TotalMilliseconds;
-            return this;
-        }
-
-        /// <summary>
         /// Specifies the maximum time to wait for each synchronous Redis operation to complete.
         /// If you are seeing timeout errors - which could result from either an overburdened
         /// Redis server, or an unusually large operation such as storing a very large feature
@@ -180,7 +167,6 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// </summary>
         /// <param name="timeout">the timeout interval</param>
         /// <returns>the builder</returns>
-        /// <seealso cref="ResponseTimeout(TimeSpan)"/>
         public RedisDataStoreBuilder OperationTimeout(TimeSpan timeout)
         {
             _redisConfig.SyncTimeout = (int)timeout.TotalMilliseconds;

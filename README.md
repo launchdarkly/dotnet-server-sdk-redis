@@ -6,14 +6,16 @@ This library provides a Redis-backed persistence mechanism (data store) for the 
 
 For more information, see also: [Using a persistent data store](https://docs.launchdarkly.com/v2.0/docs/using-a-persistent-feature-store).
 
-Version 2.0.0 and above of this library works with version 6.0.0 and above of the LaunchDarkly .NET SDK. For earlier versions of the SDK, use the latest 1.x release of this library.
+Version 3.0.0 and above of this library works with version 6.0.0 and above of the LaunchDarkly .NET SDK. For earlier versions of the SDK, use the latest 1.x release of this library.
+
+It has a dependency on StackExchange.Redis version 2.0.513. If you are using a higher version of StackExchange.Redis, you should install it explicitly as a dependency in your application to override this minimum version.
 
 ## Supported .NET versions
 
 This version of the library is built for the following targets:
 
-* .NET Framework 4.5.2: runs on .NET Framework 4.5.x and above.
-* .NET Standard 2.0: runs on .NET Core 2.x and 3.x, or .NET 5, in an application; or within a library that is targeted to .NET Standard 2.x or .NET 5.
+* .NET Framework 4.6.1: works in .NET Framework of that version or higher.
+* .NET Standard 2.0: works in .NET Core 2.x, .NET 5.x, or in a library targeted to .NET Standard 2.x or .NET 5.x.
 
 The .NET build tools should automatically load the most appropriate build of the library for whatever platform your application or library is targeted to.
 
@@ -25,9 +27,7 @@ This assumes that you have already installed the LaunchDarkly .NET SDK.
 
         Install-Package LaunchDarkly.ServerSdk.Redis
 
-   Or, if you require a strong-named assembly (note that this will result in a transitive dependency on StackExchange.Redis.StrongName, rather than StackExchange.Redis):
-
-        Install-Package LaunchDarkly.ServerSdk.Redis.StrongName
+   (Previous versions of the library had two package names, because StackExchange.Redis had two different packages depending on whether you wanted strong-naming, but StackExchange.Redis 2.x no longer does this so there is only one LaunchDarkly.ServerSdk.Redis package now.)
 
 2. Import the package (note that the namespace is different from the package name):
 
@@ -35,6 +35,7 @@ This assumes that you have already installed the LaunchDarkly .NET SDK.
 
 3. When configuring your `LdClient`, add the Redis data store as a `PersistentDataStore`. You may specify any custom Redis options using the methods of `RedisDataStoreBuilder`. For instance, to customize the Redis URI:
 
+```csharp
         var ldConfig = Configuration.Default("YOUR_SDK_KEY")
             .DataStore(
                 Components.PersistentDataStore(
@@ -43,6 +44,7 @@ This assumes that you have already installed the LaunchDarkly .NET SDK.
             )
             .Build();
         var ldClient = new LdClient(ldConfig);
+```
 
 By default, the store will try to connect to a local Redis instance on port 6379.
 
@@ -62,8 +64,9 @@ The Redis integrations for all LaunchDarkly server-side SDKs use the same conven
 
 ## Caching behavior
 
-The LaunchDarkly SDK has a standard caching mechanism for any persistent data store, to reduce database traffic. This is configured through the SDK's `PersistentDataStoreBuilder` class as described the SDK documentation. For instance, to specify a cache TTL of 5 minutes:
+The LaunchDarkly SDK has a standard caching mechanism for any persistent data store, to reduce database traffic. This is configured through the SDK's `PersistentDataStoreBuilder` class as described in the SDK documentation. For instance, to specify a cache TTL of 5 minutes:
 
+```csharp
         var config = Configuration.Default("YOUR_SDK_KEY")
             .DataStore(
                 Components.PersistentDataStore(
@@ -71,18 +74,17 @@ The LaunchDarkly SDK has a standard caching mechanism for any persistent data st
                 ).CacheTime(TimeSpan.FromMinutes(5))
             )
             .Build();
+```
 
 ## Signing
 
-The published versions of these assemblies are digitally signed by LaunchDarkly.
-
-The `LaunchDarkly.ServerSdk.Redis.StrongName` assembly is also [strong-named](https://docs.microsoft.com/en-us/dotnet/framework/app-domains/strong-named-assemblies); `LaunchDarkly.ServerSdk.Redis` is not strong-named. The reason for this difference is that the StackExchange.Redis library is also built in two versions so if LaunchDarkly provided only a strong-named version, it would cause a dependency conflict if the application happened to be using the non-strong-named version of StackExchange.Redis for other purposes.
+The published version of this assembly is both digitally signed by LaunchDarkly and [strong-named](https://docs.microsoft.com/en-us/dotnet/framework/app-domains/strong-named-assemblies).
 
 Building the code locally in the default Debug configuration does not sign the assembly and does not require a key file.
 
 ## Contributing
-
-See [Contributing](./CONTRIBUTING.md).
+ 
+We encourage pull requests and other contributions from the community. Check out our [contributing guidelines](CONTRIBUTING.md) for instructions on how to contribute to this project.
 
 ## About LaunchDarkly
  

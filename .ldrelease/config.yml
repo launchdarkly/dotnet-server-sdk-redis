@@ -1,4 +1,3 @@
-
 publications:
   - url: https://nuget.org/packages/LaunchDarkly.ServerSdk.Redis
     description: NuGet

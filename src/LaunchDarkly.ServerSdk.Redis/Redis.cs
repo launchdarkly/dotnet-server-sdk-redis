@@ -25,11 +25,6 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         public static readonly TimeSpan DefaultConnectTimeout = TimeSpan.FromSeconds(5);
 
         /// <summary>
-        /// The default value for <see cref="RedisDataStoreBuilder.ResponseTimeout(TimeSpan)"/>.
-        /// </summary>
-        public static readonly TimeSpan DefaultResponseTimeout = TimeSpan.FromSeconds(3);
-
-        /// <summary>
         /// The default value for <see cref="RedisDataStoreBuilder.OperationTimeout(TimeSpan)"/>.
         /// </summary>
         public static readonly TimeSpan DefaultOperationTimeout = TimeSpan.FromSeconds(3);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using Xunit;
@@ -96,11 +96,11 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         }
 
         [Fact]
-        public void ResponseTimeout()
+        public void OperationTimeout()
         {
             var builder = Redis.DataStore();
-            builder.ResponseTimeout(TimeSpan.FromSeconds(8));
-            Assert.Equal(8000, builder._redisConfig.ResponseTimeout);
+            builder.OperationTimeout(TimeSpan.FromSeconds(8));
+            Assert.Equal(8000, builder._redisConfig.SyncTimeout);
         }
 
         [Fact]
