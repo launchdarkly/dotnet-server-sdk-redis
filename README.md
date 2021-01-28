@@ -62,13 +62,9 @@ The published version of this assembly is both digitally signed by LaunchDarkly 
 
 Building the code locally in the default Debug configuration does not sign the assembly and does not require a key file.
 
-## Development notes
-
-This project imports the `dotnet-base` and `dotnet-server-sdk-shared-tests` repositories as subtrees. See the `README.md` file in each of those directories for more information.
-
-To run unit tests, you must have a local Redis server.
-
-Releases are done using the release script in `dotnet-base`. Since the published package includes a .NET Framework build, the release must be done from Windows.
+## Contributing
+ 
+We encourage pull requests and other contributions from the community. Check out our [contributing guidelines](CONTRIBUTING.md) for instructions on how to contribute to this project.
 
 ## About LaunchDarkly
  
