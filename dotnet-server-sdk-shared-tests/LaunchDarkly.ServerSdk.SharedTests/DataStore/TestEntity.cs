@@ -29,6 +29,8 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
         public int Version { get; }
         public string Value { get; }
 
+        public bool Deleted => Value is null;
+
         public TestEntity() { }
 
         public TestEntity(string key, int version, string value)
@@ -38,38 +40,26 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             Value = value;
         }
 
-        public TestEntity WithVersion(int newVersion)
-        {
-            return new TestEntity(Key, newVersion, Value);
-        }
+        public TestEntity WithVersion(int newVersion) =>
+            new TestEntity(Key, newVersion, Value);
 
-        public TestEntity WithValue(string newValue)
-        {
-            return new TestEntity(Key, Version, newValue);
-        }
+        public TestEntity WithValue(string newValue) =>
+            new TestEntity(Key, Version, newValue);
 
-        public TestEntity NextVersion()
-        {
-            return WithVersion(Version + 1);
-        }
+        public TestEntity NextVersion() =>
+            WithVersion(Version + 1);
 
         internal SerializedItemDescriptor SerializedItemDescriptor =>
-            new SerializedItemDescriptor(Version, Value is null,
-                Serialize(new ItemDescriptor(Version, Value is null ? null : this)));
+            Deleted ?
+                new SerializedItemDescriptor(Version, true, Serialize(ItemDescriptor.Deleted(Version))) :
+                new SerializedItemDescriptor(Version, false, Serialize(new ItemDescriptor(Version, this)));
 
-        public override bool Equals(object obj)
-        {
-            if (obj is TestEntity o)
-            {
-                return Key == o.Key && Version == o.Version && Value == o.Value;
-            }
-            return false;
-        }
+        public override bool Equals(object obj) =>
+            (obj is TestEntity o) &&
+                Key == o.Key && Version == o.Version && Value == o.Value;
 
-        public override int GetHashCode()
-        {
-            return new { Key, Version, Value }.GetHashCode();
-        }
+        public override int GetHashCode() =>
+            new { Key, Version, Value }.GetHashCode();
 
         public static string Serialize(ItemDescriptor item)
         {

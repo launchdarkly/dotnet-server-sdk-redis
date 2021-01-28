@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using static LaunchDarkly.Sdk.Server.Interfaces.DataStoreTypes;
 
@@ -7,10 +6,14 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
 {
     public class MockDatabase
     {
+        public static readonly MockDatabase Instance = new MockDatabase();
+
         public readonly IDictionary<string, Dictionary<DataKind, Dictionary<string, SerializedItemDescriptor>>> _data =
             new Dictionary<string, Dictionary<DataKind, Dictionary<string, SerializedItemDescriptor>>>();
 
         public readonly ISet<string> _inited = new HashSet<string>();
+
+        private MockDatabase() { }
 
         public Dictionary<DataKind, Dictionary<string, SerializedItemDescriptor>> DataForPrefix(string prefix)
         {

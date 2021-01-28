@@ -284,7 +284,9 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             // so that it won't interfere with data from some other instance with a different
             // prefix. This test verifies that Init, Get, All, and Upsert are all respecting
             // the prefix.
-            await ClearAllData();
+            await ClearAllData("aaa");
+            await ClearAllData("bbb");
+
             using (var store1 = CreateStoreImpl("aaa"))
             {
                 using (var store2 = CreateStoreImpl("bbb"))
@@ -445,7 +447,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
                 // delete the flag so it becomes unknown
                 dataSourceUpdates.Upsert(DataModel.Features, FlagTestData.FlagKey, ItemDescriptor.Deleted(3));
                 var detail = client.JsonVariationDetail(FlagTestData.FlagKey, FlagTestData.MainUser, LdValue.Null);
-                Assert.Equal(EvaluationReason.ErrorReason(EvaluationErrorKind.FLAG_NOT_FOUND), detail.Reason);
+                Assert.Equal(EvaluationReason.ErrorReason(EvaluationErrorKind.FlagNotFound), detail.Reason);
             }
         }
 
@@ -531,12 +533,22 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
         private static void AssertEqualsSerializedItem(TestEntity item, SerializedItemDescriptor? serializedItemDesc)
         {
             // This allows for the fact that a PersistentDataStore may not be able to get the item version without
-            // deserializing it, so we allow the version to be zero.
+            // deserializing it, so we allow the version to be zero. Also, there are two ways a store can return a
+            // deleted item, depending on its ability to persist metadata: either Deleted is true, in which case
+            // it doesn't matter what SerializedItem is, or else SerializedItem contains whatever placeholder
+            // string the DataKind uses to denote deleted items.
             Assert.NotNull(serializedItemDesc);
-            Assert.Equal(item.SerializedItemDescriptor.SerializedItem, serializedItemDesc.Value.SerializedItem);
             if (serializedItemDesc.Value.Version != 0)
             {
                 Assert.Equal(item.Version, serializedItemDesc.Value.Version);
+            }
+            if (serializedItemDesc.Value.Deleted)
+            {
+                Assert.True(item.Deleted);
+            }
+            else
+            {
+                Assert.Equal(item.SerializedItemDescriptor.SerializedItem, serializedItemDesc.Value.SerializedItem);
             }
         }
 
@@ -584,7 +596,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
 
             public void Dispose() { }
 
-            public bool Initialized() => true;
+            public bool Initialized => true;
 
             public Task<bool> Start()
             {

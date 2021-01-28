@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using LaunchDarkly.Sdk.Server.Interfaces;
 
 using static LaunchDarkly.Sdk.Server.Interfaces.DataStoreTypes;
 
 namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
 {
-
     public class MockSyncStore : IPersistentDataStore
     {
         private readonly MockDatabase _db;
@@ -16,7 +13,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
         public MockSyncStore(MockDatabase db, string prefix)
         {
             _db = db;
-            _prefix = prefix ?? "$default";
+            _prefix = prefix ?? "";
         }
 
         public void Dispose() { }
