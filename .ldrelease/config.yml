@@ -8,7 +8,7 @@ circleci:
     skip:
       - test  # tests require Redis - run them only in CI
     env:
-      LD_RELEASE_DOCS_TARGET_FRAMEWORK: netstandard2.0
+      LD_RELEASE_DOCS_TARGET_FRAMEWORK: net461
 
 template:
   name: dotnet-windows
