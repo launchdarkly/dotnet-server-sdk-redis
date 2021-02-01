@@ -7,6 +7,8 @@
     <PackageId>LaunchDarkly.ServerSdk.Redis</PackageId>
     <LangVersion>7.3</LangVersion>
     <Company>LaunchDarkly</Company>
+    <Authors>LaunchDarkly</Authors>
+    <Owners>LaunchDarkly</Owners>
     <Description>LaunchDarkly Server-Side .NET SDK Redis Integration</Description>
     <Copyright>Copyright 2018 LaunchDarkly</Copyright>
     <LicenseExpression>Apache-2.0</LicenseExpression>
