@@ -3,7 +3,7 @@
     <Version>2.0.0-alpha.2</Version>
     <PackageId>LaunchDarkly.ServerSdk.SharedTests</PackageId>
     <AssemblyName>LaunchDarkly.ServerSdk.SharedTests</AssemblyName>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
     <OutputType>Library</OutputType>
     <Description>LaunchDarkly .NET Shared Tests</Description>
     <Company>LaunchDarkly</Company>
@@ -13,8 +13,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LaunchDarkly.ServerSdk" Version="6.0.0-alpha.8" />
-    <PackageReference Include="LaunchDarkly.Logging" Version="1.0.0-alpha.4" />
+    <PackageReference Include="LaunchDarkly.ServerSdk" Version="[6.0.0-alpha.9,]" />
+    <PackageReference Include="LaunchDarkly.Logging" Version="[1.0.0,]" />
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
 </Project>
