@@ -5,13 +5,13 @@ publications:
 circleci:
   windows:
     context: org-global
+    env:
+      LD_RELEASE_DOCS_TARGET_FRAMEWORK: net461
 
 template:
   name: dotnet-windows
   skip:
-    - test
-  env:
-    LD_RELEASE_DOCS_TARGET_FRAMEWORK: netstandard2.0
+    - test  # tests require Redis - run them only in CI
 
 documentation:
   title: LaunchDarkly Server-Side .NET SDK Redis Integration
