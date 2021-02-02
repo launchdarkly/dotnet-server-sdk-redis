@@ -4,18 +4,24 @@
 
 This library provides a Redis-backed persistence mechanism (data store) for the [LaunchDarkly .NET SDK](https://github.com/launchdarkly/dotnet-server-sdk), replacing the default in-memory data store. The underlying Redis client implementation is [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis).
 
-The minimum version of the LaunchDarkly .NET SDK for use with this library is 5.14.0. It has a dependency on StackExchange.Redis version 2.0.513; if you are using a higher version of StackExchange.Redis, you should install it explicitly as a dependency in your application to override this minimum version.
+For more information, see also: [Using a persistent data store](https://docs.launchdarkly.com/v2.0/docs/using-a-persistent-feature-store).
 
-For more information, see also: [Using a persistent feature store](https://docs.launchdarkly.com/v2.0/docs/using-a-persistent-feature-store).
+Version 3.0.0 and above of this library works with version 6.0.0 and above of the LaunchDarkly .NET SDK. For earlier versions of the SDK, use the latest 1.x release of this library.
 
-## .NET platform compatibility
+It has a dependency on StackExchange.Redis version 2.0.513. If you are using a higher version of StackExchange.Redis, you should install it explicitly as a dependency in your application to override this minimum version.
 
-This version of the library has the following target frameworks:
+## Supported .NET versions
+
+This version of the library is built for the following targets:
 
 * .NET Framework 4.6.1: works in .NET Framework of that version or higher.
-* .NET Standard 2.0: works in .NET Core 2.x, .NET 5.x, or in a library targeted to .NET Standard 2.x.
+* .NET Standard 2.0: works in .NET Core 2.x, .NET 5.x, or in a library targeted to .NET Standard 2.x or .NET 5.x.
+
+The .NET build tools should automatically load the most appropriate build of the library for whatever platform your application or library is targeted to.
 
 ## Quick setup
+
+This assumes that you have already installed the LaunchDarkly .NET SDK.
 
 1. Use [NuGet](http://docs.nuget.org/docs/start-here/using-the-package-manager-console) to add this package to your project:
 
@@ -25,9 +31,9 @@ This version of the library has the following target frameworks:
 
 2. Import the package (note that the namespace is different from the package name):
 
-        using LaunchDarkly.Client.Integrations;
+        using LaunchDarkly.Sdk.Server.Integrations;
 
-3. When configuring your `LDClient`, add the Redis data store as a `PersistentDataStore`. You may specify any custom Redis options using the methods of `RedisDataStoreBuilder`. For instance, to customize the Redis URI:
+3. When configuring your `LdClient`, add the Redis data store as a `PersistentDataStore`. You may specify any custom Redis options using the methods of `RedisDataStoreBuilder`. For instance, to customize the Redis URI:
 
 ```csharp
         var ldConfig = Configuration.Default("YOUR_SDK_KEY")

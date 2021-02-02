@@ -4,7 +4,9 @@ publications:
 
 releasableBranches:
   - name: master
-    description: 2.x - for SDK 5.x + StackExchange.Redis 2.x
+    description: 3.x - for SDK 6+
+  - name: 2.x
+    description: for SDK 5.x + StackExchange.Redis 2.x
   - name: 1.x
     description: for SDK 5.x + StackExchange.Redis 1.x
 
@@ -20,5 +22,5 @@ template:
     - test  # tests require Redis - run them only in CI
 
 documentation:
-  title: LaunchDarkly SDK Redis Integration
+  title: LaunchDarkly Server-Side .NET SDK Redis Integration
   githubPages: true

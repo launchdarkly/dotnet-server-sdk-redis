@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net;
-using LaunchDarkly.Client.Interfaces;
+using LaunchDarkly.Sdk.Server.Interfaces;
 
-namespace LaunchDarkly.Client.Integrations
+namespace LaunchDarkly.Sdk.Server.Integrations
 {
     /// <summary>
     /// Integration between the LaunchDarkly SDK and Redis.
@@ -25,11 +25,6 @@ namespace LaunchDarkly.Client.Integrations
         public static readonly TimeSpan DefaultConnectTimeout = TimeSpan.FromSeconds(5);
 
         /// <summary>
-        /// The default value for <see cref="RedisDataStoreBuilder.ResponseTimeout(TimeSpan)"/>.
-        /// </summary>
-        public static readonly TimeSpan DefaultResponseTimeout = TimeSpan.FromSeconds(3);
-
-        /// <summary>
         /// The default value for <see cref="RedisDataStoreBuilder.OperationTimeout(TimeSpan)"/>.
         /// </summary>
         public static readonly TimeSpan DefaultOperationTimeout = TimeSpan.FromSeconds(3);
@@ -40,7 +35,7 @@ namespace LaunchDarkly.Client.Integrations
         /// <remarks>
         /// This object can be modified with <see cref="RedisDataStoreBuilder"/> methods for any desired
         /// custom Redis options. Then, pass it to <see cref="Components.PersistentDataStore(IPersistentDataStoreFactory)"/>
-        /// and set any desired caching options. Finally, pass the result to <see cref="IConfigurationBuilder.DataStore(IFeatureStoreFactory)"/>.
+        /// and set any desired caching options. Finally, pass the result to <see cref="ConfigurationBuilder.DataStore(IDataStoreFactory)"/>.
         /// </remarks>
         /// <example>
         /// <code>

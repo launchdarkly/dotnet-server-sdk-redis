@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using Xunit;
 
-namespace LaunchDarkly.Client.Integrations
+namespace LaunchDarkly.Sdk.Server.Integrations
 {
     public class RedisDataStoreBuilderTest
     {
@@ -16,17 +16,17 @@ namespace LaunchDarkly.Client.Integrations
         }
 
         [Fact]
-        public void CanSetRedisEndPoint()
+        public void EndPoint()
         {
             var builder = Redis.DataStore();
-            var ep = new DnsEndPoint("test", 9999);
+            DnsEndPoint ep = new DnsEndPoint("test", 9999);
             builder.EndPoint(ep);
             Assert.Collection(builder._redisConfig.EndPoints,
                 e => Assert.Equal(ep, e));
         }
 
         [Fact]
-        public void CanSetMultipleRedisEndPoints()
+        public void MultipleEndPoints()
         {
             var builder = Redis.DataStore();
             DnsEndPoint ep1 = new DnsEndPoint("test", 9998);
@@ -38,7 +38,7 @@ namespace LaunchDarkly.Client.Integrations
         }
 
         [Fact]
-        public void CanSetRedisHostAndPort()
+        public void HostAndPort()
         {
             var builder = Redis.DataStore();
             builder.HostAndPort("test", 9999);
@@ -47,7 +47,7 @@ namespace LaunchDarkly.Client.Integrations
         }
 
         [Fact]
-        public void CanSetMinimalRedisUrl()
+        public void MinimalUri()
         {
             var builder = Redis.DataStore();
             builder.Uri(new Uri("redis://test:9999"));
@@ -58,7 +58,7 @@ namespace LaunchDarkly.Client.Integrations
         }
 
         [Fact]
-        public void CanSetRedisUrlWithPassword()
+        public void UriWithPassword()
         {
             var builder = Redis.DataStore();
             builder.Uri(new Uri("redis://:secret@test:9999"));
@@ -69,7 +69,7 @@ namespace LaunchDarkly.Client.Integrations
         }
 
         [Fact]
-        public void CanSetRedisUrlWithDatabase()
+        public void UriWithDatabase()
         {
             var builder = Redis.DataStore();
             builder.Uri(new Uri("redis://@test:9999/8"));
@@ -80,7 +80,7 @@ namespace LaunchDarkly.Client.Integrations
         }
 
         [Fact]
-        public void CanSetDatabase()
+        public void Database()
         {
             var builder = Redis.DataStore();
             builder.DatabaseIndex(8);
@@ -88,7 +88,7 @@ namespace LaunchDarkly.Client.Integrations
         }
 
         [Fact]
-        public void CanSetConnectTimeout()
+        public void ConnectTimeout()
         {
             var builder = Redis.DataStore();
             builder.ConnectTimeout(TimeSpan.FromSeconds(8));
@@ -96,11 +96,22 @@ namespace LaunchDarkly.Client.Integrations
         }
 
         [Fact]
-        public void CanSetOperationTimeout()
+        public void OperationTimeout()
         {
             var builder = Redis.DataStore();
             builder.OperationTimeout(TimeSpan.FromSeconds(8));
             Assert.Equal(8000, builder._redisConfig.SyncTimeout);
+        }
+
+        [Fact]
+        public void Prefix()
+        {
+            var builder = Redis.DataStore();
+            Assert.Equal(Redis.DefaultPrefix, builder._prefix);
+            builder.Prefix("abc");
+            Assert.Equal("abc", builder._prefix);
+            builder.Prefix(null);
+            Assert.Equal(Redis.DefaultPrefix, builder._prefix);
         }
     }
 }
