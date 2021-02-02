@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Id="e1a31d23-4ed2-46ae-8006-d21233a26212" Title="Namespaces" Url="html/R_Project_Documentation.htm">
+    <HelpTOCNode Id="f56db8d5-d7c0-43bf-beae-9c99a9f6d24c" Title="LaunchDarkly.Client.Integrations" Url="html/N_LaunchDarkly_Client_Integrations.htm">
+      <HelpTOCNode Id="8e879373-127c-4b8b-a3cb-afdb0e35c54d" Title="Redis Class" Url="html/T_LaunchDarkly_Client_Integrations_Redis.htm">
+        <HelpTOCNode Id="a1ae23ec-680b-4798-a138-14a2b11ffdda" Title="Redis Methods" Url="html/Methods_T_LaunchDarkly_Client_Integrations_Redis.htm">
+          <HelpTOCNode Title="DataStore Method " Url="html/M_LaunchDarkly_Client_Integrations_Redis_DataStore.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="1ee4d76a-f728-4608-816d-9c71922e0075" Title="Redis Fields" Url="html/Fields_T_LaunchDarkly_Client_Integrations_Redis.htm">
+          <HelpTOCNode Title="DefaultConnectTimeout Field" Url="html/F_LaunchDarkly_Client_Integrations_Redis_DefaultConnectTimeout.htm" />
+          <HelpTOCNode Title="DefaultOperationTimeout Field" Url="html/F_LaunchDarkly_Client_Integrations_Redis_DefaultOperationTimeout.htm" />
+          <HelpTOCNode Title="DefaultPrefix Field" Url="html/F_LaunchDarkly_Client_Integrations_Redis_DefaultPrefix.htm" />
+          <HelpTOCNode Title="DefaultRedisEndPoint Field" Url="html/F_LaunchDarkly_Client_Integrations_Redis_DefaultRedisEndPoint.htm" />
+          <HelpTOCNode Title="DefaultResponseTimeout Field" Url="html/F_LaunchDarkly_Client_Integrations_Redis_DefaultResponseTimeout.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="0d07b6bc-1753-4b5c-b179-736248da341c" Title="RedisDataStoreBuilder Class" Url="html/T_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder.htm">
+        <HelpTOCNode Id="ec6b033d-70fb-420e-be60-946219ec1f25" Title="RedisDataStoreBuilder Methods" Url="html/Methods_T_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder.htm">
+          <HelpTOCNode Title="ConnectTimeout Method " Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ConnectTimeout.htm" />
+          <HelpTOCNode Title="CreatePersistentDataStore Method " Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_CreatePersistentDataStore.htm" />
+          <HelpTOCNode Title="DatabaseIndex Method " Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_DatabaseIndex.htm" />
+          <HelpTOCNode Title="EndPoint Method " Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_EndPoint.htm" />
+          <HelpTOCNode Title="EndPoints Method " Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_EndPoints.htm" />
+          <HelpTOCNode Title="HostAndPort Method " Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_HostAndPort.htm" />
+          <HelpTOCNode Title="OperationTimeout Method " Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_OperationTimeout.htm" />
+          <HelpTOCNode Title="Prefix Method " Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Prefix.htm" />
+          <HelpTOCNode Title="RedisConfigChanges Method " Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_RedisConfigChanges.htm" />
+          <HelpTOCNode Title="RedisConfiguration Method " Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_RedisConfiguration.htm" />
+          <HelpTOCNode Title="ResponseTimeout Method " Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ResponseTimeout.htm" />
+          <HelpTOCNode Id="fb178144-293c-4ddf-98ff-01fbcd8becef" Title="Uri Method " Url="html/Overload_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri.htm">
+            <HelpTOCNode Title="Uri Method (String)" Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri.htm" />
+            <HelpTOCNode Title="Uri Method (Uri)" Url="html/M_LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_1.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="7c138b32-8be7-4925-880a-fff0e7b2cad5" Title="LaunchDarkly.Client.Redis" Url="html/N_LaunchDarkly_Client_Redis.htm">
+      <HelpTOCNode Id="d9181c44-fa51-48f2-ae98-806a3c372849" Title="RedisComponents Class" Url="html/T_LaunchDarkly_Client_Redis_RedisComponents.htm">
+        <HelpTOCNode Title="RedisComponents Constructor " Url="html/M_LaunchDarkly_Client_Redis_RedisComponents__ctor.htm" />
+        <HelpTOCNode Id="091a3e03-e0d6-45a2-a57f-f3d22655d253" Title="RedisComponents Methods" Url="html/Methods_T_LaunchDarkly_Client_Redis_RedisComponents.htm">
+          <HelpTOCNode Title="RedisFeatureStore Method " Url="html/M_LaunchDarkly_Client_Redis_RedisComponents_RedisFeatureStore.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="c351aa87-00be-42f7-bab3-bfbf3589b601" Title="RedisComponents Fields" Url="html/Fields_T_LaunchDarkly_Client_Redis_RedisComponents.htm">
+          <HelpTOCNode Title="DefaultCacheExpiration Field" Url="html/F_LaunchDarkly_Client_Redis_RedisComponents_DefaultCacheExpiration.htm" />
+          <HelpTOCNode Title="DefaultConnectTimeout Field" Url="html/F_LaunchDarkly_Client_Redis_RedisComponents_DefaultConnectTimeout.htm" />
+          <HelpTOCNode Title="DefaultOperationTimeout Field" Url="html/F_LaunchDarkly_Client_Redis_RedisComponents_DefaultOperationTimeout.htm" />
+          <HelpTOCNode Title="DefaultPrefix Field" Url="html/F_LaunchDarkly_Client_Redis_RedisComponents_DefaultPrefix.htm" />
+          <HelpTOCNode Title="DefaultRedisEndPoint Field" Url="html/F_LaunchDarkly_Client_Redis_RedisComponents_DefaultRedisEndPoint.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="6a7771c3-b323-46f1-b30f-c0c1f3cc16d6" Title="RedisFeatureStoreBuilder Class" Url="html/T_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder.htm">
+        <HelpTOCNode Id="02ddb31e-5d2d-4712-8873-a5cfd66e2a5e" Title="RedisFeatureStoreBuilder Methods" Url="html/Methods_T_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder.htm">
+          <HelpTOCNode Title="CreateFeatureStore Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_CreateFeatureStore.htm" />
+          <HelpTOCNode Title="Default Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_Default.htm" />
+          <HelpTOCNode Title="WithCacheExpiration Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithCacheExpiration.htm" />
+          <HelpTOCNode Title="WithCaching Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithCaching.htm" />
+          <HelpTOCNode Title="WithConnectTimeout Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithConnectTimeout.htm" />
+          <HelpTOCNode Title="WithDatabaseIndex Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithDatabaseIndex.htm" />
+          <HelpTOCNode Title="WithOperationTimeout Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithOperationTimeout.htm" />
+          <HelpTOCNode Title="WithPrefix Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithPrefix.htm" />
+          <HelpTOCNode Title="WithRedisConfigChanges Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisConfigChanges.htm" />
+          <HelpTOCNode Title="WithRedisConfiguration Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisConfiguration.htm" />
+          <HelpTOCNode Title="WithRedisEndPoint Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisEndPoint.htm" />
+          <HelpTOCNode Title="WithRedisEndPoints Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisEndPoints.htm" />
+          <HelpTOCNode Title="WithRedisHostAndPort Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisHostAndPort.htm" />
+          <HelpTOCNode Title="WithRedisUri Method " Url="html/M_LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisUri.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+</HelpTOC>
