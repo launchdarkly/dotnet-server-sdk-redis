@@ -11,7 +11,7 @@
     <Owners>LaunchDarkly</Owners>
     <Description>LaunchDarkly Server-Side .NET SDK Redis Integration</Description>
     <Copyright>Copyright 2018 LaunchDarkly</Copyright>
-    <LicenseExpression>Apache-2.0</LicenseExpression>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/launchdarkly/dotnet-server-sdk-redis</PackageProjectUrl>
     <RepositoryUrl>https://github.com/launchdarkly/dotnet-server-sdk-redis</RepositoryUrl>
     <RepositoryBranch>master</RepositoryBranch>

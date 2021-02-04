@@ -1,6 +1,8 @@
 # LaunchDarkly Server-Side SDK for .NET - Redis integration
 
-[![CircleCI](https://circleci.com/gh/launchdarkly/dotnet-server-sdk-redis.svg?style=svg)](https://circleci.com/gh/launchdarkly/dotnet-server-sdk-redis)
+[![NuGet](https://img.shields.io/nuget/v/LaunchDarkly.ServerSdk.Redis.svg?style=flat-square)](https://www.nuget.org/packages/LaunchDarkly.ServerSdk.Redis/)
+[![CircleCI](https://circleci.com/gh/launchdarkly/dotnet-server-sdk-redis.svg?style=shield)](https://circleci.com/gh/launchdarkly/dotnet-server-sdk-redis)
+[![Documentation](https://img.shields.io/static/v1?label=GitHub+Pages&message=API+reference&color=00add8)](https://launchdarkly.github.io/dotnet-server-sdk-redis)
 
 This library provides a Redis-backed persistence mechanism (data store) for the [LaunchDarkly .NET SDK](https://github.com/launchdarkly/dotnet-server-sdk), replacing the default in-memory data store. The underlying Redis client implementation is [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis).
 
@@ -85,4 +87,3 @@ We encourage pull requests and other contributions from the community. Check out
     * [docs.launchdarkly.com](https://docs.launchdarkly.com/  "LaunchDarkly Documentation") for our documentation and SDK reference guides
     * [apidocs.launchdarkly.com](https://apidocs.launchdarkly.com/  "LaunchDarkly API Documentation") for our API documentation
     * [blog.launchdarkly.com](https://blog.launchdarkly.com/  "LaunchDarkly Blog Documentation") for the latest product updates
-    * [Feature Flagging Guide](https://github.com/launchdarkly/featureflags/  "Feature Flagging Guide") for best practices and strategies
