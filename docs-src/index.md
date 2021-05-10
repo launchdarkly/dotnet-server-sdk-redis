@@ -18,7 +18,9 @@ This assumes that you have already installed the LaunchDarkly .NET SDK.
 
 2. Import the package (note that the namespace is different from the package name):
 
+```csharp
         using LaunchDarkly.Sdk.Server.Integrations;
+```
 
 3. When configuring your `LdClient`, add the Redis data store as a `PersistentDataStore`. You may specify any custom Redis options using the methods of `RedisDataStoreBuilder`. For instance, to customize the Redis URI:
 
