@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using LaunchDarkly.Logging;
 using LaunchDarkly.Sdk.Server.Interfaces;
 using StackExchange.Redis;
@@ -31,31 +29,24 @@ namespace LaunchDarkly.Sdk.Server.Integrations
     /// <item> The special key "{prefix}:$inited" indicates that the store contains a complete data set.</item>
     /// </list>
     /// </remarks>
-    internal sealed class RedisDataStoreImpl : IPersistentDataStore
+    internal sealed class RedisDataStoreImpl : RedisStoreImplBase, IPersistentDataStore
     {
-        private readonly ConnectionMultiplexer _redis;
-        private readonly string _prefix;
-        private readonly Logger _log;
-        
         // This is used for unit testing only
         internal Action _updateHook;
+
+        private readonly string _initedKey;
 
         internal RedisDataStoreImpl(
             ConfigurationOptions redisConfig,
             string prefix,
             Logger log
-            )
+            ) : base(redisConfig, prefix, log)
         {
-            _log = log;
-            var redisConfigCopy = redisConfig.Clone();
-            _redis = ConnectionMultiplexer.Connect(redisConfigCopy);
-            _prefix = prefix;
-            _log.Info("Using Redis data store at {0} with prefix \"{1}\"",
-                string.Join(", ", redisConfig.EndPoints.Select(DescribeEndPoint)), prefix);
+            _initedKey = prefix + ":$inited";
         }
 
         public bool Initialized() =>
-            _redis.GetDatabase().KeyExists(_prefix);
+            _redis.GetDatabase().KeyExists(_initedKey);
 
         public void Init(FullDataSet<SerializedItemDescriptor> allData)
         {
@@ -73,7 +64,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
                     // transaction. We don't need to await them.
                 }
             }
-            txn.StringSetAsync(_prefix, "");
+            txn.StringSetAsync(_initedKey, "");
             txn.Execute();
         }
         
@@ -178,29 +169,6 @@ namespace LaunchDarkly.Sdk.Server.Integrations
             }
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _redis.Dispose();
-            }
-        }
-        
         private string ItemsKey(DataKind kind) => _prefix + ":" + kind.Name;
-
-        private string DescribeEndPoint(EndPoint e)
-        {
-            // The default ToString() method of DnsEndPoint adds a prefix of "Unspecified", which looks
-            // confusing in our log messages.
-            return (e is DnsEndPoint de) ?
-                string.Format("{0}:{1}", de.Host, de.Port) :
-                e.ToString();
-        }
     }
 }
