@@ -20,5 +20,5 @@ template:
     - test  # tests require Redis - run them only in CI
 
 documentation:
-  title: LaunchDarkly SDK Redis Integration
+  title: LaunchDarkly .NET SDK Redis Integration
   githubPages: true

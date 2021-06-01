@@ -19,6 +19,10 @@ This version of `LaunchDarkly.ServerSdk.Redis` requires version 5.14 or higher o
 ### Removed:
 - The `ResponseTimeout` configuration property, which is no longer supported by `StackExchange.Redis`.
 
+## [1.2.1] - 2021-06-01
+### Fixed:
+- The library was not fully compliant with the standard usage of Redis keys by other LaunchDarkly SDKs and by the Relay Proxy, as follows: although feature flag data was stored with the correct keys, the wrong key was used for the special value that indicates that the database has been initialized. As a result, if the Relay Proxy had stored data in Redis, the .NET SDK would not detect it, and if the .NET SDK had stored data in Redis, other SDKs might not detect it.
+
 ## [1.2.0] - 2021-01-26
 ### Added:
 - New classes `LaunchDarkly.Client.Integrations.Redis` and `LaunchDarkly.Client.Integrations.RedisDataStoreBuilder`, which serve the same purpose as the previous classes but are designed to work with the newer persistent data store API introduced in .NET SDK 5.14.0.

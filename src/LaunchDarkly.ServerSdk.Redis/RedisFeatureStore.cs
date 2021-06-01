@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Common.Logging;
 using LaunchDarkly.Client.Utils;
@@ -13,6 +13,7 @@ namespace LaunchDarkly.Client.Redis
         
         private readonly ConnectionMultiplexer _redis;
         private readonly string _prefix;
+        private readonly string _initedKey;
         
         // This is used for unit testing only
         private Action _updateHook;
@@ -30,12 +31,13 @@ namespace LaunchDarkly.Client.Redis
 
             _prefix = prefix;
             _updateHook = updateHook;
+            _initedKey = prefix + ":$inited";
         }
         
         public bool InitializedInternal()
         {
             IDatabase db = _redis.GetDatabase();
-            return db.KeyExists(_prefix);
+            return db.KeyExists(_initedKey);
         }
 
         public void InitInternal(IDictionary<IVersionedDataKind, IDictionary<string, IVersionedData>> items)
@@ -54,7 +56,7 @@ namespace LaunchDarkly.Client.Redis
                     // transaction. We don't need to await them.
                 }
             }
-            txn.StringSetAsync(_prefix, "");
+            txn.StringSetAsync(_initedKey, "");
             txn.Execute();
         }
         
