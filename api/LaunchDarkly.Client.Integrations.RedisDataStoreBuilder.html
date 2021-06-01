@@ -1,0 +1,751 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class RedisDataStoreBuilder
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class RedisDataStoreBuilder
+   ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder">
+  
+  
+  <h1 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder" class="text-break">Class RedisDataStoreBuilder
+  </h1>
+  <div class="markdown level0 summary"><p>A <a href="http://en.wikipedia.org/wiki/Builder_pattern">builder</a> for configuring the
+Redis-based persistent data store.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">RedisDataStoreBuilder</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">LaunchDarkly.Client.Interfaces.IPersistentDataStoreFactory</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="LaunchDarkly.Client.Integrations.html">LaunchDarkly.Client.Integrations</a></h6>
+  <h6><strong>Assembly</strong>: LaunchDarkly.ServerSdk.Redis.dll</h6>
+  <h5 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class RedisDataStoreBuilder : IPersistentDataStoreFactory</code></pre>
+  </div>
+  <h5 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p><p>
+Obtain an instance of this class by calling <a class="xref" href="LaunchDarkly.Client.Integrations.Redis.html#LaunchDarkly_Client_Integrations_Redis_DataStore">DataStore()</a>. After calling its methods
+to specify any desired custom settings, wrap it in a <span class="xref">LaunchDarkly.Client.Integrations.PersistentDataStoreBuilder</span>
+by calling <span class="xref">LaunchDarkly.Client.Components.PersistentDataStore(LaunchDarkly.Client.Interfaces.IPersistentDataStoreFactory)</span>, then pass
+the result into the SDK configuration with <span class="xref">LaunchDarkly.Client.IConfigurationBuilder.DataStore(LaunchDarkly.Client.IFeatureStoreFactory)</span>.
+You do not need to call <a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_CreatePersistentDataStore">CreatePersistentDataStore()</a> yourself to build
+the actual data store; that will be done by the SDK.
+</p>
+<p>
+Builder calls can be chained, for example:
+</p></p>
+<pre><code>    var config = Configuration.Builder(&quot;sdk-key&quot;)
+        .DataStore(
+            Components.PersistentDataStore(
+                Redis.DataStore()
+                    .Uri(new Uri(&quot;redis://my-redis-host&quot;))
+                    .Database(1)
+                )
+                .CacheSeconds(15)
+            )
+        .Build();</code></pre>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ConnectTimeout_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ConnectTimeout*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ConnectTimeout_System_TimeSpan_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ConnectTimeout(System.TimeSpan)">ConnectTimeout(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Specifies the maximum time to wait for a connection to the Redis server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder ConnectTimeout(TimeSpan timeout)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.TimeSpan</span></td>
+        <td><span class="parametername">timeout</span></td>
+        <td><p>the timeout interval</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><p>the builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_CreatePersistentDataStore_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_CreatePersistentDataStore" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore">CreatePersistentDataStore()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IFeatureStoreCore CreatePersistentDataStore()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">LaunchDarkly.Client.Utils.IFeatureStoreCore</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_DatabaseIndex_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.DatabaseIndex*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_DatabaseIndex_System_Int32_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.DatabaseIndex(System.Int32)">DatabaseIndex(Int32)</h4>
+  <div class="markdown level1 summary"><p>Specifies which database to use within the Redis server. The default is 0.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder DatabaseIndex(int database)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">database</span></td>
+        <td><p>index of the database to use</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><p>the builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_EndPoint_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoint*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_EndPoint_System_Net_EndPoint_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoint(System.Net.EndPoint)">EndPoint(EndPoint)</h4>
+  <div class="markdown level1 summary"><p>Specifies a single Redis server as an EndPoint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder EndPoint(EndPoint endPoint)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Net.EndPoint</span></td>
+        <td><span class="parametername">endPoint</span></td>
+        <td><p>location of the Redis server</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><p>the builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_EndPoints_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoints*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_EndPoints_System_Collections_Generic_IList_System_Net_EndPoint__" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoints(System.Collections.Generic.IList{System.Net.EndPoint})">EndPoints(IList&lt;EndPoint&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specifies multiple Redis servers as a list of EndPoints.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder EndPoints(IList&lt;EndPoint&gt; endPoints)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IList</span>&lt;<span class="xref">System.Net.EndPoint</span>&gt;</td>
+        <td><span class="parametername">endPoints</span></td>
+        <td><p>locations of the Redis servers</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><p>the builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_HostAndPort_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.HostAndPort*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_HostAndPort_System_String_System_Int32_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.HostAndPort(System.String,System.Int32)">HostAndPort(String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Specifies a single Redis server by hostname and port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder HostAndPort(string host, int port)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">host</span></td>
+        <td><p>hostname of the Redis server</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>port of the Redis server</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><p>the builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_OperationTimeout_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.OperationTimeout*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_OperationTimeout_System_TimeSpan_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.OperationTimeout(System.TimeSpan)">OperationTimeout(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Specifies the maximum time to wait for each synchronous Redis operation to complete.
+If you are seeing timeout errors - which could result from either an overburdened
+Redis server, or an unusually large operation such as storing a very large feature
+flag - you may want to increase this setting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder OperationTimeout(TimeSpan timeout)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.TimeSpan</span></td>
+        <td><span class="parametername">timeout</span></td>
+        <td><p>the timeout interval</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><p>the builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_OperationTimeout_System_TimeSpan__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ResponseTimeout_System_TimeSpan_">ResponseTimeout(TimeSpan)</a></div>
+  </div>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Prefix_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Prefix*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Prefix_System_String_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Prefix(System.String)">Prefix(String)</h4>
+  <div class="markdown level1 summary"><p>Specifies the namespace prefix for all keys stored in Redis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder Prefix(string prefix)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">prefix</span></td>
+        <td><p>the namespace prefix, or null to use <a class="xref" href="LaunchDarkly.Client.Integrations.Redis.html#LaunchDarkly_Client_Integrations_Redis_DefaultPrefix">DefaultPrefix</a></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><p>the builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_RedisConfigChanges_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfigChanges*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_RedisConfigChanges_System_Action_StackExchange_Redis_ConfigurationOptions__" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfigChanges(System.Action{StackExchange.Redis.ConfigurationOptions})">RedisConfigChanges(Action&lt;ConfigurationOptions&gt;)</h4>
+  <div class="markdown level1 summary"><p>Allows you to modify any of the configuration options supported by StackExchange.Redis
+directly. The current configuration will be passed to your Action, which can modify it
+in any way.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder RedisConfigChanges(Action&lt;ConfigurationOptions&gt; modifyConfig)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">StackExchange.Redis.ConfigurationOptions</span>&gt;</td>
+        <td><span class="parametername">modifyConfig</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_RedisConfigChanges_System_Action_StackExchange_Redis_ConfigurationOptions___examples">Examples</h5>
+  <pre><code>    Redis.DataStore()
+        .RedisConfigChanges((config) => {
+            config.Ssl = true;
+        })</code></pre>
+
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_RedisConfiguration_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfiguration*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_RedisConfiguration_StackExchange_Redis_ConfigurationOptions_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfiguration(StackExchange.Redis.ConfigurationOptions)">RedisConfiguration(ConfigurationOptions)</h4>
+  <div class="markdown level1 summary"><p>Specifies all Redis configuration options at once.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder RedisConfiguration(ConfigurationOptions config)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">StackExchange.Redis.ConfigurationOptions</span></td>
+        <td><span class="parametername">config</span></td>
+        <td><p>a <span class="xref">StackExchange.Redis.ConfigurationOptions</span> instance</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><p>the builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ResponseTimeout_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ResponseTimeout*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ResponseTimeout_System_TimeSpan_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ResponseTimeout(System.TimeSpan)">ResponseTimeout(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Specifies the maximum time to wait for data on the Redis connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder ResponseTimeout(TimeSpan timeout)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.TimeSpan</span></td>
+        <td><span class="parametername">timeout</span></td>
+        <td><p>the timeout interval</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><p>the builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ResponseTimeout_System_TimeSpan__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_OperationTimeout_System_TimeSpan_">OperationTimeout(TimeSpan)</a></div>
+  </div>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_System_String_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri(System.String)">Uri(String)</h4>
+  <div class="markdown level1 summary"><p>Shortcut for calling <a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_System_Uri_">Uri(Uri)</a> with a string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder Uri(string uri)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">uri</span></td>
+        <td><p>the Redis server URI as a string</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><p>the builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_System_Uri_">Uri(Uri)</a></div>
+  </div>
+  <a id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri*"></a>
+  <h4 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_System_Uri_" data-uid="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri(System.Uri)">Uri(Uri)</h4>
+  <div class="markdown level1 summary"><p>Specifies a Redis server - and, optionally, other properties including
+credentials and database number - using a URI.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedisDataStoreBuilder Uri(Uri uri)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Uri</span></td>
+        <td><span class="parametername">uri</span></td>
+        <td><p>the Redis server URI</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><p>the builder</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_System_Uri__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_System_String_">Uri(String)</a></div>
+  </div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">LaunchDarkly.Client.Interfaces.IPersistentDataStoreFactory</span>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

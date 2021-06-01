@@ -1,0 +1,164 @@
+{
+  "homepages": [],
+  "source_base_path": "C:/Users/circleci/AppData/Local/Temp/project-releaser-temp/build-docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "build/api/LaunchDarkly.Client.Integrations.Redis.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/LaunchDarkly.Client.Integrations.Redis.html",
+          "hash": "4buBNuU9hgoZIT144gDcDTH2iyQs/bEP4W7zgStHeN4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "build/api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html",
+          "hash": "VKWBmliQgnKwEm1WX1IanjeFweUpgtyfboObK12s5lg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "build/api/LaunchDarkly.Client.Integrations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/LaunchDarkly.Client.Integrations.html",
+          "hash": "ZFRH+hiD8RIXssV5N3+pGA90/oTtKqoc59mR4hlIaWc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "build/api/LaunchDarkly.Client.Redis.RedisComponents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/LaunchDarkly.Client.Redis.RedisComponents.html",
+          "hash": "VrwZJ4ZD9Z3L7OwotjVtEUmqRqIBzXBLfrRVl56RepM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "build/api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html",
+          "hash": "2gNsl5cpOuAA925Wv7aFqqz0nZTEOrrKYbX3vQwj2mg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "build/api/LaunchDarkly.Client.Redis.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/LaunchDarkly.Client.Redis.html",
+          "hash": "dsmbdw0uxFwIEndSNzh0l8uX5zJpiLCK3rH3r8aA8D8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "build/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "/1+kQHU1QXJXtSC1aTrjEZgBYzIPlb8IFIN0I8IL4GQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "HD4XEFu9uGDu82h4hH8DxKOEU0TnmO9ZPCbPozCHgPE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "h9cq1NCCgmG6wgM4CTCFTUFoFqxEdLvjDjsgaO1aobk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 1,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 7,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
