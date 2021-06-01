@@ -6,7 +6,7 @@
 
 This library provides a Redis-backed persistence mechanism (data store) for the [LaunchDarkly .NET SDK](https://github.com/launchdarkly/dotnet-server-sdk), replacing the default in-memory data store. The underlying Redis client implementation is [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis).
 
-The minimum version of the LaunchDarkly .NET SDK for use with this library is 5.14.0. It has a dependency on StackExchange.Redis version 2.0.513; if you are using a higher version of StackExchange.Redis, you should install it explicitly as a dependency in your application to override this minimum version.
+The minimum version of the LaunchDarkly .NET SDK for use with version 2.x of this library is 5.14.0. It has a dependency on StackExchange.Redis version 2.0.513; if you are using a higher version of StackExchange.Redis, you should install it explicitly as a dependency in your application to override this minimum version.
 
 For more information, see also: [Using a persistent feature store](https://docs.launchdarkly.com/v2.0/docs/using-a-persistent-feature-store).
 
