@@ -35,6 +35,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
     {
         private readonly ConnectionMultiplexer _redis;
         private readonly string _prefix;
+        private readonly string _initedKey;
         private readonly Logger _log;
         
         // This is used for unit testing only
@@ -50,12 +51,13 @@ namespace LaunchDarkly.Sdk.Server.Integrations
             var redisConfigCopy = redisConfig.Clone();
             _redis = ConnectionMultiplexer.Connect(redisConfigCopy);
             _prefix = prefix;
+            _initedKey = prefix + ":$inited";
             _log.Info("Using Redis data store at {0} with prefix \"{1}\"",
                 string.Join(", ", redisConfig.EndPoints.Select(DescribeEndPoint)), prefix);
         }
 
         public bool Initialized() =>
-            _redis.GetDatabase().KeyExists(_prefix);
+            _redis.GetDatabase().KeyExists(_initedKey);
 
         public void Init(FullDataSet<SerializedItemDescriptor> allData)
         {
@@ -73,7 +75,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
                     // transaction. We don't need to await them.
                 }
             }
-            txn.StringSetAsync(_prefix, "");
+            txn.StringSetAsync(_initedKey, "");
             txn.Execute();
         }
         
