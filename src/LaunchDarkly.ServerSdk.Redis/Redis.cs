@@ -58,7 +58,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// <see cref="Components.PersistentDataStore(IPersistentDataStoreFactory)"/> or
         /// <see cref="Components.BigSegments(IBigSegmentStoreFactory)"/>, depending on the context in
         /// which it is being used. This is because each of those contexts has its own additional
-        /// configuration options that are unrelated to the redis options. For instance, the
+        /// configuration options that are unrelated to the Redis options. For instance, the
         /// <see cref="Components.PersistentDataStore(IPersistentDataStoreAsyncFactory)"/> builder
         /// has options for caching:
         /// </para>
