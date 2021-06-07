@@ -36,7 +36,6 @@ namespace LaunchDarkly.Sdk.Server.Integrations
 
             return NewMembershipFromSegmentRefs(RedisValuesToStrings(includedRefs),
                 RedisValuesToStrings(excludedRefs));
-            throw new NotImplementedException();
         }
 
         public async Task<StoreMetadata?> GetMetadataAsync()
