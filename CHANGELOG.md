@@ -2,6 +2,22 @@
 
 All notable changes to the LaunchDarkly .NET SDK Redis integration will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org).
 
+## [3.0.0] - 2021-06-09
+This release is for use with versions 6.0.0 and higher of [`LaunchDarkly.ServerSdk`](https://github.com/launchdarkly/dotnet-server-sdk).
+
+For more information about changes in the SDK database integrations, see the [5.x to 6.0 migration guide](https://docs-stg.launchdarkly.com/252/sdk/server-side/dotnet/migration-5-to-6).
+
+Like the previous major version of this library, it uses version 2.x of `StackExchange.Redis`.
+
+### Changed:
+- The namespace is now `LaunchDarkly.Sdk.Server.Integrations`.
+- The entry point is now `LaunchDarkly.Sdk.Server.Integrations.Redis` rather than `LaunchDarkly.Client.Integrations.Redis` (or, in earlier versions, `LaunchDarkly.Client.Redis.RedisComponents`).
+- The logger name is now `LaunchDarkly.Sdk.DataStore.Redis` rather than `LaunchDarkly.Client.Redis.RedisFeatureStoreCore`.
+
+### Removed:
+- Removed the deprecated `RedisComponents` entry point and `RedisFeatureStoreBuilder`.
+- The package no longer has a dependency on `Common.Logging` but instead integrates with the SDK&#39;s logging mechanism.
+
 ## [2.0.1] - 2021-06-01
 ### Fixed:
 - The library was not fully compliant with the standard usage of Redis keys by other LaunchDarkly SDKs and by the Relay Proxy, as follows: although feature flag data was stored with the correct keys, the wrong key was used for the special value that indicates that the database has been initialized. As a result, if the Relay Proxy had stored data in Redis, the .NET SDK would not detect it, and if the .NET SDK had stored data in Redis, other SDKs might not detect it.
