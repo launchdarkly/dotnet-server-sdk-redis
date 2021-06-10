@@ -5,11 +5,11 @@
   "files": [
     {
       "type": "ManagedReference",
-      "source_relative_path": "build/api/LaunchDarkly.Client.Integrations.Redis.yml",
+      "source_relative_path": "build/api/LaunchDarkly.Sdk.Server.Integrations.Redis.yml",
       "output": {
         ".html": {
-          "relative_path": "api/LaunchDarkly.Client.Integrations.Redis.html",
-          "hash": "4buBNuU9hgoZIT144gDcDTH2iyQs/bEP4W7zgStHeN4="
+          "relative_path": "api/LaunchDarkly.Sdk.Server.Integrations.Redis.html",
+          "hash": "IuKV0MvNi/GaNl9OLqMdRZqRAuXR4EerQBHRUA5TsH8="
         }
       },
       "is_incremental": false,
@@ -17,11 +17,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "build/api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.yml",
+      "source_relative_path": "build/api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.yml",
       "output": {
         ".html": {
-          "relative_path": "api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html",
-          "hash": "VKWBmliQgnKwEm1WX1IanjeFweUpgtyfboObK12s5lg="
+          "relative_path": "api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html",
+          "hash": "4v2r3YHHsGxAzoih0x4MHMVxfGXTXrvGTUuY2bXo4Xk="
         }
       },
       "is_incremental": false,
@@ -29,47 +29,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "build/api/LaunchDarkly.Client.Integrations.yml",
+      "source_relative_path": "build/api/LaunchDarkly.Sdk.Server.Integrations.yml",
       "output": {
         ".html": {
-          "relative_path": "api/LaunchDarkly.Client.Integrations.html",
-          "hash": "ZFRH+hiD8RIXssV5N3+pGA90/oTtKqoc59mR4hlIaWc="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "build/api/LaunchDarkly.Client.Redis.RedisComponents.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/LaunchDarkly.Client.Redis.RedisComponents.html",
-          "hash": "VrwZJ4ZD9Z3L7OwotjVtEUmqRqIBzXBLfrRVl56RepM="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "build/api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html",
-          "hash": "2gNsl5cpOuAA925Wv7aFqqz0nZTEOrrKYbX3vQwj2mg="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "build/api/LaunchDarkly.Client.Redis.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/LaunchDarkly.Client.Redis.html",
-          "hash": "dsmbdw0uxFwIEndSNzh0l8uX5zJpiLCK3rH3r8aA8D8="
+          "relative_path": "api/LaunchDarkly.Sdk.Server.Integrations.html",
+          "hash": "Rj8J7eZ6JksxucIIU8LtACNG8hrUK4IOZdzobOb2dkw="
         }
       },
       "is_incremental": false,
@@ -81,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "/1+kQHU1QXJXtSC1aTrjEZgBYzIPlb8IFIN0I8IL4GQ="
+          "hash": "QUYGtYz+kQ3s8xRlNYUFR/Wjdx1uDa2YTz3vJzAusFs="
         }
       },
       "is_incremental": false,
@@ -93,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "HD4XEFu9uGDu82h4hH8DxKOEU0TnmO9ZPCbPozCHgPE="
+          "hash": "d89tyqj0bH/KC5gGHwot7FghdLVendsfD0pv2MhyupY="
         }
       },
       "is_incremental": false,
@@ -105,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "h9cq1NCCgmG6wgM4CTCFTUFoFqxEdLvjDjsgaO1aobk="
+          "hash": "OpHBEWhlj0VcLlOoQ2RqQ4E7tv5GUbnz2jjE4s2Iuy8="
         }
       },
       "is_incremental": false,
@@ -132,7 +96,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 7,
+          "total_file_count": 4,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {

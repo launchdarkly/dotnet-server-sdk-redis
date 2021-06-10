@@ -1,465 +1,201 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
-- uid: LaunchDarkly.Client.Integrations
-  name: LaunchDarkly.Client.Integrations
-  href: api/LaunchDarkly.Client.Integrations.html
-  commentId: N:LaunchDarkly.Client.Integrations
-  fullName: LaunchDarkly.Client.Integrations
-  nameWithType: LaunchDarkly.Client.Integrations
-- uid: LaunchDarkly.Client.Integrations.Redis
+- uid: LaunchDarkly.Sdk.Server.Integrations
+  name: LaunchDarkly.Sdk.Server.Integrations
+  href: api/LaunchDarkly.Sdk.Server.Integrations.html
+  commentId: N:LaunchDarkly.Sdk.Server.Integrations
+  fullName: LaunchDarkly.Sdk.Server.Integrations
+  nameWithType: LaunchDarkly.Sdk.Server.Integrations
+- uid: LaunchDarkly.Sdk.Server.Integrations.Redis
   name: Redis
-  href: api/LaunchDarkly.Client.Integrations.Redis.html
-  commentId: T:LaunchDarkly.Client.Integrations.Redis
-  fullName: LaunchDarkly.Client.Integrations.Redis
+  href: api/LaunchDarkly.Sdk.Server.Integrations.Redis.html
+  commentId: T:LaunchDarkly.Sdk.Server.Integrations.Redis
+  fullName: LaunchDarkly.Sdk.Server.Integrations.Redis
   nameWithType: Redis
-- uid: LaunchDarkly.Client.Integrations.Redis.DataStore
+- uid: LaunchDarkly.Sdk.Server.Integrations.Redis.DataStore
   name: DataStore()
-  href: api/LaunchDarkly.Client.Integrations.Redis.html#LaunchDarkly_Client_Integrations_Redis_DataStore
-  commentId: M:LaunchDarkly.Client.Integrations.Redis.DataStore
-  fullName: LaunchDarkly.Client.Integrations.Redis.DataStore()
+  href: api/LaunchDarkly.Sdk.Server.Integrations.Redis.html#LaunchDarkly_Sdk_Server_Integrations_Redis_DataStore
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.Redis.DataStore
+  fullName: LaunchDarkly.Sdk.Server.Integrations.Redis.DataStore()
   nameWithType: Redis.DataStore()
-- uid: LaunchDarkly.Client.Integrations.Redis.DataStore*
+- uid: LaunchDarkly.Sdk.Server.Integrations.Redis.DataStore*
   name: DataStore
-  href: api/LaunchDarkly.Client.Integrations.Redis.html#LaunchDarkly_Client_Integrations_Redis_DataStore_
-  commentId: Overload:LaunchDarkly.Client.Integrations.Redis.DataStore
-  fullName: LaunchDarkly.Client.Integrations.Redis.DataStore
+  href: api/LaunchDarkly.Sdk.Server.Integrations.Redis.html#LaunchDarkly_Sdk_Server_Integrations_Redis_DataStore_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.Redis.DataStore
+  fullName: LaunchDarkly.Sdk.Server.Integrations.Redis.DataStore
   nameWithType: Redis.DataStore
-- uid: LaunchDarkly.Client.Integrations.Redis.DefaultConnectTimeout
+- uid: LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultConnectTimeout
   name: DefaultConnectTimeout
-  href: api/LaunchDarkly.Client.Integrations.Redis.html#LaunchDarkly_Client_Integrations_Redis_DefaultConnectTimeout
-  commentId: F:LaunchDarkly.Client.Integrations.Redis.DefaultConnectTimeout
-  fullName: LaunchDarkly.Client.Integrations.Redis.DefaultConnectTimeout
+  href: api/LaunchDarkly.Sdk.Server.Integrations.Redis.html#LaunchDarkly_Sdk_Server_Integrations_Redis_DefaultConnectTimeout
+  commentId: F:LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultConnectTimeout
+  fullName: LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultConnectTimeout
   nameWithType: Redis.DefaultConnectTimeout
-- uid: LaunchDarkly.Client.Integrations.Redis.DefaultOperationTimeout
+- uid: LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultOperationTimeout
   name: DefaultOperationTimeout
-  href: api/LaunchDarkly.Client.Integrations.Redis.html#LaunchDarkly_Client_Integrations_Redis_DefaultOperationTimeout
-  commentId: F:LaunchDarkly.Client.Integrations.Redis.DefaultOperationTimeout
-  fullName: LaunchDarkly.Client.Integrations.Redis.DefaultOperationTimeout
+  href: api/LaunchDarkly.Sdk.Server.Integrations.Redis.html#LaunchDarkly_Sdk_Server_Integrations_Redis_DefaultOperationTimeout
+  commentId: F:LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultOperationTimeout
+  fullName: LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultOperationTimeout
   nameWithType: Redis.DefaultOperationTimeout
-- uid: LaunchDarkly.Client.Integrations.Redis.DefaultPrefix
+- uid: LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultPrefix
   name: DefaultPrefix
-  href: api/LaunchDarkly.Client.Integrations.Redis.html#LaunchDarkly_Client_Integrations_Redis_DefaultPrefix
-  commentId: F:LaunchDarkly.Client.Integrations.Redis.DefaultPrefix
-  fullName: LaunchDarkly.Client.Integrations.Redis.DefaultPrefix
+  href: api/LaunchDarkly.Sdk.Server.Integrations.Redis.html#LaunchDarkly_Sdk_Server_Integrations_Redis_DefaultPrefix
+  commentId: F:LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultPrefix
+  fullName: LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultPrefix
   nameWithType: Redis.DefaultPrefix
-- uid: LaunchDarkly.Client.Integrations.Redis.DefaultRedisEndPoint
+- uid: LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultRedisEndPoint
   name: DefaultRedisEndPoint
-  href: api/LaunchDarkly.Client.Integrations.Redis.html#LaunchDarkly_Client_Integrations_Redis_DefaultRedisEndPoint
-  commentId: F:LaunchDarkly.Client.Integrations.Redis.DefaultRedisEndPoint
-  fullName: LaunchDarkly.Client.Integrations.Redis.DefaultRedisEndPoint
+  href: api/LaunchDarkly.Sdk.Server.Integrations.Redis.html#LaunchDarkly_Sdk_Server_Integrations_Redis_DefaultRedisEndPoint
+  commentId: F:LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultRedisEndPoint
+  fullName: LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultRedisEndPoint
   nameWithType: Redis.DefaultRedisEndPoint
-- uid: LaunchDarkly.Client.Integrations.Redis.DefaultResponseTimeout
-  name: DefaultResponseTimeout
-  href: api/LaunchDarkly.Client.Integrations.Redis.html#LaunchDarkly_Client_Integrations_Redis_DefaultResponseTimeout
-  commentId: F:LaunchDarkly.Client.Integrations.Redis.DefaultResponseTimeout
-  fullName: LaunchDarkly.Client.Integrations.Redis.DefaultResponseTimeout
-  nameWithType: Redis.DefaultResponseTimeout
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder
   name: RedisDataStoreBuilder
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html
-  commentId: T:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html
+  commentId: T:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder
   nameWithType: RedisDataStoreBuilder
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ConnectTimeout(System.TimeSpan)
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.ConnectTimeout(System.TimeSpan)
   name: ConnectTimeout(TimeSpan)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ConnectTimeout_System_TimeSpan_
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ConnectTimeout(System.TimeSpan)
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ConnectTimeout(System.TimeSpan)
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_ConnectTimeout_System_TimeSpan_
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.ConnectTimeout(System.TimeSpan)
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.ConnectTimeout(System.TimeSpan)
   nameWithType: RedisDataStoreBuilder.ConnectTimeout(TimeSpan)
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ConnectTimeout*
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.ConnectTimeout*
   name: ConnectTimeout
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ConnectTimeout_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ConnectTimeout
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ConnectTimeout
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_ConnectTimeout_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.ConnectTimeout
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.ConnectTimeout
   nameWithType: RedisDataStoreBuilder.ConnectTimeout
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore
-  name: CreatePersistentDataStore()
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_CreatePersistentDataStore
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore()
-  nameWithType: RedisDataStoreBuilder.CreatePersistentDataStore()
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore*
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore(LaunchDarkly.Sdk.Server.Interfaces.LdClientContext)
+  name: CreatePersistentDataStore(LdClientContext)
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_CreatePersistentDataStore_LaunchDarkly_Sdk_Server_Interfaces_LdClientContext_
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore(LaunchDarkly.Sdk.Server.Interfaces.LdClientContext)
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore(LaunchDarkly.Sdk.Server.Interfaces.LdClientContext)
+  nameWithType: RedisDataStoreBuilder.CreatePersistentDataStore(LdClientContext)
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore*
   name: CreatePersistentDataStore
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_CreatePersistentDataStore_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_CreatePersistentDataStore_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore
   nameWithType: RedisDataStoreBuilder.CreatePersistentDataStore
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.DatabaseIndex(System.Int32)
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.DatabaseIndex(System.Int32)
   name: DatabaseIndex(Int32)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_DatabaseIndex_System_Int32_
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.DatabaseIndex(System.Int32)
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.DatabaseIndex(System.Int32)
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_DatabaseIndex_System_Int32_
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.DatabaseIndex(System.Int32)
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.DatabaseIndex(System.Int32)
   nameWithType: RedisDataStoreBuilder.DatabaseIndex(Int32)
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.DatabaseIndex*
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.DatabaseIndex*
   name: DatabaseIndex
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_DatabaseIndex_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.DatabaseIndex
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.DatabaseIndex
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_DatabaseIndex_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.DatabaseIndex
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.DatabaseIndex
   nameWithType: RedisDataStoreBuilder.DatabaseIndex
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoint(System.Net.EndPoint)
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoint(System.Net.EndPoint)
   name: EndPoint(EndPoint)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_EndPoint_System_Net_EndPoint_
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoint(System.Net.EndPoint)
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoint(System.Net.EndPoint)
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_EndPoint_System_Net_EndPoint_
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoint(System.Net.EndPoint)
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoint(System.Net.EndPoint)
   nameWithType: RedisDataStoreBuilder.EndPoint(EndPoint)
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoint*
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoint*
   name: EndPoint
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_EndPoint_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoint
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoint
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_EndPoint_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoint
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoint
   nameWithType: RedisDataStoreBuilder.EndPoint
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoints(System.Collections.Generic.IList{System.Net.EndPoint})
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoints(System.Collections.Generic.IList{System.Net.EndPoint})
   name: EndPoints(IList<EndPoint>)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_EndPoints_System_Collections_Generic_IList_System_Net_EndPoint__
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoints(System.Collections.Generic.IList{System.Net.EndPoint})
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_EndPoints_System_Collections_Generic_IList_System_Net_EndPoint__
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoints(System.Collections.Generic.IList{System.Net.EndPoint})
   name.vb: EndPoints(IList(Of EndPoint))
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoints(System.Collections.Generic.IList<System.Net.EndPoint>)
-  fullName.vb: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoints(System.Collections.Generic.IList(Of System.Net.EndPoint))
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoints(System.Collections.Generic.IList<System.Net.EndPoint>)
+  fullName.vb: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoints(System.Collections.Generic.IList(Of System.Net.EndPoint))
   nameWithType: RedisDataStoreBuilder.EndPoints(IList<EndPoint>)
   nameWithType.vb: RedisDataStoreBuilder.EndPoints(IList(Of EndPoint))
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoints*
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoints*
   name: EndPoints
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_EndPoints_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoints
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.EndPoints
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_EndPoints_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoints
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.EndPoints
   nameWithType: RedisDataStoreBuilder.EndPoints
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.HostAndPort(System.String,System.Int32)
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.HostAndPort(System.String,System.Int32)
   name: HostAndPort(String, Int32)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_HostAndPort_System_String_System_Int32_
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.HostAndPort(System.String,System.Int32)
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.HostAndPort(System.String, System.Int32)
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_HostAndPort_System_String_System_Int32_
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.HostAndPort(System.String,System.Int32)
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.HostAndPort(System.String, System.Int32)
   nameWithType: RedisDataStoreBuilder.HostAndPort(String, Int32)
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.HostAndPort*
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.HostAndPort*
   name: HostAndPort
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_HostAndPort_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.HostAndPort
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.HostAndPort
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_HostAndPort_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.HostAndPort
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.HostAndPort
   nameWithType: RedisDataStoreBuilder.HostAndPort
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.OperationTimeout(System.TimeSpan)
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.OperationTimeout(System.TimeSpan)
   name: OperationTimeout(TimeSpan)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_OperationTimeout_System_TimeSpan_
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.OperationTimeout(System.TimeSpan)
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.OperationTimeout(System.TimeSpan)
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_OperationTimeout_System_TimeSpan_
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.OperationTimeout(System.TimeSpan)
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.OperationTimeout(System.TimeSpan)
   nameWithType: RedisDataStoreBuilder.OperationTimeout(TimeSpan)
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.OperationTimeout*
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.OperationTimeout*
   name: OperationTimeout
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_OperationTimeout_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.OperationTimeout
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.OperationTimeout
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_OperationTimeout_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.OperationTimeout
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.OperationTimeout
   nameWithType: RedisDataStoreBuilder.OperationTimeout
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Prefix(System.String)
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Prefix(System.String)
   name: Prefix(String)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Prefix_System_String_
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Prefix(System.String)
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Prefix(System.String)
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_Prefix_System_String_
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Prefix(System.String)
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Prefix(System.String)
   nameWithType: RedisDataStoreBuilder.Prefix(String)
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Prefix*
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Prefix*
   name: Prefix
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Prefix_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Prefix
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Prefix
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_Prefix_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Prefix
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Prefix
   nameWithType: RedisDataStoreBuilder.Prefix
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfigChanges(System.Action{StackExchange.Redis.ConfigurationOptions})
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfigChanges(System.Action{StackExchange.Redis.ConfigurationOptions})
   name: RedisConfigChanges(Action<ConfigurationOptions>)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_RedisConfigChanges_System_Action_StackExchange_Redis_ConfigurationOptions__
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfigChanges(System.Action{StackExchange.Redis.ConfigurationOptions})
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_RedisConfigChanges_System_Action_StackExchange_Redis_ConfigurationOptions__
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfigChanges(System.Action{StackExchange.Redis.ConfigurationOptions})
   name.vb: RedisConfigChanges(Action(Of ConfigurationOptions))
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfigChanges(System.Action<StackExchange.Redis.ConfigurationOptions>)
-  fullName.vb: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfigChanges(System.Action(Of StackExchange.Redis.ConfigurationOptions))
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfigChanges(System.Action<StackExchange.Redis.ConfigurationOptions>)
+  fullName.vb: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfigChanges(System.Action(Of StackExchange.Redis.ConfigurationOptions))
   nameWithType: RedisDataStoreBuilder.RedisConfigChanges(Action<ConfigurationOptions>)
   nameWithType.vb: RedisDataStoreBuilder.RedisConfigChanges(Action(Of ConfigurationOptions))
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfigChanges*
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfigChanges*
   name: RedisConfigChanges
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_RedisConfigChanges_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfigChanges
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfigChanges
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_RedisConfigChanges_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfigChanges
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfigChanges
   nameWithType: RedisDataStoreBuilder.RedisConfigChanges
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfiguration(StackExchange.Redis.ConfigurationOptions)
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfiguration(StackExchange.Redis.ConfigurationOptions)
   name: RedisConfiguration(ConfigurationOptions)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_RedisConfiguration_StackExchange_Redis_ConfigurationOptions_
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfiguration(StackExchange.Redis.ConfigurationOptions)
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfiguration(StackExchange.Redis.ConfigurationOptions)
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_RedisConfiguration_StackExchange_Redis_ConfigurationOptions_
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfiguration(StackExchange.Redis.ConfigurationOptions)
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfiguration(StackExchange.Redis.ConfigurationOptions)
   nameWithType: RedisDataStoreBuilder.RedisConfiguration(ConfigurationOptions)
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfiguration*
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfiguration*
   name: RedisConfiguration
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_RedisConfiguration_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfiguration
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.RedisConfiguration
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_RedisConfiguration_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfiguration
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.RedisConfiguration
   nameWithType: RedisDataStoreBuilder.RedisConfiguration
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ResponseTimeout(System.TimeSpan)
-  name: ResponseTimeout(TimeSpan)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ResponseTimeout_System_TimeSpan_
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ResponseTimeout(System.TimeSpan)
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ResponseTimeout(System.TimeSpan)
-  nameWithType: RedisDataStoreBuilder.ResponseTimeout(TimeSpan)
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ResponseTimeout*
-  name: ResponseTimeout
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_ResponseTimeout_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ResponseTimeout
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.ResponseTimeout
-  nameWithType: RedisDataStoreBuilder.ResponseTimeout
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri(System.String)
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Uri(System.String)
   name: Uri(String)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_System_String_
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri(System.String)
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri(System.String)
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_Uri_System_String_
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Uri(System.String)
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Uri(System.String)
   nameWithType: RedisDataStoreBuilder.Uri(String)
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri(System.Uri)
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Uri(System.Uri)
   name: Uri(Uri)
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_System_Uri_
-  commentId: M:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri(System.Uri)
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri(System.Uri)
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_Uri_System_Uri_
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Uri(System.Uri)
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Uri(System.Uri)
   nameWithType: RedisDataStoreBuilder.Uri(Uri)
-- uid: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri*
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Uri*
   name: Uri
-  href: api/LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Client_Integrations_RedisDataStoreBuilder_Uri_
-  commentId: Overload:LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri
-  fullName: LaunchDarkly.Client.Integrations.RedisDataStoreBuilder.Uri
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_Uri_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Uri
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.Uri
   nameWithType: RedisDataStoreBuilder.Uri
-- uid: LaunchDarkly.Client.Redis
-  name: LaunchDarkly.Client.Redis
-  href: api/LaunchDarkly.Client.Redis.html
-  commentId: N:LaunchDarkly.Client.Redis
-  fullName: LaunchDarkly.Client.Redis
-  nameWithType: LaunchDarkly.Client.Redis
-- uid: LaunchDarkly.Client.Redis.RedisComponents
-  name: RedisComponents
-  href: api/LaunchDarkly.Client.Redis.RedisComponents.html
-  commentId: T:LaunchDarkly.Client.Redis.RedisComponents
-  fullName: LaunchDarkly.Client.Redis.RedisComponents
-  nameWithType: RedisComponents
-- uid: LaunchDarkly.Client.Redis.RedisComponents.#ctor
-  name: RedisComponents()
-  href: api/LaunchDarkly.Client.Redis.RedisComponents.html#LaunchDarkly_Client_Redis_RedisComponents__ctor
-  commentId: M:LaunchDarkly.Client.Redis.RedisComponents.#ctor
-  fullName: LaunchDarkly.Client.Redis.RedisComponents.RedisComponents()
-  nameWithType: RedisComponents.RedisComponents()
-- uid: LaunchDarkly.Client.Redis.RedisComponents.#ctor*
-  name: RedisComponents
-  href: api/LaunchDarkly.Client.Redis.RedisComponents.html#LaunchDarkly_Client_Redis_RedisComponents__ctor_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisComponents.#ctor
-  fullName: LaunchDarkly.Client.Redis.RedisComponents.RedisComponents
-  nameWithType: RedisComponents.RedisComponents
-- uid: LaunchDarkly.Client.Redis.RedisComponents.DefaultCacheExpiration
-  name: DefaultCacheExpiration
-  href: api/LaunchDarkly.Client.Redis.RedisComponents.html#LaunchDarkly_Client_Redis_RedisComponents_DefaultCacheExpiration
-  commentId: F:LaunchDarkly.Client.Redis.RedisComponents.DefaultCacheExpiration
-  fullName: LaunchDarkly.Client.Redis.RedisComponents.DefaultCacheExpiration
-  nameWithType: RedisComponents.DefaultCacheExpiration
-- uid: LaunchDarkly.Client.Redis.RedisComponents.DefaultConnectTimeout
-  name: DefaultConnectTimeout
-  href: api/LaunchDarkly.Client.Redis.RedisComponents.html#LaunchDarkly_Client_Redis_RedisComponents_DefaultConnectTimeout
-  commentId: F:LaunchDarkly.Client.Redis.RedisComponents.DefaultConnectTimeout
-  fullName: LaunchDarkly.Client.Redis.RedisComponents.DefaultConnectTimeout
-  nameWithType: RedisComponents.DefaultConnectTimeout
-- uid: LaunchDarkly.Client.Redis.RedisComponents.DefaultOperationTimeout
-  name: DefaultOperationTimeout
-  href: api/LaunchDarkly.Client.Redis.RedisComponents.html#LaunchDarkly_Client_Redis_RedisComponents_DefaultOperationTimeout
-  commentId: F:LaunchDarkly.Client.Redis.RedisComponents.DefaultOperationTimeout
-  fullName: LaunchDarkly.Client.Redis.RedisComponents.DefaultOperationTimeout
-  nameWithType: RedisComponents.DefaultOperationTimeout
-- uid: LaunchDarkly.Client.Redis.RedisComponents.DefaultPrefix
-  name: DefaultPrefix
-  href: api/LaunchDarkly.Client.Redis.RedisComponents.html#LaunchDarkly_Client_Redis_RedisComponents_DefaultPrefix
-  commentId: F:LaunchDarkly.Client.Redis.RedisComponents.DefaultPrefix
-  fullName: LaunchDarkly.Client.Redis.RedisComponents.DefaultPrefix
-  nameWithType: RedisComponents.DefaultPrefix
-- uid: LaunchDarkly.Client.Redis.RedisComponents.DefaultRedisEndPoint
-  name: DefaultRedisEndPoint
-  href: api/LaunchDarkly.Client.Redis.RedisComponents.html#LaunchDarkly_Client_Redis_RedisComponents_DefaultRedisEndPoint
-  commentId: F:LaunchDarkly.Client.Redis.RedisComponents.DefaultRedisEndPoint
-  fullName: LaunchDarkly.Client.Redis.RedisComponents.DefaultRedisEndPoint
-  nameWithType: RedisComponents.DefaultRedisEndPoint
-- uid: LaunchDarkly.Client.Redis.RedisComponents.RedisFeatureStore
-  name: RedisFeatureStore()
-  href: api/LaunchDarkly.Client.Redis.RedisComponents.html#LaunchDarkly_Client_Redis_RedisComponents_RedisFeatureStore
-  commentId: M:LaunchDarkly.Client.Redis.RedisComponents.RedisFeatureStore
-  fullName: LaunchDarkly.Client.Redis.RedisComponents.RedisFeatureStore()
-  nameWithType: RedisComponents.RedisFeatureStore()
-- uid: LaunchDarkly.Client.Redis.RedisComponents.RedisFeatureStore*
-  name: RedisFeatureStore
-  href: api/LaunchDarkly.Client.Redis.RedisComponents.html#LaunchDarkly_Client_Redis_RedisComponents_RedisFeatureStore_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisComponents.RedisFeatureStore
-  fullName: LaunchDarkly.Client.Redis.RedisComponents.RedisFeatureStore
-  nameWithType: RedisComponents.RedisFeatureStore
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder
-  name: RedisFeatureStoreBuilder
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html
-  commentId: T:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder
-  nameWithType: RedisFeatureStoreBuilder
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.CreateFeatureStore
-  name: CreateFeatureStore()
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_CreateFeatureStore
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.CreateFeatureStore
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.CreateFeatureStore()
-  nameWithType: RedisFeatureStoreBuilder.CreateFeatureStore()
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.CreateFeatureStore*
-  name: CreateFeatureStore
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_CreateFeatureStore_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.CreateFeatureStore
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.CreateFeatureStore
-  nameWithType: RedisFeatureStoreBuilder.CreateFeatureStore
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.Default
-  name: Default()
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_Default
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.Default
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.Default()
-  nameWithType: RedisFeatureStoreBuilder.Default()
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.Default*
-  name: Default
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_Default_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.Default
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.Default
-  nameWithType: RedisFeatureStoreBuilder.Default
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCacheExpiration(System.TimeSpan)
-  name: WithCacheExpiration(TimeSpan)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithCacheExpiration_System_TimeSpan_
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCacheExpiration(System.TimeSpan)
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCacheExpiration(System.TimeSpan)
-  nameWithType: RedisFeatureStoreBuilder.WithCacheExpiration(TimeSpan)
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCacheExpiration*
-  name: WithCacheExpiration
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithCacheExpiration_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCacheExpiration
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCacheExpiration
-  nameWithType: RedisFeatureStoreBuilder.WithCacheExpiration
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCaching(LaunchDarkly.Client.FeatureStoreCacheConfig)
-  name: WithCaching(FeatureStoreCacheConfig)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithCaching_LaunchDarkly_Client_FeatureStoreCacheConfig_
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCaching(LaunchDarkly.Client.FeatureStoreCacheConfig)
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCaching(LaunchDarkly.Client.FeatureStoreCacheConfig)
-  nameWithType: RedisFeatureStoreBuilder.WithCaching(FeatureStoreCacheConfig)
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCaching*
-  name: WithCaching
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithCaching_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCaching
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithCaching
-  nameWithType: RedisFeatureStoreBuilder.WithCaching
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithConnectTimeout(System.TimeSpan)
-  name: WithConnectTimeout(TimeSpan)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithConnectTimeout_System_TimeSpan_
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithConnectTimeout(System.TimeSpan)
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithConnectTimeout(System.TimeSpan)
-  nameWithType: RedisFeatureStoreBuilder.WithConnectTimeout(TimeSpan)
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithConnectTimeout*
-  name: WithConnectTimeout
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithConnectTimeout_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithConnectTimeout
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithConnectTimeout
-  nameWithType: RedisFeatureStoreBuilder.WithConnectTimeout
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithDatabaseIndex(System.Int32)
-  name: WithDatabaseIndex(Int32)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithDatabaseIndex_System_Int32_
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithDatabaseIndex(System.Int32)
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithDatabaseIndex(System.Int32)
-  nameWithType: RedisFeatureStoreBuilder.WithDatabaseIndex(Int32)
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithDatabaseIndex*
-  name: WithDatabaseIndex
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithDatabaseIndex_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithDatabaseIndex
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithDatabaseIndex
-  nameWithType: RedisFeatureStoreBuilder.WithDatabaseIndex
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithOperationTimeout(System.TimeSpan)
-  name: WithOperationTimeout(TimeSpan)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithOperationTimeout_System_TimeSpan_
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithOperationTimeout(System.TimeSpan)
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithOperationTimeout(System.TimeSpan)
-  nameWithType: RedisFeatureStoreBuilder.WithOperationTimeout(TimeSpan)
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithOperationTimeout*
-  name: WithOperationTimeout
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithOperationTimeout_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithOperationTimeout
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithOperationTimeout
-  nameWithType: RedisFeatureStoreBuilder.WithOperationTimeout
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithPrefix(System.String)
-  name: WithPrefix(String)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithPrefix_System_String_
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithPrefix(System.String)
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithPrefix(System.String)
-  nameWithType: RedisFeatureStoreBuilder.WithPrefix(String)
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithPrefix*
-  name: WithPrefix
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithPrefix_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithPrefix
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithPrefix
-  nameWithType: RedisFeatureStoreBuilder.WithPrefix
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfigChanges(System.Action{StackExchange.Redis.ConfigurationOptions})
-  name: WithRedisConfigChanges(Action<ConfigurationOptions>)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisConfigChanges_System_Action_StackExchange_Redis_ConfigurationOptions__
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfigChanges(System.Action{StackExchange.Redis.ConfigurationOptions})
-  name.vb: WithRedisConfigChanges(Action(Of ConfigurationOptions))
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfigChanges(System.Action<StackExchange.Redis.ConfigurationOptions>)
-  fullName.vb: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfigChanges(System.Action(Of StackExchange.Redis.ConfigurationOptions))
-  nameWithType: RedisFeatureStoreBuilder.WithRedisConfigChanges(Action<ConfigurationOptions>)
-  nameWithType.vb: RedisFeatureStoreBuilder.WithRedisConfigChanges(Action(Of ConfigurationOptions))
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfigChanges*
-  name: WithRedisConfigChanges
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisConfigChanges_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfigChanges
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfigChanges
-  nameWithType: RedisFeatureStoreBuilder.WithRedisConfigChanges
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfiguration(StackExchange.Redis.ConfigurationOptions)
-  name: WithRedisConfiguration(ConfigurationOptions)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisConfiguration_StackExchange_Redis_ConfigurationOptions_
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfiguration(StackExchange.Redis.ConfigurationOptions)
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfiguration(StackExchange.Redis.ConfigurationOptions)
-  nameWithType: RedisFeatureStoreBuilder.WithRedisConfiguration(ConfigurationOptions)
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfiguration*
-  name: WithRedisConfiguration
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisConfiguration_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfiguration
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisConfiguration
-  nameWithType: RedisFeatureStoreBuilder.WithRedisConfiguration
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoint(System.Net.EndPoint)
-  name: WithRedisEndPoint(EndPoint)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisEndPoint_System_Net_EndPoint_
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoint(System.Net.EndPoint)
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoint(System.Net.EndPoint)
-  nameWithType: RedisFeatureStoreBuilder.WithRedisEndPoint(EndPoint)
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoint*
-  name: WithRedisEndPoint
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisEndPoint_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoint
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoint
-  nameWithType: RedisFeatureStoreBuilder.WithRedisEndPoint
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoints(System.Collections.Generic.IList{System.Net.EndPoint})
-  name: WithRedisEndPoints(IList<EndPoint>)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisEndPoints_System_Collections_Generic_IList_System_Net_EndPoint__
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoints(System.Collections.Generic.IList{System.Net.EndPoint})
-  name.vb: WithRedisEndPoints(IList(Of EndPoint))
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoints(System.Collections.Generic.IList<System.Net.EndPoint>)
-  fullName.vb: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoints(System.Collections.Generic.IList(Of System.Net.EndPoint))
-  nameWithType: RedisFeatureStoreBuilder.WithRedisEndPoints(IList<EndPoint>)
-  nameWithType.vb: RedisFeatureStoreBuilder.WithRedisEndPoints(IList(Of EndPoint))
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoints*
-  name: WithRedisEndPoints
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisEndPoints_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoints
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisEndPoints
-  nameWithType: RedisFeatureStoreBuilder.WithRedisEndPoints
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisHostAndPort(System.String,System.Int32)
-  name: WithRedisHostAndPort(String, Int32)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisHostAndPort_System_String_System_Int32_
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisHostAndPort(System.String,System.Int32)
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisHostAndPort(System.String, System.Int32)
-  nameWithType: RedisFeatureStoreBuilder.WithRedisHostAndPort(String, Int32)
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisHostAndPort*
-  name: WithRedisHostAndPort
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisHostAndPort_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisHostAndPort
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisHostAndPort
-  nameWithType: RedisFeatureStoreBuilder.WithRedisHostAndPort
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisUri(System.Uri)
-  name: WithRedisUri(Uri)
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisUri_System_Uri_
-  commentId: M:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisUri(System.Uri)
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisUri(System.Uri)
-  nameWithType: RedisFeatureStoreBuilder.WithRedisUri(Uri)
-- uid: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisUri*
-  name: WithRedisUri
-  href: api/LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.html#LaunchDarkly_Client_Redis_RedisFeatureStoreBuilder_WithRedisUri_
-  commentId: Overload:LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisUri
-  fullName: LaunchDarkly.Client.Redis.RedisFeatureStoreBuilder.WithRedisUri
-  nameWithType: RedisFeatureStoreBuilder.WithRedisUri
