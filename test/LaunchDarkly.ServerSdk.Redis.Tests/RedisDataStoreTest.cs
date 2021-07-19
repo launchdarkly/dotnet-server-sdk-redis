@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using LaunchDarkly.Logging;
 using LaunchDarkly.Sdk.Server.Interfaces;
@@ -26,13 +27,27 @@ namespace LaunchDarkly.Sdk.Server.Integrations
             return Redis.DataStore().Prefix(prefix);
         }
 
-        private Task ClearAllData(string prefix)
+        private async Task ClearAllData(string prefix)
         {
             using (var cxn = ConnectionMultiplexer.Connect("localhost:6379,allowAdmin=true"))
             {
-                cxn.GetServer("localhost:6379").FlushDatabase();
+                await ClearDataWithPrefix(cxn, prefix);
             }
-            return Task.CompletedTask;
+        }
+
+        internal static async Task ClearDataWithPrefix(ConnectionMultiplexer cxn, string prefix)
+        {
+            prefix = string.IsNullOrWhiteSpace(prefix) ? Redis.DefaultPrefix : prefix;
+            var server = cxn.GetServer("localhost:6379");
+            var db = cxn.GetDatabase();
+            var keys = server.Keys().ToList();
+            foreach (var key in keys)
+            {
+                if (key.ToString().StartsWith(prefix + ":"))
+                {
+                    await db.KeyDeleteAsync(key);
+                }
+            }
         }
 
         private void SetUpdateHook(object store, Action hook)

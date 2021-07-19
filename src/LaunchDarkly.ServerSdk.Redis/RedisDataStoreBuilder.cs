@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using LaunchDarkly.Sdk.Server.Interfaces;
@@ -12,12 +12,31 @@ namespace LaunchDarkly.Sdk.Server.Integrations
     /// </summary>
     /// <remarks>
     /// <para>
-    /// Obtain an instance of this class by calling <see cref="Redis.DataStore"/>. After calling its methods
-    /// to specify any desired custom settings, wrap it in a <see cref="PersistentDataStoreBuilder"/>
-    /// by calling <see cref="Components.PersistentDataStore(IPersistentDataStoreFactory)"/>, then pass
-    /// the result into the SDK configuration with <see cref="ConfigurationBuilder.DataStore(IDataStoreFactory)"/>.
-    /// You do not need to call <see cref="CreatePersistentDataStore(LdClientContext)"/> yourself to build
-    /// the actual data store; that will be done by the SDK.
+    /// This can be used either for the main data store that holds feature flag data, or for the big
+    /// segment store, or both. If you are using both, they do not have to have the same parameters. For
+    /// instance, in this example the main data store uses a Redis host called "host1" and the big
+    /// segment store uses a Redis host called "host2":
+    /// </para>
+    /// <code>
+    ///     var config = Configuration.Builder("sdk-key")
+    ///         .DataStore(
+    ///             Components.PersistentDataStore(
+    ///                 Redis.DataStore().Uri("redis://host1:6379")
+    ///             )
+    ///         )
+    ///         .BigSegments(
+    ///             Components.BigSegments(
+    ///                 Redis.DataStore().Uri("redis://host2:6379")
+    ///             )
+    ///         )
+    ///         .Build();
+    /// </code>
+    /// <para>
+    /// Note that the builder is passed to one of two methods,
+    /// <see cref="Components.PersistentDataStore(IPersistentDataStoreFactory)"/> or
+    /// <see cref="Components.BigSegments(IBigSegmentStoreFactory)"/>, depending on the context in
+    /// which it is being used. This is because each of those contexts has its own additional
+    /// configuration options that are unrelated to the Redis options.
     /// </para>
     /// <para>
     /// Builder calls can be chained, for example:
@@ -27,7 +46,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
     ///         .DataStore(
     ///             Components.PersistentDataStore(
     ///                 Redis.DataStore()
-    ///                     .Uri(new Uri("redis://my-redis-host"))
+    ///                     .Uri("redis://my-redis-host")
     ///                     .Database(1)
     ///                 )
     ///                 .CacheSeconds(15)
@@ -35,7 +54,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
     ///         .Build();
     /// </code>
     /// </remarks>
-    public sealed class RedisDataStoreBuilder : IPersistentDataStoreFactory
+    public sealed class RedisDataStoreBuilder : IPersistentDataStoreFactory, IBigSegmentStoreFactory
     {
         internal ConfigurationOptions _redisConfig = new ConfigurationOptions();
         internal string _prefix = Redis.DefaultPrefix;
@@ -208,5 +227,9 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// <inheritdoc/>
         public IPersistentDataStore CreatePersistentDataStore(LdClientContext context) =>
             new RedisDataStoreImpl(_redisConfig, _prefix, context.Basic.Logger.SubLogger("DataStore.Redis"));
+
+        /// <inheritdoc/>
+        public IBigSegmentStore CreateBigSegmentStore(LdClientContext context) =>
+            new RedisBigSegmentStoreImpl(_redisConfig, _prefix, context.Basic.Logger.SubLogger("BigSegments.Redis"));
     }
 }
