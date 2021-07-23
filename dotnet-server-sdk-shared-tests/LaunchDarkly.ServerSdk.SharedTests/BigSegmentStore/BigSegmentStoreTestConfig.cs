@@ -29,20 +29,24 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.BigSegmentStore
     public delegate Task ClearDataAction(string prefix);
 
     /// <summary>
-    /// An asynchronous function that 
+    /// An asynchronous function that updates the store metadata to the specified values.
+    /// This must be provided separately by the test code because the store interface used by
+    /// the SDK has no update methods.
     /// </summary>
     /// <param name="prefix">the database prefix</param>
-    /// <param name="metadata"></param>
+    /// <param name="metadata">the data to write to the store</param>
     /// <returns>an asynchronous task</returns>
     public delegate Task SetMetadataAction(string prefix, StoreMetadata metadata);
 
     /// <summary>
-    /// An asynchronous function that 
+    /// An asynchronous function that updates the membership state for a user in the store.
+    /// This must be provided separately by the test code because the store interface used by
+    /// the SDK has no update methods.
     /// </summary>
     /// <param name="prefix">the database prefix</param>
-    /// <param name="userHashKey"></param>
-    /// <param name="includedSegmentRefs"></param>
-    /// <param name="excludedSegmentRefs"></param>
+    /// <param name="userHashKey">the hashed user key</param>
+    /// <param name="includedSegmentRefs">segment references to be included</param>
+    /// <param name="excludedSegmentRefs">segment references to be excluded</param>
     /// <returns>an asynchronous task</returns>
     public delegate Task SetSegmentsAction(string prefix, string userHashKey,
         IEnumerable<string> includedSegmentRefs, IEnumerable<string> excludedSegmentRefs);
