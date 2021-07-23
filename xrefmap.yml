@@ -67,6 +67,18 @@ references:
   commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.ConnectTimeout
   fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.ConnectTimeout
   nameWithType: RedisDataStoreBuilder.ConnectTimeout
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreateBigSegmentStore(LaunchDarkly.Sdk.Server.Interfaces.LdClientContext)
+  name: CreateBigSegmentStore(LdClientContext)
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_CreateBigSegmentStore_LaunchDarkly_Sdk_Server_Interfaces_LdClientContext_
+  commentId: M:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreateBigSegmentStore(LaunchDarkly.Sdk.Server.Interfaces.LdClientContext)
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreateBigSegmentStore(LaunchDarkly.Sdk.Server.Interfaces.LdClientContext)
+  nameWithType: RedisDataStoreBuilder.CreateBigSegmentStore(LdClientContext)
+- uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreateBigSegmentStore*
+  name: CreateBigSegmentStore
+  href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_CreateBigSegmentStore_
+  commentId: Overload:LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreateBigSegmentStore
+  fullName: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreateBigSegmentStore
+  nameWithType: RedisDataStoreBuilder.CreateBigSegmentStore
 - uid: LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.CreatePersistentDataStore(LaunchDarkly.Sdk.Server.Interfaces.LdClientContext)
   name: CreatePersistentDataStore(LdClientContext)
   href: api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_CreatePersistentDataStore_LaunchDarkly_Sdk_Server_Interfaces_LdClientContext_

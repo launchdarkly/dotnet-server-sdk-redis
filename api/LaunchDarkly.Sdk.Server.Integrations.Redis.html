@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Redis
    ">
-    <meta name="generator" content="docfx 2.57.2.0">
+    <meta name="generator" content="docfx 2.58.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -233,19 +233,41 @@
     </tbody>
   </table>
   <h5 id="LaunchDarkly_Sdk_Server_Integrations_Redis_DataStore_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>This object can be modified with <a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a> methods for any desired
-custom Redis options. Then, pass it to <span class="xref">LaunchDarkly.Sdk.Server.Components.PersistentDataStore(LaunchDarkly.Sdk.Server.Interfaces.IPersistentDataStoreFactory)</span>
-and set any desired caching options. Finally, pass the result to <span class="xref">LaunchDarkly.Sdk.Server.ConfigurationBuilder.DataStore(LaunchDarkly.Sdk.Server.Interfaces.IDataStoreFactory)</span>.</p>
-</div>
-  <h5 id="LaunchDarkly_Sdk_Server_Integrations_Redis_DataStore_examples">Examples</h5>
-  <pre><code>    var config = Configuration.Builder(&quot;sdk-key&quot;)
+  <div class="markdown level1 remarks"><p><p>
+This can be used either for the main data store that holds feature flag data, or for the big
+segment store, or both. If you are using both, they do not have to have the same parameters. For
+instance, in this example the main data store uses a Redis host called &quot;host1&quot; and the big
+segment store uses a Redis host called &quot;host2&quot;:
+</p></p>
+<pre><code>    var config = Configuration.Builder(&quot;sdk-key&quot;)
         .DataStore(
             Components.PersistentDataStore(
-                Redis.DataStore().Url(&quot;redis://my-redis-host&quot;)
+                Redis.DataStore().Uri(&quot;redis://host1:6379&quot;)
+            )
+        )
+        .BigSegments(
+            Components.BigSegments(
+                Redis.DataStore().Uri(&quot;redis://host2:6379&quot;)
+            )
+        )
+        .Build();</code></pre>
+<p><p>
+Note that the builder is passed to one of two methods,
+<span class="xref">LaunchDarkly.Sdk.Server.Components.PersistentDataStore(LaunchDarkly.Sdk.Server.Interfaces.IPersistentDataStoreFactory)</span> or
+<span class="xref">LaunchDarkly.Sdk.Server.Components.BigSegments(LaunchDarkly.Sdk.Server.Interfaces.IBigSegmentStoreFactory)</span>, depending on the context in
+which it is being used. This is because each of those contexts has its own additional
+configuration options that are unrelated to the Redis options. For instance, the
+<span class="xref">LaunchDarkly.Sdk.Server.Components.PersistentDataStore(LaunchDarkly.Sdk.Server.Interfaces.IPersistentDataStoreAsyncFactory)</span> builder
+has options for caching:
+</p></p>
+<pre><code>    var config = Configuration.Builder(&quot;sdk-key&quot;)
+        .DataStore(
+            Components.PersistentDataStore(
+                Redis.DataStore().Uri(&quot;redis://my-redis-host&quot;)
             ).CacheSeconds(15)
         )
         .Build();</code></pre>
-
+</div>
 </article>
           </div>
           
