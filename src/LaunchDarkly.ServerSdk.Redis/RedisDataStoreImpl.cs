@@ -18,17 +18,18 @@ namespace LaunchDarkly.Sdk.Server.Integrations
     /// Implementation notes:
     /// </para>
     /// <list type="bullet">
-    /// <item> Feature flags, segments, and any other kind of entity the LaunchDarkly client may wish
+    /// <item><description> Feature flags, segments, and any other kind of entity the LaunchDarkly client may wish
     /// to store, are stored as hash values with the main key "{prefix}:features", "{prefix}:segments",
-    /// etc.</item>
-    /// <item> Redis only allows a single string value per hash key, so there is no way to store the
+    /// etc.</description></item>
+    /// <item><description> Redis only allows a single string value per hash key, so there is no way to store the
     /// item metadata (version number and deletion status) separately from the value. The SDK understands
     /// that some data store implementations don't have that capability, so it will always pass us a
     /// serialized item string that contains the metadata in it, and we're allowed to return 0 as the
     /// version number of a queried item to indicate "you have to deserialize the item to find out the
     /// metadata".
-    /// </item>
-    /// <item> The special key "{prefix}:$inited" indicates that the store contains a complete data set.</item>
+    /// </description></item>
+    /// <item><description> The special key "{prefix}:$inited" indicates that the store contains a complete data set.
+    /// </description></item>
     /// </list>
     /// </remarks>
     internal sealed class RedisDataStoreImpl : RedisStoreImplBase, IPersistentDataStore

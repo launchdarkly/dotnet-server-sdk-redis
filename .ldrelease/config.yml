@@ -1,8 +1,10 @@
+version: 2
+
 publications:
   - url: https://nuget.org/packages/LaunchDarkly.ServerSdk.Redis
     description: NuGet
 
-releasableBranches:
+branches:
   - name: master
     description: 3.x - for SDK 6+
   - name: 2.x
@@ -10,17 +12,15 @@ releasableBranches:
   - name: 1.x
     description: for SDK 5.x + StackExchange.Redis 1.x
 
-circleci:
-  windows:
-    context: org-global
+jobs:
+  - docker: {}
+    template:
+      name: dotnet-linux
+      skip:
+        - test  # tests require Redis - run them only in CI
     env:
-      LD_RELEASE_DOCS_TARGET_FRAMEWORK: net461
-
-template:
-  name: dotnet-windows
-  skip:
-    - test  # tests require Redis - run them only in CI
+      LD_RELEASE_DOCS_TARGET_FRAMEWORK: netstandard2.0
 
 documentation:
   title: LaunchDarkly Server-Side .NET SDK Redis Integration
-  githubPages: true
+  gitHubPages: true
