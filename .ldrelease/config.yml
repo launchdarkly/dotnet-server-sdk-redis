@@ -5,7 +5,7 @@ publications:
     description: NuGet
 
 branches:
-  - name: master
+  - name: main
     description: 3.x - for SDK 6+
   - name: 2.x
     description: for SDK 5.x + StackExchange.Redis 2.x
