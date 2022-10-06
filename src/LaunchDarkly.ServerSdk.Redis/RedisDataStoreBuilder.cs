@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using LaunchDarkly.Sdk.Server.Interfaces;
+using LaunchDarkly.Sdk.Server.Subsystems;
 using StackExchange.Redis;
 
 namespace LaunchDarkly.Sdk.Server.Integrations
@@ -33,8 +33,8 @@ namespace LaunchDarkly.Sdk.Server.Integrations
     /// </code>
     /// <para>
     /// Note that the builder is passed to one of two methods,
-    /// <see cref="Components.PersistentDataStore(IPersistentDataStoreFactory)"/> or
-    /// <see cref="Components.BigSegments(IBigSegmentStoreFactory)"/>, depending on the context in
+    /// <see cref="Components.PersistentDataStore(IComponentConfigurer{IPersistentDataStore})"/> or
+    /// <see cref="Components.BigSegments(IComponentConfigurer{IBigSegmentStore})"/>, depending on the context in
     /// which it is being used. This is because each of those contexts has its own additional
     /// configuration options that are unrelated to the Redis options.
     /// </para>
@@ -54,7 +54,8 @@ namespace LaunchDarkly.Sdk.Server.Integrations
     ///         .Build();
     /// </code>
     /// </remarks>
-    public sealed class RedisDataStoreBuilder : IPersistentDataStoreFactory, IBigSegmentStoreFactory
+    public sealed class RedisDataStoreBuilder : IComponentConfigurer<IPersistentDataStore>,
+        IComponentConfigurer<IBigSegmentStore>
     {
         internal ConfigurationOptions _redisConfig = new ConfigurationOptions();
         internal string _prefix = Redis.DefaultPrefix;
@@ -225,11 +226,11 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         }
 
         /// <inheritdoc/>
-        public IPersistentDataStore CreatePersistentDataStore(LdClientContext context) =>
-            new RedisDataStoreImpl(_redisConfig, _prefix, context.Basic.Logger.SubLogger("DataStore.Redis"));
+        IPersistentDataStore IComponentConfigurer<IPersistentDataStore>.Build(LdClientContext context) =>
+            new RedisDataStoreImpl(_redisConfig, _prefix, context.Logger.SubLogger("DataStore.Redis"));
 
         /// <inheritdoc/>
-        public IBigSegmentStore CreateBigSegmentStore(LdClientContext context) =>
-            new RedisBigSegmentStoreImpl(_redisConfig, _prefix, context.Basic.Logger.SubLogger("BigSegments.Redis"));
+        IBigSegmentStore IComponentConfigurer<IBigSegmentStore>.Build(LdClientContext context) =>
+            new RedisBigSegmentStoreImpl(_redisConfig, _prefix, context.Logger.SubLogger("BigSegments.Redis"));
     }
 }

@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LaunchDarkly.ServerSdk" Version="[6.2.0,7.0.0)" />
+    <PackageReference Include="LaunchDarkly.ServerSdk" Version="7.0.0-alpha.1" />
     <PackageReference Include="StackExchange.Redis" Version="[2.0.513,]" />
   </ItemGroup>
 

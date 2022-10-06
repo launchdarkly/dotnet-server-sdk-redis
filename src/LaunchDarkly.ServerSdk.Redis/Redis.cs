@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using LaunchDarkly.Sdk.Server.Interfaces;
 
 namespace LaunchDarkly.Sdk.Server.Integrations
 {
@@ -55,11 +54,11 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// </code>
         /// <para>
         /// Note that the builder is passed to one of two methods,
-        /// <see cref="Components.PersistentDataStore(IPersistentDataStoreFactory)"/> or
-        /// <see cref="Components.BigSegments(IBigSegmentStoreFactory)"/>, depending on the context in
+        /// <see cref="Components.PersistentDataStore(Subsystems.IComponentConfigurer{Subsystems.IPersistentDataStore})"/> or
+        /// <see cref="Components.BigSegments(Subsystems.IComponentConfigurer{Subsystems.IBigSegmentStore})"/>, depending on the context in
         /// which it is being used. This is because each of those contexts has its own additional
         /// configuration options that are unrelated to the Redis options. For instance, the
-        /// <see cref="Components.PersistentDataStore(IPersistentDataStoreAsyncFactory)"/> builder
+        /// <see cref="Components.PersistentDataStore(Subsystems.IComponentConfigurer{Subsystems.IPersistentDataStore})"/> builder
         /// has options for caching:
         /// </para>
         /// <code>

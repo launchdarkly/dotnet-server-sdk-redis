@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LaunchDarkly.Logging;
-using LaunchDarkly.Sdk.Server.Interfaces;
+using LaunchDarkly.Sdk.Server.Subsystems;
 using LaunchDarkly.Sdk.Server.SharedTests.DataStore;
 using StackExchange.Redis;
 using Xunit;

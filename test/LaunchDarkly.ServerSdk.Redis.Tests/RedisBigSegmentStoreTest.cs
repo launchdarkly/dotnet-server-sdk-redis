@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using LaunchDarkly.Sdk.Server.Interfaces;
+using LaunchDarkly.Sdk.Server.Subsystems;
 using LaunchDarkly.Sdk.Server.SharedTests.BigSegmentStore;
 using StackExchange.Redis;
 using Xunit.Abstractions;
 
-using static LaunchDarkly.Sdk.Server.Interfaces.BigSegmentStoreTypes;
+using static LaunchDarkly.Sdk.Server.Subsystems.BigSegmentStoreTypes;
 
 namespace LaunchDarkly.Sdk.Server.Integrations
 {

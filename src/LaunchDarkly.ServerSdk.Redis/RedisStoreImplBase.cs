@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using LaunchDarkly.Logging;
-using LaunchDarkly.Sdk.Server.Interfaces;
+using LaunchDarkly.Sdk.Server.Subsystems;
 using StackExchange.Redis;
 
 namespace LaunchDarkly.Sdk.Server.Integrations

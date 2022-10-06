@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using LaunchDarkly.Sdk.Server.Interfaces;
+using LaunchDarkly.Sdk.Server.Subsystems;
 using Xunit.Abstractions;
 
-using static LaunchDarkly.Sdk.Server.Interfaces.BigSegmentStoreTypes;
+using static LaunchDarkly.Sdk.Server.Subsystems.BigSegmentStoreTypes;
 
 namespace LaunchDarkly.Sdk.Server.SharedTests.BigSegmentStore
 {
@@ -32,7 +32,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.BigSegmentStore
         {
         }
 
-        private IBigSegmentStoreFactory CreateStoreFactory(string prefix) =>
+        private IComponentConfigurer<IBigSegmentStore> CreateStoreFactory(string prefix) =>
             new MockStoreFactory(GetOrCreateDataSet(prefix));
 
         private Task ClearData(string prefix)
@@ -66,7 +66,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.BigSegmentStore
             return _allData[prefix];
         }
 
-        private class MockStoreFactory : IBigSegmentStoreFactory
+        private class MockStoreFactory : IComponentConfigurer<IBigSegmentStore>
         {
             private readonly DataSet _data;
 
@@ -75,7 +75,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.BigSegmentStore
                 _data = data;
             }
 
-            public IBigSegmentStore CreateBigSegmentStore(LdClientContext context) =>
+            public IBigSegmentStore Build(LdClientContext context) =>
                 new MockStore(_data);
         }
 
