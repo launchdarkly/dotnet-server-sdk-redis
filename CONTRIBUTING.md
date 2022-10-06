@@ -14,7 +14,7 @@ We encourage pull requests and other contributions from the community. Before su
  
 ### Prerequisites
 
-To set up your SDK build time environment, you must [download .NET development tools and follow the instructions](https://dotnet.microsoft.com/download). .NET 5.0 is preferred, since the .NET 5.0 tools are able to build for all supported target platforms.
+To set up your SDK build time environment, you must [download .NET development tools and follow the instructions](https://dotnet.microsoft.com/download). .NET 6.0 is preferred, since the .NET 6.0 tools are able to build for all supported target platforms.
 
 The project has a package dependency on `StackExchange.Redis`. The dependency version is intended to be the _minimum_ compatible version; applications are expected to override this with their own dependency on some higher version.
 

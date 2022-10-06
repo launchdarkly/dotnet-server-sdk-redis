@@ -8,7 +8,7 @@ This library provides a Redis-backed persistence mechanism (data store) for the 
 
 For more information, see also: [Using a persistent data store](https://docs.launchdarkly.com/v2.0/docs/using-a-persistent-feature-store).
 
-Version 3.0.0 and above of this library works with version 6.0.0 and above of the LaunchDarkly .NET SDK. For earlier versions of the SDK, use the latest 1.x release of this library.
+Version 4.0.0 and above of this library works with version 7.0.0 and above of the LaunchDarkly .NET SDK. For earlier versions of the SDK, see the changelog for which version of this library to use.
 
 It has a dependency on StackExchange.Redis version 2.0.513. If you are using a higher version of StackExchange.Redis, you should install it explicitly as a dependency in your application to override this minimum version.
 
@@ -18,8 +18,8 @@ For full usage details and examples, see the [API reference](launchdarkly.github
 
 This version of the library is built for the following targets:
 
-* .NET Framework 4.6.1: works in .NET Framework of that version or higher.
-* .NET Standard 2.0: works in .NET Core 2.x, .NET 5.x, or in a library targeted to .NET Standard 2.x or .NET 5.x.
+* .NET Framework 4.6.2: works in .NET Framework of that version or higher.
+* .NET Standard 2.0: works in .NET Core 3.x, .NET 6.x, or in a library targeted to .NET Standard 2.x.
 
 The .NET build tools should automatically load the most appropriate build of the library for whatever platform your application or library is targeted to.
 
