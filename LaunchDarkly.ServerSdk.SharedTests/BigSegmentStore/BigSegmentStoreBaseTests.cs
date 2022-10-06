@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using LaunchDarkly.Logging;
-using LaunchDarkly.Sdk.Server.Interfaces;
+using LaunchDarkly.Sdk.Server.Subsystems;
 using Xunit;
 using Xunit.Abstractions;
 
-using static LaunchDarkly.Sdk.Server.Interfaces.BigSegmentStoreTypes;
+using static LaunchDarkly.Sdk.Server.Subsystems.BigSegmentStoreTypes;
 
 namespace LaunchDarkly.Sdk.Server.SharedTests.BigSegmentStore
 {
@@ -47,9 +47,9 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.BigSegmentStore
 
         private IBigSegmentStore MakeStore()
         {
-            var context = new LdClientContext(new BasicConfiguration("sdk-key", false, _testLogging.Logger("")),
-                LaunchDarkly.Sdk.Server.Configuration.Default("sdk-key"));
-            return Configuration.StoreFactoryFunc(prefix).CreateBigSegmentStore(context);
+            var context = new LdClientContext("sdk-key", null, null,
+                Components.HttpConfiguration().Build(new LdClientContext("sdk-key")), _testLogging.Logger(""), false, null);
+            return Configuration.StoreFactoryFunc(prefix).Build(context);
         }
 
         private async Task<IBigSegmentStore> MakeEmptyStore()

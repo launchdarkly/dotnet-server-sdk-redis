@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LaunchDarkly.Logging;
-using LaunchDarkly.Sdk.Server.Interfaces;
-using Xunit;
+﻿using System.Collections.Generic;
 
-using static LaunchDarkly.Sdk.Server.Interfaces.DataStoreTypes;
+using static LaunchDarkly.Sdk.Server.Subsystems.DataStoreTypes;
 
 namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
 {
@@ -20,8 +14,8 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
 
         public const int GoodVariation1 = 0, GoodVariation2 = 1, BadVariation = 2;
 
-        public static readonly User MainUser = User.WithKey(UserKey),
-            OtherUser = User.WithKey(OtherUserKey);
+        public static readonly Context MainUser = Context.New(UserKey),
+            OtherUser = Context.New(OtherUserKey);
 
         public static ItemDescriptor MakeFlagThatReturnsVariationForSegmentMatch(int version, int variation)
         {

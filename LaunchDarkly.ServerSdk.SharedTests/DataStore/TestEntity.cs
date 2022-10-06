@@ -1,6 +1,4 @@
-﻿using System;
-
-using static LaunchDarkly.Sdk.Server.Interfaces.DataStoreTypes;
+﻿using static LaunchDarkly.Sdk.Server.Subsystems.DataStoreTypes;
 
 namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
 {

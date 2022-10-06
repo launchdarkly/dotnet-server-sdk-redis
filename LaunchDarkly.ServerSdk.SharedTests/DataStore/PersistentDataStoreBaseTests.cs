@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LaunchDarkly.Logging;
-using LaunchDarkly.Sdk.Server.Interfaces;
+using LaunchDarkly.Sdk.Server.Subsystems;
 using Xunit;
 using Xunit.Abstractions;
 
-using static LaunchDarkly.Sdk.Server.Interfaces.DataStoreTypes;
+using static LaunchDarkly.Sdk.Server.Subsystems.DataStoreTypes;
 
 namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
 {
@@ -412,7 +412,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
             {
                 var dataSourceUpdates = dataSourceFactory._updates;
 
-                Action<User, LdValue> flagShouldHaveValueForUser = (user, value) =>
+                Action<Context, LdValue> flagShouldHaveValueForUser = (user, value) =>
                     Assert.Equal(value, client.JsonVariation(FlagTestData.FlagKey, user, LdValue.Null));
 
                 // evaluate each flag from the data store
@@ -453,15 +453,14 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
 
         private IDisposable CreateStoreImpl(string prefix = null)
         {
-            var context = new LdClientContext(new BasicConfiguration("sdk-key", false, Logs.None.Logger("")),
-                LaunchDarkly.Sdk.Server.Configuration.Default("sdk-key"));
+            var context = new LdClientContext("sdk-key");
             if (Configuration.StoreFactoryFunc != null)
             {
-                return Configuration.StoreFactoryFunc(prefix).CreatePersistentDataStore(context);
+                return Configuration.StoreFactoryFunc(prefix).Build(context);
             }
             if (Configuration.StoreAsyncFactoryFunc != null)
             {
-                return Configuration.StoreAsyncFactoryFunc(prefix).CreatePersistentDataStore(context);
+                return Configuration.StoreAsyncFactoryFunc(prefix).Build(context);
             }
             throw new InvalidOperationException("neither StoreFactoryFunc nor StoreAsyncFactoryFunc was set");
         }
@@ -566,7 +565,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
                 );
         }
 
-        private class TestDataSourceFactory : IDataSourceFactory
+        private class TestDataSourceFactory : IComponentConfigurer<IDataSource>
         {
             private readonly FullDataSet<ItemDescriptor> _data;
             internal IDataSourceUpdates _updates;
@@ -576,10 +575,10 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
                 _data = data;
             }
 
-            public IDataSource CreateDataSource(LdClientContext context, IDataSourceUpdates dataSourceUpdates)
+            public IDataSource Build(LdClientContext context)
             {
-                _updates = dataSourceUpdates;
-                return new TestDataSource(_data, dataSourceUpdates);
+                _updates = context.DataSourceUpdates;
+                return new TestDataSource(_data, context.DataSourceUpdates);
             }
         }
 

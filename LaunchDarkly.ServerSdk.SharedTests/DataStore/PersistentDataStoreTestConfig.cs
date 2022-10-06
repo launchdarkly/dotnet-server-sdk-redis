@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LaunchDarkly.Sdk.Server.Interfaces;
+using LaunchDarkly.Sdk.Server.Subsystems;
 
 namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
 {
@@ -21,7 +21,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
         /// may be appropriate for the test environment (for instance, pointing it to a database
         /// instance that has been set up for the tests).
         /// </remarks>
-        public Func<string, IPersistentDataStoreFactory> StoreFactoryFunc { get; set; }
+        public Func<string, IComponentConfigurer<IPersistentDataStore>> StoreFactoryFunc { get; set; }
 
         /// <summary>
         /// Set this to a function that takes a prefix string and returns a configured factory for
@@ -34,7 +34,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.DataStore
         /// may be appropriate for the test environment (for instance, pointing it to a database
         /// instance that has been set up for the tests).
         /// </remarks>
-        public Func<string, IPersistentDataStoreAsyncFactory> StoreAsyncFactoryFunc { get; set; }
+        public Func<string, IComponentConfigurer<IPersistentDataStoreAsync>> StoreAsyncFactoryFunc { get; set; }
         
         /// <summary>
         /// Set this to an asynchronous function that removes all data from the underlying
