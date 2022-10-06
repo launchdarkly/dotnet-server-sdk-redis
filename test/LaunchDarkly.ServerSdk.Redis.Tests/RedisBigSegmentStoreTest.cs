@@ -26,7 +26,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
             _redis = ConnectionMultiplexer.Connect("localhost:6379,allowAdmin=true");
         }
 
-        private IBigSegmentStoreFactory MakeStoreFactory(string prefix) =>
+        private IComponentConfigurer<IBigSegmentStore> MakeStoreFactory(string prefix) =>
             Redis.DataStore().Prefix(prefix);
 
         private async Task ClearData(string prefix) =>

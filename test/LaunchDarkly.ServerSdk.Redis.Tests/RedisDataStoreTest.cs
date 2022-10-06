@@ -22,7 +22,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
 
         public RedisDataStoreTest(ITestOutputHelper testOutput) : base(testOutput) { }
 
-        private IPersistentDataStoreFactory MakeStoreFactory(string prefix)
+        private IComponentConfigurer<IPersistentDataStore> MakeStoreFactory(string prefix)
         {
             return Redis.DataStore().Prefix(prefix);
         }
@@ -60,9 +60,8 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         {
             var logCapture = Logs.Capture();
             var logger = logCapture.Logger("BaseLoggerName"); // in real life, the SDK will provide its own base log name
-            var context = new LdClientContext(new BasicConfiguration("", false, logger),
-                LaunchDarkly.Sdk.Server.Configuration.Default(""));
-            using (Redis.DataStore().Prefix("my-prefix").CreatePersistentDataStore(context))
+            var context = new LdClientContext("", null, null, null, logger, false, null);
+            using (((IComponentConfigurer<IPersistentDataStore>)Redis.DataStore().Prefix("my-prefix")).Build(context))
             {
                 Assert.Collection(logCapture.GetMessages(),
                     m =>

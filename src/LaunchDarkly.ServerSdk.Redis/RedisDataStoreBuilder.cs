@@ -225,6 +225,10 @@ namespace LaunchDarkly.Sdk.Server.Integrations
             return this;
         }
 
+        // The Build methods are written as *explicit* interface implementations because this class is
+        // implementing IComponentConfigurer<T> with two different type parameters (since the same
+        // builder can be used to create either a regular persistent data store or a Big Segment store).
+
         /// <inheritdoc/>
         IPersistentDataStore IComponentConfigurer<IPersistentDataStore>.Build(LdClientContext context) =>
             new RedisDataStoreImpl(_redisConfig, _prefix, context.Logger.SubLogger("DataStore.Redis"));
