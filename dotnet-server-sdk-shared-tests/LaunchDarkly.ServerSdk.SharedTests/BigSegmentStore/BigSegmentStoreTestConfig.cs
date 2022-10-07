@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using LaunchDarkly.Sdk.Server.Interfaces;
+using LaunchDarkly.Sdk.Server.Subsystems;
 
-using static LaunchDarkly.Sdk.Server.Interfaces.BigSegmentStoreTypes;
+using static LaunchDarkly.Sdk.Server.Subsystems.BigSegmentStoreTypes;
 
 namespace LaunchDarkly.Sdk.Server.SharedTests.BigSegmentStore
 {
@@ -18,7 +18,7 @@ namespace LaunchDarkly.Sdk.Server.SharedTests.BigSegmentStore
     /// </remarks>
     /// <param name="prefix">the database prefix</param>
     /// <returns>a configured factory</returns>
-    public delegate IBigSegmentStoreFactory StoreFactoryFunc(string prefix);
+    public delegate IComponentConfigurer<IBigSegmentStore> StoreFactoryFunc(string prefix);
 
     /// <summary>
     /// An asynchronous function that removes all data from the underlying

@@ -13,13 +13,13 @@ workflows:
 jobs:
   test_dotnetcore:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:2.1-focal
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1-focal
       - image: redis
     steps:
       - checkout
       - run: dotnet restore
       - run: dotnet build src/LaunchDarkly.ServerSdk.Redis -f netstandard2.0
-      - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f netcoreapp2.1
+      - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f netcoreapp3.1
 
   test_dotnetframework:
     executor:
@@ -34,5 +34,5 @@ jobs:
           # not include improvements made in Redis after Redis 3.x, and it would not be
           # good to use it in production. But for our testing purposes here it's adequate.
       - run: dotnet restore
-      - run: dotnet build src/LaunchDarkly.ServerSdk.Redis -f net461
-      - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f net461
+      - run: dotnet build src/LaunchDarkly.ServerSdk.Redis -f net462
+      - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f net462

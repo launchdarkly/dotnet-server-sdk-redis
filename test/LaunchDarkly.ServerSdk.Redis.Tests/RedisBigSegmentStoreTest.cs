@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using LaunchDarkly.Sdk.Server.Interfaces;
+using LaunchDarkly.Sdk.Server.Subsystems;
 using LaunchDarkly.Sdk.Server.SharedTests.BigSegmentStore;
 using StackExchange.Redis;
 using Xunit.Abstractions;
 
-using static LaunchDarkly.Sdk.Server.Interfaces.BigSegmentStoreTypes;
+using static LaunchDarkly.Sdk.Server.Subsystems.BigSegmentStoreTypes;
 
 namespace LaunchDarkly.Sdk.Server.Integrations
 {
@@ -26,8 +26,8 @@ namespace LaunchDarkly.Sdk.Server.Integrations
             _redis = ConnectionMultiplexer.Connect("localhost:6379,allowAdmin=true");
         }
 
-        private IBigSegmentStoreFactory MakeStoreFactory(string prefix) =>
-            Redis.DataStore().Prefix(prefix);
+        private IComponentConfigurer<IBigSegmentStore> MakeStoreFactory(string prefix) =>
+            Redis.BigSegmentStore().Prefix(prefix);
 
         private async Task ClearData(string prefix) =>
             await RedisDataStoreTest.ClearDataWithPrefix(_redis, prefix);

@@ -6,6 +6,8 @@ publications:
 
 branches:
   - name: main
+    description: 4.x - for SDK 7+
+  - name: 3.x
     description: 3.x - for SDK 6+
   - name: 2.x
     description: for SDK 5.x + StackExchange.Redis 2.x
@@ -15,7 +17,7 @@ branches:
 jobs:
   - docker: {}
     template:
-      name: dotnet-linux
+      name: dotnet6-linux
       skip:
         - test  # tests require Redis - run them only in CI
     env:
