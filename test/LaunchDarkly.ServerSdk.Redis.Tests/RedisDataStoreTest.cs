@@ -61,7 +61,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
             var logCapture = Logs.Capture();
             var logger = logCapture.Logger("BaseLoggerName"); // in real life, the SDK will provide its own base log name
             var context = new LdClientContext("", null, null, null, logger, false, null);
-            using (((IComponentConfigurer<IPersistentDataStore>)Redis.DataStore().Prefix("my-prefix")).Build(context))
+            using (Redis.DataStore().Prefix("my-prefix").Build(context))
             {
                 Assert.Collection(logCapture.GetMessages(),
                     m =>

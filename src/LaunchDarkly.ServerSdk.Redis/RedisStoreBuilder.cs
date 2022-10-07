@@ -54,13 +54,12 @@ namespace LaunchDarkly.Sdk.Server.Integrations
     ///         .Build();
     /// </code>
     /// </remarks>
-    public sealed class RedisDataStoreBuilder : IComponentConfigurer<IPersistentDataStore>,
-        IComponentConfigurer<IBigSegmentStore>
+    public abstract class RedisStoreBuilder<T> : IComponentConfigurer<T>, IDiagnosticDescription
     {
         internal ConfigurationOptions _redisConfig = new ConfigurationOptions();
         internal string _prefix = Redis.DefaultPrefix;
 
-        internal RedisDataStoreBuilder()
+        internal RedisStoreBuilder()
         {
             _redisConfig.EndPoints.Add(Redis.DefaultRedisEndPoint);
             _redisConfig.ConnectTimeout = (int)Redis.DefaultConnectTimeout.TotalMilliseconds;
@@ -71,7 +70,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// </summary>
         /// <param name="config">a <see cref="ConfigurationOptions"/> instance</param>
         /// <returns>the builder</returns>
-        public RedisDataStoreBuilder RedisConfiguration(ConfigurationOptions config)
+        public RedisStoreBuilder<T> RedisConfiguration(ConfigurationOptions config)
         {
             _redisConfig = config.Clone();
             return this;
@@ -83,7 +82,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// <param name="host">hostname of the Redis server</param>
         /// <param name="port">port of the Redis server</param>
         /// <returns>the builder</returns>
-        public RedisDataStoreBuilder HostAndPort(string host, int port) =>
+        public RedisStoreBuilder<T> HostAndPort(string host, int port) =>
             EndPoint(new DnsEndPoint(host, port));
 
         /// <summary>
@@ -91,7 +90,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// </summary>
         /// <param name="endPoint">location of the Redis server</param>
         /// <returns>the builder</returns>
-        public RedisDataStoreBuilder EndPoint(EndPoint endPoint) =>
+        public RedisStoreBuilder<T> EndPoint(EndPoint endPoint) =>
             EndPoints(new List<EndPoint> { endPoint });
 
         /// <summary>
@@ -100,7 +99,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// <param name="uri">the Redis server URI as a string</param>
         /// <returns>the builder</returns>
         /// <seealso cref="Uri(System.Uri)"/>
-        public RedisDataStoreBuilder Uri(string uri) => Uri(new Uri(uri));
+        public RedisStoreBuilder<T> Uri(string uri) => Uri(new Uri(uri));
 
         /// <summary>
         /// Specifies a Redis server - and, optionally, other properties including
@@ -109,7 +108,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// <param name="uri">the Redis server URI</param>
         /// <returns>the builder</returns>
         /// <seealso cref="Uri(string)"/>
-        public RedisDataStoreBuilder Uri(Uri uri)
+        public RedisStoreBuilder<T> Uri(Uri uri)
         {
             if (uri.Scheme.ToLower() != "redis")
             {
@@ -147,7 +146,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// </summary>
         /// <param name="endPoints">locations of the Redis servers</param>
         /// <returns>the builder</returns>
-        public RedisDataStoreBuilder EndPoints(IList<EndPoint> endPoints)
+        public RedisStoreBuilder<T> EndPoints(IList<EndPoint> endPoints)
         {
             _redisConfig.EndPoints.Clear();
             foreach (var ep in endPoints)
@@ -162,7 +161,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// </summary>
         /// <param name="database">index of the database to use</param>
         /// <returns>the builder</returns>
-        public RedisDataStoreBuilder DatabaseIndex(int database)
+        public RedisStoreBuilder<T> DatabaseIndex(int database)
         {
             _redisConfig.DefaultDatabase = database;
             return this;
@@ -173,7 +172,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// </summary>
         /// <param name="timeout">the timeout interval</param>
         /// <returns>the builder</returns>
-        public RedisDataStoreBuilder ConnectTimeout(TimeSpan timeout)
+        public RedisStoreBuilder<T> ConnectTimeout(TimeSpan timeout)
         {
             _redisConfig.ConnectTimeout = (int)timeout.TotalMilliseconds;
             return this;
@@ -187,7 +186,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// </summary>
         /// <param name="timeout">the timeout interval</param>
         /// <returns>the builder</returns>
-        public RedisDataStoreBuilder OperationTimeout(TimeSpan timeout)
+        public RedisStoreBuilder<T> OperationTimeout(TimeSpan timeout)
         {
             _redisConfig.SyncTimeout = (int)timeout.TotalMilliseconds;
             return this;
@@ -198,7 +197,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// </summary>
         /// <param name="prefix">the namespace prefix, or null to use <see cref="Redis.DefaultPrefix"/></param>
         /// <returns>the builder</returns>
-        public RedisDataStoreBuilder Prefix(string prefix)
+        public RedisStoreBuilder<T> Prefix(string prefix)
         {
             _prefix = string.IsNullOrEmpty(prefix) ? Redis.DefaultPrefix : prefix;
             return this;
@@ -219,22 +218,29 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// </example>
         /// <param name="modifyConfig"></param>
         /// <returns></returns>
-        public RedisDataStoreBuilder RedisConfigChanges(Action<ConfigurationOptions> modifyConfig)
+        public RedisStoreBuilder<T> RedisConfigChanges(Action<ConfigurationOptions> modifyConfig)
         {
             modifyConfig.Invoke(_redisConfig);
             return this;
         }
 
-        // The Build methods are written as *explicit* interface implementations because this class is
-        // implementing IComponentConfigurer<T> with two different type parameters (since the same
-        // builder can be used to create either a regular persistent data store or a Big Segment store).
+        /// <inheritdoc/>
+        public abstract T Build(LdClientContext context);
 
         /// <inheritdoc/>
-        IPersistentDataStore IComponentConfigurer<IPersistentDataStore>.Build(LdClientContext context) =>
+        public LdValue DescribeConfiguration(LdClientContext context) =>
+            LdValue.Of("Redis");
+    }
+
+    internal sealed class BuilderForDataStore : RedisStoreBuilder<IPersistentDataStore>
+    {
+        public override IPersistentDataStore Build(LdClientContext context) =>
             new RedisDataStoreImpl(_redisConfig, _prefix, context.Logger.SubLogger("DataStore.Redis"));
+    }
 
-        /// <inheritdoc/>
-        IBigSegmentStore IComponentConfigurer<IBigSegmentStore>.Build(LdClientContext context) =>
+    internal sealed class BuilderForBigSegments : RedisStoreBuilder<IBigSegmentStore>
+    {
+        public override IBigSegmentStore Build(LdClientContext context) =>
             new RedisBigSegmentStoreImpl(_redisConfig, _prefix, context.Logger.SubLogger("BigSegments.Redis"));
     }
 }

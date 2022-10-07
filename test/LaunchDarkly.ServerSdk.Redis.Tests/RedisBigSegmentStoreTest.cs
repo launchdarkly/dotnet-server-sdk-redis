@@ -27,7 +27,7 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         }
 
         private IComponentConfigurer<IBigSegmentStore> MakeStoreFactory(string prefix) =>
-            Redis.DataStore().Prefix(prefix);
+            Redis.BigSegmentStore().Prefix(prefix);
 
         private async Task ClearData(string prefix) =>
             await RedisDataStoreTest.ClearDataWithPrefix(_redis, prefix);
