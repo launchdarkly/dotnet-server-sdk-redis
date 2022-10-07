@@ -86,8 +86,8 @@ namespace LaunchDarkly.Sdk.Server.Integrations
         /// <code>
         ///     var config = Configuration.Builder("sdk-key")
         ///         .DataStore(
-        ///             Components.PersistentDataStore(
-        ///                 Redis.DataStore().Uri("redis://host2:6379")
+        ///             Components.BigSegments(
+        ///                 Redis.BigSegmentStore().Uri("redis://host2:6379")
         ///             )
         ///         )
         ///         .Build();
