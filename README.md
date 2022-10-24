@@ -6,7 +6,7 @@
 
 This library provides a Redis-backed persistence mechanism (data store) for the [LaunchDarkly .NET SDK](https://github.com/launchdarkly/dotnet-server-sdk), replacing the default in-memory data store. The underlying Redis client implementation is [StackExchange.Redis](https://github.com/StackExchange/StackExchange.Redis).
 
-For more information, see also: [Using a persistent data store](https://docs.launchdarkly.com/v2.0/docs/using-a-persistent-feature-store).
+For more information, see also: [Using Redis as a persistent feature store](https://docs.launchdarkly.com/sdk/features/storing-data/redis#net-server-side).
 
 Version 4.0.0 and above of this library works with version 7.0.0 and above of the LaunchDarkly .NET SDK. For earlier versions of the SDK, see the changelog for which version of this library to use.
 
@@ -40,7 +40,7 @@ We encourage pull requests and other contributions from the community. Check out
     * Gradually roll out a feature to an increasing percentage of users, and track the effect that the feature has on key metrics (for instance, how likely is a user to complete a purchase if they have feature A versus feature B?).
     * Turn off a feature that you realize is causing performance problems in production, without needing to re-deploy, or even restart the application with a changed configuration file.
     * Grant access to certain features based on user attributes, like payment plan (eg: users on the ‘gold’ plan get access to more features than users in the ‘silver’ plan). Disable parts of your application to facilitate maintenance, without taking everything offline.
-* LaunchDarkly provides feature flag SDKs for a wide variety of languages and technologies. Check out [our documentation](https://docs.launchdarkly.com/docs) for a complete list.
+* LaunchDarkly provides feature flag SDKs for a wide variety of languages and technologies. Read [our documentation](https://docs.launchdarkly.com/sdk) for a complete list.
 * Explore LaunchDarkly
     * [launchdarkly.com](https://www.launchdarkly.com/ "LaunchDarkly Main Website") for more information
     * [docs.launchdarkly.com](https://docs.launchdarkly.com/  "LaunchDarkly Documentation") for our documentation and SDK reference guides
