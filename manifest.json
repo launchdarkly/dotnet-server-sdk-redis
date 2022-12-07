@@ -1,6 +1,6 @@
 {
   "homepages": [],
-  "source_base_path": "C:/Users/circleci/AppData/Local/Temp/project-releaser-temp/build-docs",
+  "source_base_path": "/tmp/project-releaser/temp/build-docs",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/LaunchDarkly.Sdk.Server.Integrations.Redis.html",
-          "hash": "94ajQQAAJtyW5Gpeo3mcCgwkKN3CLRhpCwIS6mfX5+o="
+          "hash": "6VNZjNfk3XDTa7H/uU+rR3atW1wS3EOyVqLPOeVSp5c="
         }
       },
       "is_incremental": false,
@@ -17,11 +17,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "build/api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.yml",
+      "source_relative_path": "build/api/LaunchDarkly.Sdk.Server.Integrations.RedisStoreBuilder-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html",
-          "hash": "cNr/C8rNQb9wwejC4BO55de6Sr721oqaR6U3ozddqik="
+          "relative_path": "api/LaunchDarkly.Sdk.Server.Integrations.RedisStoreBuilder-1.html",
+          "hash": "hrhyu5amQ9ZE/DTzYMnqDW+exLDtIon+qH218kC7//U="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/LaunchDarkly.Sdk.Server.Integrations.html",
-          "hash": "VqIGptY+6Hp0Can6FvytCNBxuLWw2B7QOGSkDs4vpwg="
+          "hash": "alnVpRIo6Sb64K3IuwQje5hI2JrIc6+3dvY+7uBUTwY="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "QUYGtYz+kQ3s8xRlNYUFR/Wjdx1uDa2YTz3vJzAusFs="
+          "hash": "GcpokehD+VR8Ncj2sBPPjpWwnY0Ymx/ZyPk7Ki9wKPg="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "XtdDKebIFtcAjIyZjcKLEpxdGUrAzU9cxfynK7N8LQ8="
+          "hash": "Em/rRgxfJJfMmk2/JIQHswokUvc+zvRRWLXehkpYbYk="
         }
       },
       "is_incremental": false,

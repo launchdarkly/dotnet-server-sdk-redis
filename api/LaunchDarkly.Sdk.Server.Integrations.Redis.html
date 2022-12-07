@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Redis
    ">
-    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -81,40 +81,16 @@
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">Redis</span></div>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetHashCode()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.html">LaunchDarkly.Sdk.Server.Integrations</a></h6>
   <h6><strong>Assembly</strong>: LaunchDarkly.ServerSdk.Redis.dll</h6>
   <h5 id="LaunchDarkly_Sdk_Server_Integrations_Redis_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class Redis</code></pre>
+    <pre><code class="lang-csharp hljs">public static class Redis : Object</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>
   <h4 id="LaunchDarkly_Sdk_Server_Integrations_Redis_DefaultConnectTimeout" data-uid="LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultConnectTimeout">DefaultConnectTimeout</h4>
-  <div class="markdown level1 summary"><p>The default value for <a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_ConnectTimeout_System_TimeSpan_">ConnectTimeout(TimeSpan)</a>.</p>
+  <div class="markdown level1 summary"><p>The default value for <a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.RedisStoreBuilder-1.html#LaunchDarkly_Sdk_Server_Integrations_RedisStoreBuilder_1_ConnectTimeout_System_TimeSpan_">ConnectTimeout(TimeSpan)</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -137,7 +113,7 @@
     </tbody>
   </table>
   <h4 id="LaunchDarkly_Sdk_Server_Integrations_Redis_DefaultOperationTimeout" data-uid="LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultOperationTimeout">DefaultOperationTimeout</h4>
-  <div class="markdown level1 summary"><p>The default value for <a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_OperationTimeout_System_TimeSpan_">OperationTimeout(TimeSpan)</a>.</p>
+  <div class="markdown level1 summary"><p>The default value for <a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.RedisStoreBuilder-1.html#LaunchDarkly_Sdk_Server_Integrations_RedisStoreBuilder_1_OperationTimeout_System_TimeSpan_">OperationTimeout(TimeSpan)</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -160,7 +136,7 @@
     </tbody>
   </table>
   <h4 id="LaunchDarkly_Sdk_Server_Integrations_Redis_DefaultPrefix" data-uid="LaunchDarkly.Sdk.Server.Integrations.Redis.DefaultPrefix">DefaultPrefix</h4>
-  <div class="markdown level1 summary"><p>The default value for <a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html#LaunchDarkly_Sdk_Server_Integrations_RedisDataStoreBuilder_Prefix_System_String_">Prefix(String)</a>.</p>
+  <div class="markdown level1 summary"><p>The default value for <a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.RedisStoreBuilder-1.html#LaunchDarkly_Sdk_Server_Integrations_RedisStoreBuilder_1_Prefix_System_String_">Prefix(String)</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -207,14 +183,14 @@
   </table>
   <h3 id="methods">Methods
   </h3>
-  <a id="LaunchDarkly_Sdk_Server_Integrations_Redis_DataStore_" data-uid="LaunchDarkly.Sdk.Server.Integrations.Redis.DataStore*"></a>
-  <h4 id="LaunchDarkly_Sdk_Server_Integrations_Redis_DataStore" data-uid="LaunchDarkly.Sdk.Server.Integrations.Redis.DataStore">DataStore()</h4>
-  <div class="markdown level1 summary"><p>Returns a builder object for creating a Redis-backed data store.</p>
+  <a id="LaunchDarkly_Sdk_Server_Integrations_Redis_BigSegmentStore_" data-uid="LaunchDarkly.Sdk.Server.Integrations.Redis.BigSegmentStore*"></a>
+  <h4 id="LaunchDarkly_Sdk_Server_Integrations_Redis_BigSegmentStore" data-uid="LaunchDarkly.Sdk.Server.Integrations.Redis.BigSegmentStore">BigSegmentStore()</h4>
+  <div class="markdown level1 summary"><p>Returns a builder object for creating a Redis-backed Big Segment store.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static RedisDataStoreBuilder DataStore()</code></pre>
+    <pre><code class="lang-csharp hljs">public static RedisStoreBuilder&lt;IBigSegmentStore&gt; BigSegmentStore()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -226,7 +202,60 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.RedisDataStoreBuilder.html">RedisDataStoreBuilder</a></td>
+        <td><a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.RedisStoreBuilder-1.html">RedisStoreBuilder</a>&lt;<span class="xref">LaunchDarkly.Sdk.Server.Subsystems.IBigSegmentStore</span>&gt;</td>
+        <td><p>a Big Segment store configuration object</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="LaunchDarkly_Sdk_Server_Integrations_Redis_BigSegmentStore_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p><p>
+You can use methods of the builder to specify any non-default Redis options
+you may want, before passing the builder to
+<span class="xref">LaunchDarkly.Sdk.Server.Components.BigSegments(LaunchDarkly.Sdk.Server.Subsystems.IComponentConfigurer{LaunchDarkly.Sdk.Server.Subsystems.IBigSegmentStore})</span>.
+In this example, the store is configured to use a Redis host called &quot;host2&quot;:
+</p></p>
+<pre><code>    var config = Configuration.Builder(&quot;sdk-key&quot;)
+        .DataStore(
+            Components.BigSegments(
+                Redis.BigSegmentStore().Uri(&quot;redis://host2:6379&quot;)
+            )
+        )
+        .Build();</code></pre>
+<p><p>
+Note that the SDK also has its own options related to Big Segments that are configured
+at a different level, because they are independent of what database is being used. For
+instance, the builder returned by <span class="xref">LaunchDarkly.Sdk.Server.Components.BigSegments(LaunchDarkly.Sdk.Server.Subsystems.IComponentConfigurer{LaunchDarkly.Sdk.Server.Subsystems.IBigSegmentStore})</span>
+has an option for the status polling interval:
+</p></p>
+<pre><code>    var config = Configuration.Builder(&quot;sdk-key&quot;)
+        .DataStore(
+            Components.BigSegments(
+                Redis.BigSegmentStore().Uri(&quot;redis://my-redis-host&quot;)
+            ).StatusPollInterval(TimeSpan.FromSeconds(30))
+        )
+        .Build();</code></pre>
+</div>
+  <a id="LaunchDarkly_Sdk_Server_Integrations_Redis_DataStore_" data-uid="LaunchDarkly.Sdk.Server.Integrations.Redis.DataStore*"></a>
+  <h4 id="LaunchDarkly_Sdk_Server_Integrations_Redis_DataStore" data-uid="LaunchDarkly.Sdk.Server.Integrations.Redis.DataStore">DataStore()</h4>
+  <div class="markdown level1 summary"><p>Returns a builder object for creating a Redis-backed persistent data store.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RedisStoreBuilder&lt;IPersistentDataStore&gt; DataStore()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.RedisStoreBuilder-1.html">RedisStoreBuilder</a>&lt;<span class="xref">LaunchDarkly.Sdk.Server.Subsystems.IPersistentDataStore</span>&gt;</td>
         <td><p>a data store configuration object</p>
 </td>
       </tr>
@@ -234,10 +263,14 @@
   </table>
   <h5 id="LaunchDarkly_Sdk_Server_Integrations_Redis_DataStore_remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p><p>
-This can be used either for the main data store that holds feature flag data, or for the big
-segment store, or both. If you are using both, they do not have to have the same parameters. For
-instance, in this example the main data store uses a Redis host called &quot;host1&quot; and the big
-segment store uses a Redis host called &quot;host2&quot;:
+This is for the main data store that holds feature flag data. To configure a
+Big Segment store, use <a class="xref" href="LaunchDarkly.Sdk.Server.Integrations.Redis.html#LaunchDarkly_Sdk_Server_Integrations_Redis_BigSegmentStore">BigSegmentStore()</a> instead.
+</p>
+<p>
+You can use methods of the builder to specify any non-default Redis options
+you may want, before passing the builder to
+<span class="xref">LaunchDarkly.Sdk.Server.Components.PersistentDataStore(LaunchDarkly.Sdk.Server.Subsystems.IComponentConfigurer{LaunchDarkly.Sdk.Server.Subsystems.IPersistentDataStore})</span>.
+In this example, the store is configured to use a Redis host called &quot;host1&quot;:
 </p></p>
 <pre><code>    var config = Configuration.Builder(&quot;sdk-key&quot;)
         .DataStore(
@@ -245,19 +278,11 @@ segment store uses a Redis host called &quot;host2&quot;:
                 Redis.DataStore().Uri(&quot;redis://host1:6379&quot;)
             )
         )
-        .BigSegments(
-            Components.BigSegments(
-                Redis.DataStore().Uri(&quot;redis://host2:6379&quot;)
-            )
-        )
         .Build();</code></pre>
 <p><p>
-Note that the builder is passed to one of two methods,
-<span class="xref">LaunchDarkly.Sdk.Server.Components.PersistentDataStore(LaunchDarkly.Sdk.Server.Interfaces.IPersistentDataStoreFactory)</span> or
-<span class="xref">LaunchDarkly.Sdk.Server.Components.BigSegments(LaunchDarkly.Sdk.Server.Interfaces.IBigSegmentStoreFactory)</span>, depending on the context in
-which it is being used. This is because each of those contexts has its own additional
-configuration options that are unrelated to the Redis options. For instance, the
-<span class="xref">LaunchDarkly.Sdk.Server.Components.PersistentDataStore(LaunchDarkly.Sdk.Server.Interfaces.IPersistentDataStoreAsyncFactory)</span> builder
+Note that the SDK also has its own options related to data storage that are configured
+at a different level, because they are independent of what database is being used. For
+instance, the builder returned by <span class="xref">LaunchDarkly.Sdk.Server.Components.PersistentDataStore(LaunchDarkly.Sdk.Server.Subsystems.IComponentConfigurer{LaunchDarkly.Sdk.Server.Subsystems.IPersistentDataStore})</span>
 has options for caching:
 </p></p>
 <pre><code>    var config = Configuration.Builder(&quot;sdk-key&quot;)
