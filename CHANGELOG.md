@@ -2,6 +2,17 @@
 
 All notable changes to the LaunchDarkly .NET SDK Redis integration will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org).
 
+## [4.0.0] - 2022-12-07
+This release corresponds to the 7.0.0 release of the LaunchDarkly server-side .NET SDK. Any application code that is being updated to use the 7.0.0 SDK, and was using a 3.x version of `LaunchDarkly.ServerSdk.Redis`, should now use a 4.x version instead.
+
+There are no functional differences in the behavior of the Redis integration; the differences are only related to changes in the usage of interface types for configuration in the SDK.
+
+### Added:
+- `Redis.BigSegmentStore()`, which creates a configuration builder for use with Big Segments. Previously, the `Redis.DataStore()` builder was used for both regular data stores and Big Segment stores.
+
+### Changed:
+- The type `RedisDataStoreBuilder` has been removed, replaced by a generic type `RedisStoreBuilder`. Application code would not normally need to reference these types by name, but if necessary, use either `RedisStoreBuilder<PersistentDataStore>` or `RedisStoreBuilder<BigSegmentStore>` depending on whether you are configuring a regular data store or a Big Segment store.
+
 ## [3.1.0] - 2021-07-22
 ### Added:
 - Added support for Big Segments. An Early Access Program for creating and syncing Big Segments from customer data platforms is available to enterprise customers.
