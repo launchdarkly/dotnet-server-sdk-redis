@@ -12,7 +12,7 @@ Version 4.0.0 and above of this library works with version 7.0.0 and above of th
 
 It has a dependency on StackExchange.Redis version 2.0.513. If you are using a higher version of StackExchange.Redis, you should install it explicitly as a dependency in your application to override this minimum version.
 
-For full usage details and examples, see the [API reference](launchdarkly.github.io/dotnet-server-sdk-redis).
+For full usage details and examples, see the [API reference](http://launchdarkly.github.io/dotnet-server-sdk-redis).
 
 ## Supported .NET versions
 
