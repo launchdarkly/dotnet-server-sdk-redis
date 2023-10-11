@@ -6,6 +6,8 @@ publications:
 
 branches:
   - name: main
+    description: 5.x - for SDK 8+
+  - name: 4.x
     description: 4.x - for SDK 7+
   - name: 3.x
     description: 3.x - for SDK 6+
