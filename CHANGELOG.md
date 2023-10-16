@@ -2,6 +2,10 @@
 
 All notable changes to the LaunchDarkly .NET SDK Redis integration will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org).
 
+## [5.0.0] - 2023-10-16
+### Changed:
+- This release requires the `8.0.0` release of the `LaunchDarkly.ServerSdk`.
+
 ## [4.0.0] - 2022-12-07
 This release corresponds to the 7.0.0 release of the LaunchDarkly server-side .NET SDK. Any application code that is being updated to use the 7.0.0 SDK, and was using a 3.x version of `LaunchDarkly.ServerSdk.Redis`, should now use a 4.x version instead.
 
