@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, 'feat/**' ]
+    paths-ignore:
+      - '**.md' # Do not need to run CI for markdown changes.
+  pull_request:
+    branches: [ main, 'feat/**' ]
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup dotnet build tools
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0
+
+      - run: dotnet restore
+      - run: dotnet build src/LaunchDarkly.ServerSdk.Redis -f netstandard2.0
+      - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f net8.0
+
+  windows:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        shell: powershell
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup dotnet build tools
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0
+
+      - name: Setup Redis
+        run: |
+          $ProgressPreference = "SilentlyContinue"
+          iwr -outf redis.zip https://github.com/MicrosoftArchive/redis/releases/download/win-3.0.504/Redis-x64-3.0.504.zip
+          mkdir redis
+          Expand-Archive -Path redis.zip -DestinationPath redis
+          cd redis
+          ./redis-server --service-install
+          ./redis-server --service-start
+          Start-Sleep -s 5
+          ./redis-cli ping
+
+      - run: dotnet restore
+      - run: dotnet build src/LaunchDarkly.ServerSdk.Redis -f net462
+      - run: dotnet test test/LaunchDarkly.ServerSdk.Redis.Tests -f net462
