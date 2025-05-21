@@ -1,4 +1,4 @@
-# [DEPRECATED] LaunchDarkly Server-Side SDK for .NET - Redis integration - please use https://github.com/launchdarkly/dotnet-core/tree/main/pkgs/dotnet-server-sdk-redis
+# [DEPRECATED]
 
 Development has moved to [dotnet-core repository](https://github.com/launchdarkly/dotnet-core/tree/main/pkgs/dotnet-server-sdk-redis). This repository remains here to support legacy references to dotnet-server-sdk-redis.
 
